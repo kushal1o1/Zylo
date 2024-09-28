@@ -1,0 +1,26 @@
+.env
+
+#virtual env
+env/
+
+# Django specific
+*.log
+*.pot
+*.pyc
+__pycache__/
+db.sqlite3
+media/
+
+# Django migrations
+*/migrations/*
+
+# Tailwind CSS
+node_modules/
+tailwind.config.js
+
+# Visual Studio Code
+.vscode/
+
+package-lock.json
+package.json
+static/
