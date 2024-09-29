@@ -26,6 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'portfolios',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    'allauth.socialaccount.providers.facebook',  
 ]
 
 MIDDLEWARE = [
@@ -36,6 +41,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     "allauth.account.middleware.AccountMiddleware",
 ]
 
 ROOT_URLCONF = 'ZYLO.urls'
@@ -72,6 +78,10 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend', 
+    'allauth.account.auth_backends.AuthenticationBackend',  
+)
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -88,7 +98,40 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'  # Options: 'none', 'optional', 'mandatory'
+ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Can be 'username', 'email', or 'username_email'
+ACCOUNT_USERNAME_REQUIRED = True
 
+# Redirect URLs after login/logout
+LOGIN_REDIRECT_URL = '/'  # Where to redirect users after login
+LOGOUT_REDIRECT_URL = '/'  # Where to redirect users after logout
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = config("EMAIL_USE_TLS")
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = config("EMAIL_PORT")
+
+
+
+SOCIALACCOUNT_PROVIDERS = {
+    'facebook': {
+        'APP': {
+           'client_id': config('client_id'),
+            'secret': config('secret'),
+            'key': ''
+        },
+        'METHOD': 'oauth2',
+        'SCOPE': ['email'],
+        'AUTH_PARAMS': {
+            'redirect_uri': 'http://localhost:8000/accounts/facebook/login/callback/'
+        }
+    }
+}
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
