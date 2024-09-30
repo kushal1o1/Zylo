@@ -50,14 +50,14 @@
                       <span class="flex items-center justify-center w-10 text-gray-500">
                           <i class="fas fa-user"></i>
                       </span>
-                      <input type="text" id="name" name="name" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Enter your name" />
+                      <input type="text" id="name" name="name" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.name %}{{ user_info.name }}{% else %}Enter your name{% endif %}" />
                   </div>
               </div>
       
               <!-- Bio -->
               <div class="mb-6">
                   <label class="block text-gray-700 text-lg font-bold mb-2" for="bio">Bio</label>
-                  <textarea id="bio" name="bio" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="Tell us about yourself"></textarea>
+                  <textarea id="bio" name="bio" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="{% if user_info and user_info.bio_txt %}{{ user_info.bio_txt }}{% else %}Write your bio...{% endif %}"></textarea>
               </div>
       
               <!-- Social Links -->
@@ -68,7 +68,7 @@
                           <span class="flex items-center justify-center w-10 text-gray-500">
                               <i class="fab fa-instagram"></i>
                           </span>
-                          <input type="text" id="instagram" name="instagram" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Instagram profile link" />
+                          <input type="text" id="instagram" name="instagram" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.instagram_link %}{{ user_info.instagram_link }}{% else %}Instagram Link{% endif %}" />
                       </div>
                   </div>
                   <div>
@@ -77,7 +77,7 @@
                           <span class="flex items-center justify-center w-10 text-gray-500">
                               <i class="fab fa-facebook"></i>
                           </span>
-                          <input type="text" id="facebook" name="facebook" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Facebook profile link" />
+                          <input type="text" id="facebook" name="facebook" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.facebook_link %}{{ user_info.facebook_link }}{% else %}Facebook Link{% endif %}" />
                       </div>
                   </div>
                   <div>
@@ -86,7 +86,7 @@
                           <span class="flex items-center justify-center w-10 text-gray-500">
                               <i class="fab fa-tiktok"></i>
                           </span>
-                          <input type="text" id="tiktok" name="tiktok" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="TikTok profile link" />
+                          <input type="text" id="tiktok" name="tiktok" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.tiktok_link %}{{ user_info.tiktok_link }}{% else %}TikTok Link{% endif %}" />
                       </div>
                   </div>
                   <div>
@@ -95,7 +95,7 @@
                           <span class="flex items-center justify-center w-10 text-gray-500">
                               <i class="fab fa-youtube"></i>
                           </span>
-                          <input type="text" id="youtube" name="youtube" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="YouTube channel link" />
+                          <input type="text" id="youtube" name="youtube" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.youtube_link %}{{ user_info.youtube_link }}{% else %}YouTube Link{% endif %}" />
                       </div>
                   </div>
                   <div>
@@ -104,7 +104,7 @@
                           <span class="flex items-center justify-center w-10 text-gray-500">
                               <i class="fab fa-x"></i> <!-- Use appropriate icon for X -->
                           </span>
-                          <input type="text" id="x" name="x" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="X profile link" />
+                          <input type="text" id="x" name="x" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.x_link %}{{ user_info.x_link }}{% else %}X Link{% endif %}" />
                       </div>
                   </div>
                   <div>
@@ -113,7 +113,7 @@
                           <span class="flex items-center justify-center w-10 text-gray-500">
                               <i class="fab fa-spotify"></i>
                           </span>
-                          <input type="text" id="spotify" name="spotify" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Spotify profile link" />
+                          <input type="text" id="spotify" name="spotify" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.spotify_link %}{{ user_info.spotify_link }}{% else %}Spotify Link{% endif %}" />
                       </div>
                   </div>
                   <div>
@@ -122,7 +122,7 @@
                           <span class="flex items-center justify-center w-10 text-gray-500">
                               <i class="fab fa-linkedin"></i>
                           </span>
-                          <input type="text" id="linkedin" name="linkedin" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="LinkedIn profile link" />
+                          <input type="text" id="linkedin" name="linkedin" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.linkedin_link %}{{ user_info.linkedin_link }}{% else %}LinkedIn Link{% endif %}" />
                       </div>
                   </div>
               </div>
@@ -131,7 +131,7 @@
               <div class="mb-6">
                   <label class="block text-gray-700 text-lg font-bold mb-2" for="thumbnail_img">Thumbnail Image</label>
                   <input type="file" id="highlight_thumbnail_image" name="highlight_thumbnail_image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-                  <textarea id="highlight_title" name="highlight_title" class="w-full mt-4 p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Thumbnail description"></textarea>
+                  <textarea id="highlight_title" name="highlight_title" class="w-full mt-4 p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="{% if user_info and user_info.highlight_title %}{{ user_info.highlight_title }}{% else %}Highlight Title{% endif %}"></textarea>
               </div>
       
               <!-- Section 1 -->
@@ -189,6 +189,138 @@
               </svg>
             </div>
           <!-- here goes my content -->
+          <div class="div bg-white text-black flex flex-col content items-center">
+            <!-- Navbar Section -->
+
+        
+            <!-- Personal Info Section -->
+            <section class="p-4 text-center w-full max-w-md">
+              <div class="flex flex-col items-center">
+                <!-- Profile Image -->
+                <div class="w-24 h-24 bg-black rounded-full mb-4">
+                  <img src="profile.jpeg" alt="Profile" class="rounded-full w-full h-full">
+                </div>
+                <!-- Name and Verified Tick -->
+                <!-- <div class="flex items-center space-x-2">
+                  <span class="text-2xl font-semibold text-center">Kushal Baral</span>
+                  <svg class="w-6 h-6 text-blue-500 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M9 12l2 2 4-4"/>
+                  </svg>
+                </div> -->
+                <!-- Bio -->
+                <header class="animated-bg  text-center relative z-10">
+                    {% if user_info.name %}
+                  <h1 class="text-3xl font-bold mb-1 animate-pulse">{{user_info.name}}</h1>
+                    {% endif %}
+                    {% if user_info.bio_txt %}
+                  <p class="text-1xl">{{user_info.bio_txt}}</p>
+                    {% endif %}
+                  
+              </header>
+              {% if user_info.bio_txt %}
+              <!-- TODO:add new field professsion in model and render -->
+                <p class="text-gray-600 dark:text-gray-400">Never Change</p>
+                {% endif %}
+              </div>
+            </section>
+        
+            <!-- Social Media Section (Closer Icons, Centered) -->
+            <section class="p-4 w-full max-w-md">
+              <div class="flex justify-center space-x-4">
+                <!-- CDN logos of social media -->
+                {% if user_info.facebook_link %}
+                <a href="{{user_info.facebook_link}}"><img src="https://img.icons8.com/ios-filled/50/000000/facebook--v1.png" alt="Facebook" class="w-8 h-8"></a>
+                {% endif %}
+                {% if user_info.x_link %}
+                <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/twitter--v1.png" alt="Twitter" class="w-8 h-8"></a>
+                {% endif %}
+
+                {% if user_info.linkedin_link %}
+                <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" alt="LinkedIn" class="w-8 h-8"></a>
+                {% endif %}
+
+                {% if user_info.instagram_link %}
+                <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/instagram.png" alt="LinkedIn" class="w-8 h-8"></a>
+                {% endif %}
+                {% if user_info.tiktok_link %}
+                <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/tiktok.png" alt="LinkedIn" class="w-8 h-8"></a>
+                {% endif %}
+                {% if user_info.youtube_link %}
+                <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/youtube-play.png" alt="LinkedIn" class="w-8 h-8"></a>
+                {% endif %}
+                {% if user_info.spotify_link %}
+                <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/spotify.png" alt="LinkedIn" class="w-8 h-8"></a>
+                {% endif %}
+
+
+              </div>
+            </section>
+        
+            <!-- Picture and Text Section -->
+            <section class="p-4 w-full max-w-md">
+              <div class="relative ">
+                <img src="default.png" alt="Picture" class="w-full h-64 object-cover rounded-lg ">
+                <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-4 text-center rounded-b-lg">
+                  love it 💖 Nice Bootchanp
+                </div>
+              </div>
+            </section>
+        
+            <!-- Notifications Section 1 -->
+            <section class="p-4 w-full max-w-md">
+              <h2 class="text-xl font-bold mb-4">Notifications</h2>
+              <div class="space-y-4">
+                <!-- Notification 1 -->
+                <div class="flex items-center shadow  p-4 rounded-2xl">
+                  <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                  <p class="flex-grow px-4">Someone liked your post!</p>
+                  <button class="">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                  </button>
+                </div>
+                <!-- Notification 2 -->
+                <div class="flex items-center shadow  p-4 rounded-2xl">
+                  <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                  <p class="flex-grow px-4">Someone liked your post!</p>
+                  <button class="">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                  </button>
+                </div>
+                <!-- Notification 3 -->
+                <div class="flex items-center shadow  p-4 rounded-2xl">
+                  <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                  <p class="flex-grow px-4">Someone liked your post!</p>
+                  <button class="">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                  </button>
+                </div>
+              </div>
+            </section>
+        
+            <!-- Notification Section 2 (More Rounded Corners) -->
+            <section class="p-4 w-full max-w-md">
+              <h2 class="text-xl font-bold mb-4">Updates</h2>
+              <div class="space-y-4">
+                <!-- Update 1 -->
+                <div class="flex items-center shadow  p-4 rounded-2xl">
+                  <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                  <p class="flex-grow px-4">Someone liked your post!</p>
+                  <button class="">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                  </button>
+                </div>
+                <!-- Update 2 -->
+                <div class="flex items-center shadow  p-4 rounded-2xl">
+                  <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                  <p class="flex-grow px-4">Someone liked your post!</p>
+                  <button class="">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                  </button>
+                </div>
+              </div>
+            </section>
+          </div>
+
           </div>
         </div>
 
