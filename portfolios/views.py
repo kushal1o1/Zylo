@@ -11,6 +11,9 @@ def index(request):
     
     return render(request, 'portfolio/chat_form.html')
 
+def home(request):
+    
+    return render(request, 'portfolio/index.html')
 
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
