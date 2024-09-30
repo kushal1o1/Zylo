@@ -1,7 +1,6 @@
 
 from django.contrib import admin
-from .models import UserInfo,Question
-
+from .models import UserInfo
 # @admin.register(ChatQuestion)
 # class ChatQuestionAdmin(admin.ModelAdmin):
 #     list_display = ('text', 'is_active')
@@ -15,4 +14,4 @@ from .models import UserInfo,Question
 
 admin.site.register(UserInfo)
 
-admin.site.register(Question)
+# admin.site.register(Question)

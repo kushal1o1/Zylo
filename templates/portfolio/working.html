@@ -1,0 +1,76 @@
+<form id="nameForm">
+    <label for="name">Enter your name:</label>
+    <input type="text" id="name" name="name" autocomplete="off">
+    <div id="status"></div> <!-- Status message to show success/failure -->
+</form>
+
+<script>
+    let timeout = null;
+
+    // Debounce function: waits for 2 seconds of inactivity before sending data
+    document.getElementById('name').addEventListener('input', function () {
+        clearTimeout(timeout); // Clear the previous timer
+        let nameValue = this.value;
+
+        // Set a timeout to wait for 2 seconds
+        timeout = setTimeout(function () {
+            // After 2 seconds, send the data to the backend
+            sendData(nameValue);
+        }, 2000); // 2000ms = 2 seconds
+    });
+
+    function sendData(name) {
+        fetch('/update-name/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}' // Ensure CSRF token is passed
+            },
+            body: JSON.stringify({ name: name })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Handle the response from the server
+            document.getElementById('status').innerHTML = data.message;
+        })
+        .catch(error => {
+            document.getElementById('status').innerHTML = 'Error updating name!';
+        });
+    }
+</script>
+
+import json
+from django.shortcuts import render
+
+from django.views import View
+from django.http import JsonResponse
+from django.shortcuts import render
+
+
+# Create your views here.
+def index(request):
+    
+    return render(request, 'portfolio/chat_form.html')
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import UserInfo
+
+@csrf_exempt  # To avoid CSRF issues, use this decorator (only for development)
+def update_name(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)  # Parse the JSON data from the request
+        name = data.get('name')
+        
+        # Assuming we update a specific user's data
+        user_info, created = UserInfo.objects.get_or_create(id=request.session.get('user_info_id'))
+        
+        if name:
+            user_info.name = name  # Update the user's name
+            user_info.save()
+            return JsonResponse({'message': 'Name updated successfully!'})
+        
+        return JsonResponse({'message': 'No name provided!'}, status=400)
+
+    return JsonResponse({'message': 'Invalid request method!'}, status=400)

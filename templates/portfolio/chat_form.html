@@ -1,0 +1,55 @@
+
+<form id="user-info-form">
+    <label for="name">Enter your name:</label>
+    <input type="text" id="name" name="name">
+    
+    <label for="bio">Enter your bio:</label>
+    <textarea id="bio" name="bio"></textarea>
+    
+    <label for="phone_number">Enter your phone number:</label>
+    <input type="text" id="phone_number" name="phone_number">
+    
+    <label for="facebook_link">Enter your Facebook link:</label>
+    <input type="url" id="facebook_link" name="facebook_link">
+</form>
+
+<script>
+    let timeout = null;
+
+    function debounceUpdate(field, value) {
+        clearTimeout(timeout);  // Clear the previous timeout
+
+        timeout = setTimeout(function() {
+            const data = {};
+            data[field] = value;
+
+            fetch('/update_user_info/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // No CSRF token since we're using csrf_exempt, but add it if required
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data.message);  // Log the success message
+            })
+            .catch(error => console.error('Error:', error));
+        }, 2000);  // 2 seconds delay (debounce)
+    }
+
+    // Attach event listeners to each input field
+    document.getElementById('name').addEventListener('input', function() {
+        debounceUpdate('name', this.value);
+    });
+    document.getElementById('bio').addEventListener('input', function() {
+        debounceUpdate('bio', this.value);
+    });
+    document.getElementById('phone_number').addEventListener('input', function() {
+        debounceUpdate('phone_number', this.value);
+    });
+    document.getElementById('facebook_link').addEventListener('input', function() {
+        debounceUpdate('facebook_link', this.value);
+    });
+</script>

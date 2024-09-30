@@ -1,0 +1,12 @@
+<div class="chat-history">
+    {% for entry in chat_history %}
+        <div class="chat-entry">
+            <div class="question">Q: {{ entry.question }}</div>
+            <div class="answer">A: {{ entry.answer }}</div>
+        </div>
+    {% endfor %}
+</div>
+
+<div class="completion-message">
+    All questions have been answered! Thank you.
+</div>

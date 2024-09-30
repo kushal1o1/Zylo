@@ -1,10 +1,11 @@
 from django.contrib import admin
 from django.urls import include, path
 from . import views
-# from .views import ChatView
+from .views import update_user_info
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
-    path('',views.index,name="index"),
-    # path('chat/', ChatView.as_view(), name='chat'),
+    path('create/',views.index,name="index"),
+    # path('chat/', ChatView.as_view(), name='chat_view'),
+     path('update_user_info/', update_user_info, name='update_name'),
 ]
