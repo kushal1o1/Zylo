@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet" />
-    <script defer src="https://unpkg.com/alpinejs@3.2.2/dist/cdn.min.js"></script>
+    <!-- <script defer src="https://unpkg.com/alpinejs@3.2.2/dist/cdn.min.js"></script> -->
     <style>
       .mobile-screen {
         width: 340px;
@@ -35,121 +35,123 @@
     <div class="flex-1 m-5 order-2 md:order-1  h-[90vh] ">
         <div class="div overflow-y-auto p-4 hide-scrollbar" style="height:90vh">
           <div class="max-w-4xl mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
+
+            <form id="user-info-form">
             <!-- Profile Section -->
-            <div class="mb-6">
-                <label class="block text-gray-700 text-lg font-bold mb-2" for="profile_img">Profile Image</label>
-                <input type="file" id="profile_img" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-            </div>
-    
-            <!-- Name -->
-            <div class="mb-6">
-                <label class="block text-gray-700 text-lg font-bold mb-2" for="name">Name</label>
-                <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                    <span class="flex items-center justify-center w-10 text-gray-500">
-                        <i class="fas fa-user"></i>
-                    </span>
-                    <input type="text" id="name" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Enter your name" />
-                </div>
-            </div>
-    
-            <!-- Bio -->
-            <div class="mb-6">
-                <label class="block text-gray-700 text-lg font-bold mb-2" for="bio">Bio</label>
-                <textarea id="bio" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="Tell us about yourself"></textarea>
-            </div>
-    
-            <!-- Social Links -->
-            <div class="grid grid-cols-2 gap-4 mb-6">
-                <div>
-                    <label class="block text-gray-700 text-lg font-bold mb-2" for="instagram">Instagram</label>
-                    <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                        <span class="flex items-center justify-center w-10 text-gray-500">
-                            <i class="fab fa-instagram"></i>
-                        </span>
-                        <input type="text" id="instagram" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Instagram profile link" />
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-gray-700 text-lg font-bold mb-2" for="facebook">Facebook</label>
-                    <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                        <span class="flex items-center justify-center w-10 text-gray-500">
-                            <i class="fab fa-facebook"></i>
-                        </span>
-                        <input type="text" id="facebook" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Facebook profile link" />
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-gray-700 text-lg font-bold mb-2" for="tiktok">TikTok</label>
-                    <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                        <span class="flex items-center justify-center w-10 text-gray-500">
-                            <i class="fab fa-tiktok"></i>
-                        </span>
-                        <input type="text" id="tiktok" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="TikTok profile link" />
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-gray-700 text-lg font-bold mb-2" for="youtube">YouTube</label>
-                    <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                        <span class="flex items-center justify-center w-10 text-gray-500">
-                            <i class="fab fa-youtube"></i>
-                        </span>
-                        <input type="text" id="youtube" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="YouTube channel link" />
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-gray-700 text-lg font-bold mb-2" for="x">X (Twitter)</label>
-                    <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                        <span class="flex items-center justify-center w-10 text-gray-500">
-                            <i class="fab fa-x"></i> <!-- Use appropriate icon for X -->
-                        </span>
-                        <input type="text" id="x" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="X profile link" />
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-gray-700 text-lg font-bold mb-2" for="spotify">Spotify</label>
-                    <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                        <span class="flex items-center justify-center w-10 text-gray-500">
-                            <i class="fab fa-spotify"></i>
-                        </span>
-                        <input type="text" id="spotify" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Spotify profile link" />
-                    </div>
-                </div>
-                <div>
-                    <label class="block text-gray-700 text-lg font-bold mb-2" for="linkedin">LinkedIn</label>
-                    <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                        <span class="flex items-center justify-center w-10 text-gray-500">
-                            <i class="fab fa-linkedin"></i>
-                        </span>
-                        <input type="text" id="linkedin" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="LinkedIn profile link" />
-                    </div>
-                </div>
-            </div>
-    
-            <!-- Thumbnail Section -->
-            <div class="mb-6">
-                <label class="block text-gray-700 text-lg font-bold mb-2" for="thumbnail_img">Thumbnail Image</label>
-                <input type="file" id="thumbnail_img" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-                <textarea id="thumbnail_desc" class="w-full mt-4 p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Thumbnail description"></textarea>
-            </div>
-    
-            <!-- Section 1 -->
-            <div class="mb-6">
-                <label class="block text-gray-700 text-lg font-bold mb-2" for="section1_name">Section 1 Name</label>
-                <input type="text" id="section1_name" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter section name" />
-            </div>
-    
-            <div class="mb-6">
-                <label class="block text-gray-700 text-lg font-bold mb-2" for="section1_img">Section 1 Image</label>
-                <input type="file" id="section1_img" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-            </div>
-    
-            <!-- Title -->
-            <div class="mb-6">
-                <label class="block text-gray-700 text-lg font-bold mb-2" for="title">Title</label>
-                <input type="text" id="title" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter title" />
-            </div>
-    
-           
+              <div class="mb-6">
+                  <label class="block text-gray-700 text-lg font-bold mb-2" for="profile_img">Profile Image</label>
+                  <input type="file" id="profile_img" name="profile_img" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+              </div>
+      
+              <!-- Name -->
+              <div class="mb-6">
+                  <label class="block text-gray-700 text-lg font-bold mb-2" for="name">Name</label>
+                  <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+                      <span class="flex items-center justify-center w-10 text-gray-500">
+                          <i class="fas fa-user"></i>
+                      </span>
+                      <input type="text" id="name" name="name" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Enter your name" />
+                  </div>
+              </div>
+      
+              <!-- Bio -->
+              <div class="mb-6">
+                  <label class="block text-gray-700 text-lg font-bold mb-2" for="bio">Bio</label>
+                  <textarea id="bio" name="bio" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="Tell us about yourself"></textarea>
+              </div>
+      
+              <!-- Social Links -->
+              <div class="grid grid-cols-2 gap-4 mb-6">
+                  <div>
+                      <label class="block text-gray-700 text-lg font-bold mb-2" for="instagram">Instagram</label>
+                      <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+                          <span class="flex items-center justify-center w-10 text-gray-500">
+                              <i class="fab fa-instagram"></i>
+                          </span>
+                          <input type="text" id="instagram" name="instagram" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Instagram profile link" />
+                      </div>
+                  </div>
+                  <div>
+                      <label class="block text-gray-700 text-lg font-bold mb-2" for="facebook">Facebook</label>
+                      <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+                          <span class="flex items-center justify-center w-10 text-gray-500">
+                              <i class="fab fa-facebook"></i>
+                          </span>
+                          <input type="text" id="facebook" name="facebook" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Facebook profile link" />
+                      </div>
+                  </div>
+                  <div>
+                      <label class="block text-gray-700 text-lg font-bold mb-2" for="tiktok">TikTok</label>
+                      <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+                          <span class="flex items-center justify-center w-10 text-gray-500">
+                              <i class="fab fa-tiktok"></i>
+                          </span>
+                          <input type="text" id="tiktok" name="tiktok" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="TikTok profile link" />
+                      </div>
+                  </div>
+                  <div>
+                      <label class="block text-gray-700 text-lg font-bold mb-2" for="youtube">YouTube</label>
+                      <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+                          <span class="flex items-center justify-center w-10 text-gray-500">
+                              <i class="fab fa-youtube"></i>
+                          </span>
+                          <input type="text" id="youtube" name="youtube" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="YouTube channel link" />
+                      </div>
+                  </div>
+                  <div>
+                      <label class="block text-gray-700 text-lg font-bold mb-2" for="x">X (Twitter)</label>
+                      <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+                          <span class="flex items-center justify-center w-10 text-gray-500">
+                              <i class="fab fa-x"></i> <!-- Use appropriate icon for X -->
+                          </span>
+                          <input type="text" id="x" name="x" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="X profile link" />
+                      </div>
+                  </div>
+                  <div>
+                      <label class="block text-gray-700 text-lg font-bold mb-2" for="spotify">Spotify</label>
+                      <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+                          <span class="flex items-center justify-center w-10 text-gray-500">
+                              <i class="fab fa-spotify"></i>
+                          </span>
+                          <input type="text" id="spotify" name="spotify" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="Spotify profile link" />
+                      </div>
+                  </div>
+                  <div>
+                      <label class="block text-gray-700 text-lg font-bold mb-2" for="linkedin">LinkedIn</label>
+                      <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
+                          <span class="flex items-center justify-center w-10 text-gray-500">
+                              <i class="fab fa-linkedin"></i>
+                          </span>
+                          <input type="text" id="linkedin" name="linkedin" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="LinkedIn profile link" />
+                      </div>
+                  </div>
+              </div>
+      
+              <!-- Thumbnail Section -->
+              <div class="mb-6">
+                  <label class="block text-gray-700 text-lg font-bold mb-2" for="thumbnail_img">Thumbnail Image</label>
+                  <input type="file" id="highlight_thumbnail_image" name="highlight_thumbnail_image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                  <textarea id="highlight_title" name="highlight_title" class="w-full mt-4 p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="Thumbnail description"></textarea>
+              </div>
+      
+              <!-- Section 1 -->
+              <div class="mb-6">
+                  <label class="block text-gray-700 text-lg font-bold mb-2" for="section1_name">Section 1 Name</label>
+                  <input type="text" id="section1_name" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter section name" />
+              </div>
+      
+              <div class="mb-6">
+                  <label class="block text-gray-700 text-lg font-bold mb-2" for="section1_img">Section 1 Image</label>
+                  <input type="file" id="section1_img" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+              </div>
+      
+              <!-- Title -->
+              <div class="mb-6">
+                  <label class="block text-gray-700 text-lg font-bold mb-2" for="title">Title</label>
+                  <input type="text" id="title" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter title" />
+              </div>
+      
+            </form>
         </div>
     
 
@@ -191,6 +193,80 @@
         </div>
 
     </main>
-   
+    <script>
+      let timeout = null;
+  
+      function debounceUpdate(field, value) {
+          clearTimeout(timeout);  // Clear the previous timeout
+  
+          timeout = setTimeout(function() {
+              const data = {};
+              data[field] = value;
+  
+              fetch('/update_user_info/', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json',
+                      // No CSRF token since we're using csrf_exempt, but add it if required
+                  },
+                  body: JSON.stringify(data)
+              })
+              .then(response => response.json())
+              .then(data => {
+                  console.log(data.message);  // Log the success message
+              })
+              .catch(error => console.error('Error:', error));
+          }, 1000);  // 5 seconds delay (debounce)
+      }
+  
+      document.getElementById('name').addEventListener('input', function() {
+        debounceUpdate('name', this.value);
+    });
+    document.getElementById('bio').addEventListener('input', function() {
+      console.log("Textarea input detected");
+        debounceUpdate('bio_txt', this.value);
+    });
+    document.getElementById('facebook').addEventListener('input', function() {
+        debounceUpdate('facebook_link', this.value);
+    });
+    document.getElementById('instagram').addEventListener('input', function() {
+        debounceUpdate('instagram_link', this.value);
+    });
+    document.getElementById('tiktok').addEventListener('input', function() {
+        debounceUpdate('tiktok_link', this.value);
+    });
+    document.getElementById('youtube').addEventListener('input', function() {
+        debounceUpdate('youtube_link', this.value);
+    });
+    document.getElementById('x').addEventListener('input', function() {
+        debounceUpdate('x_link', this.value);
+    });
+    document.getElementById('spotify').addEventListener('input', function() {
+        debounceUpdate('spotify_link', this.value);
+    });
+    document.getElementById('linkedin').addEventListener('input', function() {
+        debounceUpdate('linkedin_link', this.value);
+    });
+    document.getElementById('profile_img').addEventListener('change', function() {
+        debounceUpdate('profile_image', this.files[0]);  // Handle file input for profile image
+    });
+    document.getElementById('highlight_thumbnail_image').addEventListener('change', function() {
+        debounceUpdate('highlight_thumbnail_image', this.files[0]);  // Handle file input for thumbnail image
+    });
+    document.getElementById('highlight_title').addEventListener('change', function() {
+      debounceUpdate('highlight_title', this.value);  // Handle file input for thumbnail title
+  });
+   // document.getElementById('section1_name').addEventListener('input', function() {
+   //     debounceUpdate('section1_name', this.value);
+    //});
+    //document.getElementById('section1_title').addEventListener('input', function() {
+    //    debounceUpdate('section1_title', this.value);
+    //});
+    //document.getElementById('section1_image').addEventListener('change', function() {
+    //    debounceUpdate('section1_image', this.files[0]);  // Handle file input for section image
+    //});
+    
+  </script>
+  
   </body>
 </html>

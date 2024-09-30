@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=True, null=True)
-    bio = models.TextField(blank=True, null=True)
+    bio_txt = models.TextField(blank=True, null=True)
     
     
     # Social media links
@@ -20,7 +20,7 @@ class UserInfo(models.Model):
 
     # Media uploads
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
-    ighlight_thumbnail_image = models.ImageField(upload_to='thumbnail_images/', blank=True, null=True)
+    highlight_thumbnail_image = models.ImageField(upload_to='thumbnail_images/', blank=True, null=True)
     highlight_title = models.CharField(max_length=100, blank=True, null=True)
 
     def __str__(self):
