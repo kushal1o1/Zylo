@@ -164,7 +164,50 @@
                   <label class="block text-gray-700 text-lg font-bold mb-2" for="title">Title</label>
                   <input type="text" id="title" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter title" />
               </div>
-      
+              <!-- background design -->
+              <div class="mb-6">
+                <p class="block text-gray-700 text-lg font-bold mb-2">Background Design</p>
+                <div class="grid grid-cols-2 gap-4 p-9">
+                  <!-- Box 1: Background 1 -->
+
+                  <label class="cursor-pointer text-gray-700 text-lg font-bold mb-2">
+                    <input type="radio" name="background" value="bg1" class="hidden">
+                    <div class="border-2 p-4 rounded-lg hover:border-blue-500">
+                      {% load static %}
+                      <img src="bg1_image_url.jpg" alt="Background 1" class="w-full h-32 object-cover rounded-lg">
+                      <p class="text-center mt-2">Graph</p>
+                    </div>
+                  </label>
+              
+                  <!-- Box 2: Background 2 -->
+                  <label class="cursor-pointer">
+                    <input type="radio" name="background" value="bg2" class="hidden">
+                    <div class="border-2 p-4 rounded-lg hover:border-blue-500">
+                      <img src="bg2_image_url.jpg" alt="Background 2" class="w-full h-32 object-cover rounded-lg">
+                      <p class="text-center mt-2">Background 2</p>
+                    </div>
+                  </label>
+              
+                  <!-- Box 3: Background 3 -->
+                  <label class="cursor-pointer">
+                    <input type="radio" name="background" value="bg3" class="hidden">
+                    <div class="border-2 p-4 rounded-lg hover:border-blue-500">
+                      <img src="bg3_image_url.jpg" alt="Background 3" class="w-full h-32 object-cover rounded-lg">
+                      <p class="text-center mt-2">Background 3</p>
+                    </div>
+                  </label>
+              
+                  <!-- Box 4: Background 4 -->
+                  <label class="cursor-pointer">
+                    <input type="radio" name="background" value="bg4" class="hidden">
+                    <div class="border-2 p-4 rounded-lg hover:border-blue-500">
+                      <img src="bg4_image_url.jpg" alt="Background 4" class="w-full h-32 object-cover rounded-lg">
+                      <p class="text-center mt-2">Background 4</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+              
             <!-- </form> -->
         </div>
     
