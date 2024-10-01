@@ -167,45 +167,22 @@
               <!-- background design -->
               <div class="mb-6">
                 <p class="block text-gray-700 text-lg font-bold mb-2">Background Design</p>
-                <div class="grid grid-cols-2 gap-4 p-9">
-                  <!-- Box 1: Background 1 -->
-
-                  <label class="cursor-pointer text-gray-700 text-lg font-bold mb-2">
-                    <input type="radio" name="background" value="bg1" class="hidden">
-                    <div class="border-2 p-4 rounded-lg hover:border-blue-500">
-                      {% load static %}
-                      <img src="bg1_image_url.jpg" alt="Background 1" class="w-full h-32 object-cover rounded-lg">
-                      <p class="text-center mt-2">Graph</p>
-                    </div>
-                  </label>
+                <label>
+                  <input type="radio" name="selected_background" value="bg1"> Background 1
+                </label><br>
+                
+                <label>
+                  <input type="radio" name="selected_background" value="bg2"> Background 2
+                </label><br>
+                
+                <label>
+                  <input type="radio" name="selected_background" value="bg3"> Background 3
+                </label><br>
+                
+                <label>
+                  <input type="radio" name="selected_background" value="bg4"> Background 4
+                </label><br>
               
-                  <!-- Box 2: Background 2 -->
-                  <label class="cursor-pointer">
-                    <input type="radio" name="background" value="bg2" class="hidden">
-                    <div class="border-2 p-4 rounded-lg hover:border-blue-500">
-                      <img src="bg2_image_url.jpg" alt="Background 2" class="w-full h-32 object-cover rounded-lg">
-                      <p class="text-center mt-2">Background 2</p>
-                    </div>
-                  </label>
-              
-                  <!-- Box 3: Background 3 -->
-                  <label class="cursor-pointer">
-                    <input type="radio" name="background" value="bg3" class="hidden">
-                    <div class="border-2 p-4 rounded-lg hover:border-blue-500">
-                      <img src="bg3_image_url.jpg" alt="Background 3" class="w-full h-32 object-cover rounded-lg">
-                      <p class="text-center mt-2">Background 3</p>
-                    </div>
-                  </label>
-              
-                  <!-- Box 4: Background 4 -->
-                  <label class="cursor-pointer">
-                    <input type="radio" name="background" value="bg4" class="hidden">
-                    <div class="border-2 p-4 rounded-lg hover:border-blue-500">
-                      <img src="bg4_image_url.jpg" alt="Background 4" class="w-full h-32 object-cover rounded-lg">
-                      <p class="text-center mt-2">Background 4</p>
-                    </div>
-                  </label>
-                </div>
               </div>
               
             <!-- </form> -->
@@ -217,7 +194,7 @@
         <div class="div flex-2 m-5 order-1 md:order-2 w-[300px] h-[85vh] relative p-4">
             <div
             x-data="smartphone"
-            class="shadow-2xl border-8 mobile-screen border-gray-800 rounded-3xl bg-center bg-no-repeat bg-cover overflow-hidden  flex flex-col justify-start overflow-y-auto m-4  hide-scrollbar"
+            class="shadow-2xl border-8 mobile-screen border-gray-800 rounded-3xl bg-center bg-no-repeat bg-cover overflow-  flex flex-col justify-start overflow-y-auto m-4  hide-scrollbar"
             :class="background.current"
           >
             <!-- Battery -->
@@ -248,7 +225,10 @@
           <!-- here goes my content -->
           <div class="div bg-white text-black flex flex-col content items-center p-2">
             <!-- Navbar Section -->
-
+           <!-- TODO: bg check -->
+            {% if  user_info.selected_background%}
+            {{user_info.selected_background}}
+            {% endif %}
         
             <!-- Personal Info Section -->
             <section class="p-4 text-center w-full max-w-md">
@@ -410,7 +390,8 @@
               })
               .then(response => response.json())
               .then(data => {
-                  console.log(data.message);  // Log the success message
+                  console.log(data.message); 
+                  location.reload(); // Log the success message
               })
               .catch(error => console.error('Error:', error));
           }, 1000);  // 5 seconds delay (debounce)
@@ -450,6 +431,13 @@
 
     document.getElementById('highlight_title').addEventListener('change', function() {
       debounceUpdate('highlight_title', this.value);  // Handle file input for thumbnail title
+  });
+
+  document.querySelectorAll('input[name="selected_background"]').forEach(function(radio) {
+    radio.addEventListener('change', function() {
+      alert("clicked")
+      debounceUpdate('selected_background', this.value);  // Call the debounce function for background selection
+    });
   });
    // document.getElementById('section1_name').addEventListener('input', function() {
    //     debounceUpdate('section1_name', this.value);

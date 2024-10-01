@@ -38,7 +38,6 @@ def update_user_info(request):
 
         # Get or create the UserInfo object for the current user
         user_info, created = UserInfo.objects.get_or_create(user=user)
-        
 
 
         # Define the fields to update
@@ -46,7 +45,7 @@ def update_user_info(request):
             'name','bio_txt','profession', 
             'instagram_link','facebook_link', 'tiktok_link',
             'youtube_link', 'x_link', 'spotify_link', 'linkedin_link',
-            'highlight_title',
+            'highlight_title','selected_background',
             
         ]
 
