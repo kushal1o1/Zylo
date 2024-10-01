@@ -4,7 +4,7 @@ from django.urls import include, path
 from django.conf import settings
 from django.conf.urls.static import static
 from . import views
-from .views import update_user_info
+from .views import update_user_info,update_images
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
@@ -13,5 +13,7 @@ urlpatterns = [
     
     
     # path('chat/', ChatView.as_view(), name='chat_view'),
-     path('update_user_info/', update_user_info, name='update_name'),
+     path('update_user_info/', update_user_info, name='update_user_info'),
+     path('update_images/', update_images, name='update_images'),
+     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

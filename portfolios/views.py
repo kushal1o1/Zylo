@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from django.views import View
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -39,12 +39,14 @@ def update_user_info(request):
         # Get or create the UserInfo object for the current user
         user_info, created = UserInfo.objects.get_or_create(user=user)
         
+
+
         # Define the fields to update
         fields_to_update = [
-            'name','bio_txt', 
+            'name','bio_txt','profession', 
             'instagram_link','facebook_link', 'tiktok_link',
             'youtube_link', 'x_link', 'spotify_link', 'linkedin_link',
-            'profile_image', 'highlight_title','highlight_thumbnail_image',
+            'highlight_title',
             
         ]
 
@@ -74,3 +76,24 @@ def update_user_info(request):
         return JsonResponse({'message': 'User info updated successfully!'})
 
     return JsonResponse({'message': 'Invalid request method!'}, status=400)
+
+@login_required  
+def update_images(request):
+    if request.method == 'POST':
+       
+        user = request.user
+
+       
+        user_info, created = UserInfo.objects.get_or_create(user=user)
+        
+        if 'profile_img' in request.FILES:
+            print("done")
+            user_info.profile_image = request.FILES['profile_img']
+        
+        # Handle highlight thumbnail image upload
+        if 'highlight_thumbnail_image' in request.FILES:
+            print("I m heres")
+            user_info.highlight_thumbnail_image = request.FILES['highlight_thumbnail_image']
+        user_info.save()
+        return redirect("home")
+    

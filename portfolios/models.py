@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=True, null=True)
+    profession = models.TextField(blank=True, null=True)
     bio_txt = models.TextField(blank=True, null=True)
     
     
