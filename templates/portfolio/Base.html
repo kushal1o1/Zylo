@@ -31,128 +31,6 @@
       .hide-scrollbar::-webkit-scrollbar {
         display: none; /* Safari and Chrome */
       }
-
-
-      /* bg2 design */
-
-.area {
-  background:transparent;
-  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
- 
-}
-
-.circles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width:90%;
-  height: 45em;
-  overflow: hidden;
-}
-
-.circles li {
-  position: absolute;
-  display: block;
-  list-style: none;
-  width: 20px;
-  height: 20px;
-  background: rgba(29, 17, 207, 0.2);
-  animation: animate 25s linear infinite;
-  bottom: -150px;
-}
-
-.circles li:nth-child(1) {
-  left: 25%;
-  width: 80px;
-  height: 80px;
-  animation-delay: 0s;
-}
-
-.circles li:nth-child(2) {
-  left: 10%;
-  width: 20px;
-  height: 20px;
-  animation-delay: 2s;
-  animation-duration: 12s;
-}
-
-.circles li:nth-child(3) {
-  left: 70%;
-  width: 20px;
-  height: 20px;
-  animation-delay: 4s;
-}
-
-.circles li:nth-child(4) {
-  left: 40%;
-  width: 60px;
-  height: 60px;
-  animation-delay: 0s;
-  animation-duration: 18s;
-}
-
-.circles li:nth-child(5) {
-  left: 65%;
-  width: 20px;
-  height: 20px;
-  animation-delay: 0s;
-}
-
-.circles li:nth-child(6) {
-  left: 75%;
-  width: 110px;
-  height: 110px;
-  animation-delay: 3s;
-}
-
-.circles li:nth-child(7) {
-  left: 35%;
-  width: 150px;
-  height: 150px;
-  animation-delay: 7s;
-}
-
-.circles li:nth-child(8) {
-  left: 50%;
-  width: 25px;
-  height: 25px;
-  animation-delay: 15s;
-  animation-duration: 45s;
-}
-
-.circles li:nth-child(9) {
-  left: 20%;
-  width: 15px;
-  height: 15px;
-  animation-delay: 2s;
-  animation-duration: 35s;
-}
-
-.circles li:nth-child(10) {
-  left: 85%;
-  width: 150px;
-  height: 150px;
-  animation-delay: 0s;
-  animation-duration: 11s;
-}
-
-@keyframes animate {
-  0% {
-     transform: translateY(0) rotate(0deg);
-     opacity: 1;
-     border-radius: 0;
-  }
-
-  100% {
-     transform: translateY(-1000px) rotate(720deg);
-     opacity: 0;
-     border-radius: 50%;
-  }
-}
-
-
-
-
     </style>
   </head>
   <body>
@@ -374,7 +252,174 @@
               </svg>
             </div>
           <!-- here goes my content -->
-          {% include 'portfolio/codesnippet.html' %}
+           {% mainblock %} {% include 'snippet.html' %}{% endmainblock %}
+          <div class='div {% if  user_info.selected_background == "bg2" %}bg-blue-100 {% elif user_info.selected_background == "bg3"%}bg-yellow-300 stripe{% else %}bg-white{% endif%} text-black flex flex-col content items-center p-2 '>
+            {% if  user_info.selected_background == "bg2"%}
+            <div class="stripe_inner">
+              {% endif%}
+            
+              <!-- Navbar Section -->
+            <!-- TODO: bg check -->
+            {% if  user_info.selected_background == "bg2"%}
+            <div class="area"></div>
+              <ul class="circles">
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+              </ul>
+            {% endif %}
+
+            
+
+              {% if  user_info.selected_background%}
+              {{user_info.selected_background}}
+              {% endif %}
+          
+              <!-- Personal Info Section -->
+              <section class="p-4 text-center w-full max-w-md">
+                <div class="flex flex-col items-center">
+                  <!-- Profile Image -->
+                  {% if user_info.profile_image %}
+                  <div class="w-20 h-20 bg-black rounded-full mb-4">
+                    <img src="{{ user_info.profile_image.url }}" alt="Profile" class="rounded-full w-full h-full">
+                  </div>
+                  {% endif %}
+                  <!-- Name and Verified Tick -->
+                  <!-- <div class="flex items-center space-x-2">
+                    <span class="text-2xl font-semibold text-center">Kushal Baral</span>
+                    <svg class="w-6 h-6 text-blue-500 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M9 12l2 2 4-4"/>
+                    </svg>
+                  </div> -->
+                  <!-- Bio -->
+                  <header class="animated-bg  text-center relative z-10">
+                    {% if user_info.name %}
+                    <h1 class="text-xl font-bold mb-1 animate-pulse">@{{user_info.name}}</h1>
+                      {% endif %}
+                      {% if user_info.profession %}
+                      <!-- TODO:add new field professsion in model and render -->
+                        <p class="text-gray-600 dark:text-gray-400">{{ user_info.profession}}</p>
+                        {% endif %}
+                      {% if user_info.bio_txt %}
+                    <pre class="text-1xl">{{user_info.bio_txt}}</pre>
+                      {% endif %}
+                    
+                </header>
+
+                </div>
+              </section>
+          
+              <!-- Social Media Section (Closer Icons, Centered) -->
+              <section class="p-4 w-full max-w-md">
+                <div class="flex justify-center space-x-1">
+                  <!-- CDN logos of social media -->
+                  {% if user_info.facebook_link %}
+                  <a href="{{user_info.facebook_link}}"><img src="https://img.icons8.com/ios-filled/50/000000/facebook--v1.png" alt="Facebook" class="w-8 h-8"></a>
+                  {% endif %}
+                  {% if user_info.x_link %}
+                  <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/twitter--v1.png" alt="Twitter" class="w-8 h-8"></a>
+                  {% endif %}
+
+                  {% if user_info.linkedin_link %}
+                  <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" alt="LinkedIn" class="w-8 h-8"></a>
+                  {% endif %}
+
+                  {% if user_info.instagram_link %}
+                  <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/instagram.png" alt="LinkedIn" class="w-8 h-8"></a>
+                  {% endif %}
+                  {% if user_info.tiktok_link %}
+                  <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/tiktok.png" alt="LinkedIn" class="w-8 h-8"></a>
+                  {% endif %}
+                  {% if user_info.youtube_link %}
+                  <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/youtube-play.png" alt="LinkedIn" class="w-8 h-8"></a>
+                  {% endif %}
+                  {% if user_info.spotify_link %}
+                  <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/spotify.png" alt="LinkedIn" class="w-8 h-8"></a>
+                  {% endif %}
+
+
+                </div>
+              </section>
+          
+              <!-- Picture and Text Section -->
+              <section class="p-4 w-full max-w-md">
+                <div class="relative ">
+                  {% if user_info.highlight_thumbnail_image%}
+                  <img src="{{user_info.highlight_thumbnail_image.url}}" alt="Picture" class="w-full h-64 object-cover rounded-lg ">
+                  {% endif%}
+                  {% if user_info.highlight_title %}
+                  
+                  <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-4 text-center rounded-b-lg">
+                    {{ user_info.highlight_title}}
+                  </div>
+                  {% endif %}
+                </div>
+              </section>
+          
+              <!-- Notifications Section 1 -->
+              <section class="p-4 w-full max-w-md">
+                <h2 class="text-xl font-bold mb-4">Notifications</h2>
+                <div class="space-y-4">
+                  <!-- Notification 1 -->
+                  <div class="flex items-center shadow  p-4 rounded-2xl">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                    <p class="flex-grow px-4">Someone liked your post!</p>
+                    <button class="">
+                      <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                    </button>
+                  </div>
+                  <!-- Notification 2 -->
+                  <div class="flex items-center shadow  p-4 rounded-2xl">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                    <p class="flex-grow px-4">Someone liked your post!</p>
+                    <button class="">
+                      <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                    </button>
+                  </div>
+                  <!-- Notification 3 -->
+                  <div class="flex items-center shadow  p-4 rounded-2xl">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                    <p class="flex-grow px-4">Someone liked your post!</p>
+                    <button class="">
+                      <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                    </button>
+                  </div>
+                </div>
+              </section>
+          
+              <!-- Notification Section 2 (More Rounded Corners) -->
+              <section class="p-4 w-full max-w-md">
+                <h2 class="text-xl font-bold mb-4">Updates</h2>
+                <div class="space-y-4">
+                  <!-- Update 1 -->
+                  <div class="flex items-center shadow  p-4 rounded-2xl">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                    <p class="flex-grow px-4">Someone liked your post!</p>
+                    <button class="">
+                      <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                    </button>
+                  </div>
+                  <!-- Update 2 -->
+                  <div class="flex items-center shadow  p-4 rounded-2xl">
+                    <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+                    <p class="flex-grow px-4">Someone liked your post!</p>
+                    <button class="">
+                      <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+                    </button>
+                  </div>
+                </div>
+              </section>
+            </div>
+            {% if  user_info.selected_background == "bg2"%}
+            </div>
+              {% endif%}
             </div>
         </div>
 

@@ -1,0 +1,28 @@
+<style>
+    .animated-circles {
+        background: radial-gradient(circle, #ff9a9e 20%, transparent 20%),
+                    radial-gradient(circle, #fad0c4 20%, transparent 20%);
+        background-size: 50px 50px;
+        position: relative;
+        overflow: hidden;
+        border-radius: 10px;
+        padding: 20px;
+        color: #333;
+        text-align: center;
+        animation: circlesAnimation 5s infinite alternate;
+    }
+
+    @keyframes circlesAnimation {
+        0% {
+            background-position: 0 0, 25px 25px;
+        }
+        100% {
+            background-position: 50px 50px, 75px 75px;
+        }
+    }
+</style>
+
+<div class="animated-circles">
+    <h2>Animated Circles</h2>
+    <p>This div has an animated circles background.</p>
+</div>

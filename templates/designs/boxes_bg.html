@@ -1,0 +1,17 @@
+<style>
+    .polygons-background {
+        background: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+        background-size: cover;
+        padding: 20px;
+        border-radius: 10px;
+        color: #333;
+    }
+</style>
+
+<div class="polygons-background">
+    {% if  user_info.selected_background%}
+    {{user_info.selected_background}}
+    {% endif %}
+{% include 'portfolio/main-info-phone.html'%} 
+</div>
+

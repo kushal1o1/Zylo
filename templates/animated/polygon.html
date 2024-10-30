@@ -1,0 +1,31 @@
+<style>
+    .container{
+        background-color: black;
+    }
+    .animated-polygons {
+      
+        background: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
+        background-size: 400%;
+        animation: polygonAnimation 10s infinite linear;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: #333;
+    }
+
+    @keyframes polygonAnimation {
+        0% {
+            background-position: 0% 0%;
+        }
+        100% {
+            background-position: 100% 100%;
+        }
+    }
+</style>
+<div class="container">
+    <div class="animated-polygons">
+        <h2>Animated Polygons</h2>
+        <p>This div has an animated polygon background.</p>
+    </div>
+</div>
+

@@ -1,0 +1,135 @@
+      <!-- Personal Info Section -->
+      <section class="p-4 text-center w-full max-w-md">
+        <div class="flex flex-col items-center">
+          <!-- Profile Image -->
+          {% if user_info.profile_image %}
+          <div class="w-20 h-20 bg-black rounded-full mb-4">
+            <img src="{{ user_info.profile_image.url }}" alt="Profile" class="rounded-full w-full h-full">
+          </div>
+          {% endif %}
+          <!-- Name and Verified Tick -->
+          <!-- <div class="flex items-center space-x-2">
+            <span class="text-2xl font-semibold text-center">Kushal Baral</span>
+            <svg class="w-6 h-6 text-blue-500 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 12l2 2 4-4"/>
+            </svg>
+          </div> -->
+          <!-- Bio -->
+          <header class="animated-bg  text-center relative z-10">
+            {% if user_info.name %}
+            <h1 class="text-xl font-bold mb-1 animate-pulse">@{{user_info.name}}</h1>
+              {% endif %}
+              {% if user_info.profession %}
+              <!-- TODO:add new field professsion in model and render -->
+                <p class="text-gray-600 dark:text-gray-400">{{ user_info.profession}}</p>
+                {% endif %}
+              {% if user_info.bio_txt %}
+            <pre class="text-1xl">{{user_info.bio_txt}}</pre>
+              {% endif %}
+            
+        </header>
+
+        </div>
+      </section>
+  
+      <!-- Social Media Section (Closer Icons, Centered) -->
+      <section class="p-4 w-full max-w-md">
+        <div class="flex justify-center space-x-1">
+          <!-- CDN logos of social media -->
+          {% if user_info.facebook_link %}
+          <a href="{{user_info.facebook_link}}"><img src="https://img.icons8.com/ios-filled/50/000000/facebook--v1.png" alt="Facebook" class="w-8 h-8"></a>
+          {% endif %}
+          {% if user_info.x_link %}
+          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/twitter--v1.png" alt="Twitter" class="w-8 h-8"></a>
+          {% endif %}
+
+          {% if user_info.linkedin_link %}
+          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" alt="LinkedIn" class="w-8 h-8"></a>
+          {% endif %}
+
+          {% if user_info.instagram_link %}
+          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/instagram.png" alt="LinkedIn" class="w-8 h-8"></a>
+          {% endif %}
+          {% if user_info.tiktok_link %}
+          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/tiktok.png" alt="LinkedIn" class="w-8 h-8"></a>
+          {% endif %}
+          {% if user_info.youtube_link %}
+          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/youtube-play.png" alt="LinkedIn" class="w-8 h-8"></a>
+          {% endif %}
+          {% if user_info.spotify_link %}
+          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/spotify.png" alt="LinkedIn" class="w-8 h-8"></a>
+          {% endif %}
+
+
+        </div>
+      </section>
+  
+      <!-- Picture and Text Section -->
+      <section class="p-4 w-full max-w-md">
+        <div class="relative ">
+          {% if user_info.highlight_thumbnail_image%}
+          <img src="{{user_info.highlight_thumbnail_image.url}}" alt="Picture" class="w-full h-64 object-cover rounded-lg ">
+          {% endif%}
+          {% if user_info.highlight_title %}
+          
+          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-4 text-center rounded-b-lg">
+            {{ user_info.highlight_title}}
+          </div>
+          {% endif %}
+        </div>
+      </section>
+  
+      <!-- Notifications Section 1 -->
+      <section class="p-4 w-full max-w-md">
+        <h2 class="text-xl font-bold mb-4">Notifications</h2>
+        <div class="space-y-4">
+          <!-- Notification 1 -->
+          <div class="flex items-center shadow  p-4 rounded-2xl">
+            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+            <p class="flex-grow px-4">Someone liked your post!</p>
+            <button class="">
+              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+            </button>
+          </div>
+          <!-- Notification 2 -->
+          <div class="flex items-center shadow  p-4 rounded-2xl">
+            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+            <p class="flex-grow px-4">Someone liked your post!</p>
+            <button class="">
+              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+            </button>
+          </div>
+          <!-- Notification 3 -->
+          <div class="flex items-center shadow  p-4 rounded-2xl">
+            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+            <p class="flex-grow px-4">Someone liked your post!</p>
+            <button class="">
+              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+            </button>
+          </div>
+        </div>
+      </section>
+  
+      <!-- Notification Section 2 (More Rounded Corners) -->
+      <section class="p-4 w-full max-w-md">
+        <h2 class="text-xl font-bold mb-4">Updates</h2>
+        <div class="space-y-4">
+          <!-- Update 1 -->
+          <div class="flex items-center shadow  p-4 rounded-2xl">
+            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+            <p class="flex-grow px-4">Someone liked your post!</p>
+            <button class="">
+              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+            </button>
+          </div>
+          <!-- Update 2 -->
+          <div class="flex items-center shadow  p-4 rounded-2xl">
+            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+            <p class="flex-grow px-4">Someone liked your post!</p>
+            <button class="">
+              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>

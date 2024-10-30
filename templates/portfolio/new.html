@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Diagonal Stripes Background</title>
+    <style>
+        body {
+            background: repeating-linear-gradient(
+                45deg,
+                #6a11cb,
+                #6a11cb 10px,
+                #2575fc 10px,
+                #2575fc 20px
+            );
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content-box {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="content-box">
+        <h1>Hello, Bootstrap!</h1>
+        <p>This is a content box with a diagonal stripes background.</p>
+    </div>
+</body>
+</html>

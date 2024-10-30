@@ -1,0 +1,28 @@
+<style>
+    .animated-stripes {
+        background: linear-gradient(135deg, #6a11cb 25%, transparent 25%) -50px 0,
+                    linear-gradient(225deg, #6a11cb 25%, transparent 25%) -50px 0,
+                    linear-gradient(315deg, #2575fc 25%, transparent 25%),
+                    linear-gradient(45deg, #2575fc 25%, transparent 25%);
+        background-size: 100px 100px;
+        animation: stripesAnimation 5s linear infinite;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+        color: white;
+    }
+
+    @keyframes stripesAnimation {
+        0% {
+            background-position: 0 0, 0 0, 0 0, 0 0;
+        }
+        100% {
+            background-position: 100px 100px, 100px 100px, 100px 100px, 100px 100px;
+        }
+    }
+</style>
+
+<div class="animated-stripes">
+    <h2>Animated Stripes</h2>
+    <p>This div has an animated diagonal stripes background.</p>
+</div>

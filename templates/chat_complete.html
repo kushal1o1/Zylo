@@ -1,12 +1,116 @@
-<div class="chat-history">
-    {% for entry in chat_history %}
-        <div class="chat-entry">
-            <div class="question">Q: {{ entry.question }}</div>
-            <div class="answer">A: {{ entry.answer }}</div>
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Background Design</title>
+    <style>
+        body {
+            background: linear-gradient(45deg, #f3ec78, #af4261);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .background-design {
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                #ffffff 0,
+                #ffffff 10px,
+                #f3ec78 10px,
+                #f3ec78 20px
+            );
+            position: absolute;
+            z-index: -1;
+        }
+        .container-design {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="background-design"></div>
+    <div class="container container-design">
+        <h1>Hello, Bootstrap!</h1>
+        <p>This is a container with a full background design.</p>
+    </div>
+</body>
+</html> -->
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Grid Line Background</title>
+    <style>
+        body {
+            background: linear-gradient(to right, #ddd 1px, transparent 1px),
+                        linear-gradient(to bottom, #ddd 1px, transparent 1px);
+            background-size: 50px 50px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content-box {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="content-box">
+        <h1>Hello, Bootstrap!</h1>
+        <p>This is a content box with a grid line background.</p>
+    </div>
+</body>
+</html> -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Particles Background</title>
+    <style>
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        .content-box {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    <div class="container mt-5">
+        <div class="content-box">
+            <h1>Hello, Bootstrap!</h1>
+            <p>This is a content box with a particles background.</p>
         </div>
-    {% endfor %}
-</div>
+    </div>
 
-<div class="completion-message">
-    All questions have been answered! Thank you.
-</div>
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script>
+        particlesJS.load('particles-js', 'https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/particles.json', function() {
+            console.log('particles.js loaded - callback');
+        });
+    </script>
+</body>
+</html>
