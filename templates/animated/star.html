@@ -1,4 +1,5 @@
 <style>
+
     .animated-stars {
         background: rgb(0, 0, 0);
         position: relative;
@@ -33,6 +34,8 @@
 </style>
 
 <div class="animated-stars">
-    <h2>Animated Stars</h2>
-    <p>This div has an animated stars background.</p>
+    {% if  user_info.selected_background%}
+    {{user_info.selected_background}}
+    {% endif %}
+{% include 'portfolio/main-info-phone.html'%} 
 </div>

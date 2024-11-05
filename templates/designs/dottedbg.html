@@ -1,7 +1,7 @@
 <style>
     .dotted-background {
-        background: radial-gradient(circle, #352828 10%, transparent 20%),
-                    radial-gradient(circle, #312c2c 10%, transparent 20%);
+        background: radial-gradient(circle, #7f74e7 1%, transparent 1%),
+                    radial-gradient(circle, #e9e9e9 10%, transparent 2%);
         background-position: 0 0, 25px 25px;
         background-size: 50px 50px;
         padding: 20px;
@@ -12,6 +12,8 @@
 </style>
 
 <div class="dotted-background">
-    <h2>Dotted Background</h2>
-    <p>This is a background design with dotted patterns.</p>
+    {% if  user_info.selected_background%}
+    {{user_info.selected_background}}
+    {% endif %}
+{% include 'portfolio/main-info-phone.html'%} 
 </div>

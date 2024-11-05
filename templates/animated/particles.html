@@ -1,10 +1,10 @@
 <style>
-    .particles-background {
+   .social div{
+    color:white;
+   }
+   .particles-background {
         background-color: black;
-        position: relative;
         width: 100%;
-        height: 300px;
-        overflow: hidden;
         border-radius: 10px;
     }
     .particles-background canvas {
@@ -18,8 +18,10 @@
 
 <div id="particles-js" class="particles-background">
     <div class="text-white text-center p-5 relative z-10">
-        <h2>Particles Background</h2>
-        <p>This div has an animated particles background using Particles.js.</p>
+        {% if  user_info.selected_background%}
+        {{user_info.selected_background}}
+        {% endif %}
+    {% include 'portfolio/main-info-phone.html'%} 
     </div>
 </div>
 

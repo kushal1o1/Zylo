@@ -8,8 +8,10 @@ from .views import update_user_info,update_images
 
 urlpatterns = [
     path('accounts/', include('allauth.urls')),
-    path('create/',views.index,name="index"),
-    path('',views.home,name="home"),
+    path("NotFound/",views.NotFound,name="NotFound"),
+    path('<str:userUrl>/',views.index,name="index"),
+    path('create/',views.home,name="home"),
+
     
     
     # path('chat/', ChatView.as_view(), name='chat_view'),

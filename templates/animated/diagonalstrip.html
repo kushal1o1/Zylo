@@ -1,9 +1,26 @@
 <style>
+
+    .ColorMode,.social,section{
+        color:black;
+    }
     .animated-stripes {
-        background: linear-gradient(135deg, #6a11cb 25%, transparent 25%) -50px 0,
-                    linear-gradient(225deg, #6a11cb 25%, transparent 25%) -50px 0,
-                    linear-gradient(315deg, #2575fc 25%, transparent 25%),
-                    linear-gradient(45deg, #2575fc 25%, transparent 25%);
+        background: 
+        linear-gradient(130deg, #b2d7ff 15%, transparent 15.5%), 
+        linear-gradient(220deg, #b2d7ff 15%, transparent 15.5%),
+        linear-gradient(45deg, #f0f9ff 30%, transparent 30.5%), 
+        linear-gradient(135deg, #ffffff 30%, transparent 30.5%), 
+        linear-gradient(225deg, #e6f7ff 15%, transparent 15.5%), 
+        linear-gradient(315deg, #d1ebff 15%, transparent 15.5%), 
+        linear-gradient(75deg, #99ccff 20%, transparent 20.5%), 
+        linear-gradient(105deg, #e0f2ff 10%, transparent 10.5%),
+        linear-gradient(30deg, #ffffff 35%, transparent 35.5%),
+        linear-gradient(60deg, #eaf7ff 15%, transparent 15.5%);
+    
+    background-size: 120px 120px;
+    background-position: center;
+    background-color: #cce7ff; /* Soft blue base to create cool tone */
+    
+    
         background-size: 100px 100px;
         animation: stripesAnimation 5s linear infinite;
         padding: 20px;
@@ -23,6 +40,8 @@
 </style>
 
 <div class="animated-stripes">
-    <h2>Animated Stripes</h2>
-    <p>This div has an animated diagonal stripes background.</p>
+        {% if  user_info.selected_background%}
+        {{user_info.selected_background}}
+        {% endif %}
+    {% include 'portfolio/main-info-phone.html'%}
 </div>

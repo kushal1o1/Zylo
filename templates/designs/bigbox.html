@@ -10,6 +10,8 @@
 </style>
 
 <div class="minimalist-grid-background">
-    <h2>Minimalist Grid Background</h2>
-    <p>This is a minimalist grid background.</p>
+    {% if  user_info.selected_background%}
+    {{user_info.selected_background}}
+    {% endif %}
+{% include 'portfolio/main-info-phone.html'%} 
 </div>

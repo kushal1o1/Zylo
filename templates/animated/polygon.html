@@ -1,16 +1,16 @@
 <style>
-    .container{
+    .container2{
         background-color: black;
+        color:white;
     }
     .animated-polygons {
-      
+       
         background: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
         background-size: 400%;
         animation: polygonAnimation 10s infinite linear;
         padding: 20px;
         border-radius: 10px;
         text-align: center;
-        color: #333;
     }
 
     @keyframes polygonAnimation {
@@ -22,10 +22,12 @@
         }
     }
 </style>
-<div class="container">
+<div class="container2">
     <div class="animated-polygons">
-        <h2>Animated Polygons</h2>
-        <p>This div has an animated polygon background.</p>
+        {% if  user_info.selected_background%}
+        {{user_info.selected_background}}
+        {% endif %}
+    {% include 'portfolio/main-info-phone.html'%} 
     </div>
 </div>
 

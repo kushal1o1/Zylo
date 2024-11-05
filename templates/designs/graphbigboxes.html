@@ -11,6 +11,9 @@
 </style>
 
 <div class="neat-grid">
-    <h2>Neat Grid</h2>
+    {% if  user_info.selected_background%}
+    {{user_info.selected_background}}
+    {% endif %}
+{% include 'portfolio/main-info-phone.html'%} 
     <p>This is a neat grid background.</p>
 </div>

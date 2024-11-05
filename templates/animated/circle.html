@@ -23,6 +23,9 @@
 </style>
 
 <div class="animated-circles">
-    <h2>Animated Circles</h2>
-    <p>This div has an animated circles background.</p>
+   
+    {% if  user_info.selected_background%}
+    {{user_info.selected_background}}
+    {% endif %}
+{% include 'portfolio/main-info-phone.html'%} 
 </div>

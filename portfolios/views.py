@@ -11,18 +11,47 @@ from .models import UserInfo
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
+background_templates = {
+        "bg1": "designs/bg2.html",
+        "bg2": "designs/bigbox.html",
+        "bg3": "designs/checkboard.html",
+        "bg4": "designs/dotted.html",
+        "bg5": "designs/dottedbg.html",
+        "bg6": "designs/graphbigboxes.html",
+        "bg7": "designs/overlay.html",
+        "bg8": "designs/test.html",
+        "bg9": "animated/canvas.html",
+        "bg10": "animated/circle.html",
+        "bg11": "animated/colorcircle.html",
+        "bg12": "animated/diagonalstrip.html",
+        "bg13": "animated/hexagon.html",
+        "bg14": "animated/polygon.html",
+        "bg15": "animated/star.html",
+        "bg16": "animated/test.html",
+        "bg17": "animated/particles.html",
+        }
 
 # Create your views here.
-def index(request):
-    
-    return render(request, 'portfolio/chat_form.html')
+def index(request,userUrl):
+     if userUrl:
+        user_info = UserInfo.objects.filter(userUrl=userUrl).first()
+        if not user_info:
+            return redirect("/NotFound")
+        user_info.selected_template = background_templates.get(user_info.selected_background)
+        return render(request, 'portfolio/portfolioServer.html', {'user_info': user_info ,"background_templates": background_templates})
+     else:
+        return redirect("/NotFound")
+
+def NotFound(request):
+    return render(request, 'Notfound.html')
 
 def home(request):
     user_info = None
     if request.user.is_authenticated:
-        user_info = UserInfo.objects.filter(user=request.user).first()
 
-    return render(request, 'portfolio/index.html', {'user_info': user_info})
+        user_info = UserInfo.objects.filter(user=request.user).first()
+        user_info.selected_template = background_templates.get(user_info.selected_background)
+    return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates})
 
 
 import json
@@ -45,7 +74,7 @@ def update_user_info(request):
             'name','bio_txt','profession', 
             'instagram_link','facebook_link', 'tiktok_link',
             'youtube_link', 'x_link', 'spotify_link', 'linkedin_link',
-            'highlight_title','selected_background',
+            'highlight_title','selected_background','userUrl'
             
         ]
 

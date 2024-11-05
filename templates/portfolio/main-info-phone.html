@@ -1,5 +1,6 @@
       <!-- Personal Info Section -->
-      <section class="p-4 text-center w-full max-w-md">
+       <div class="flex flex-col items-center justify-between ">
+      <section class="p-4 text-center w-full max-w-md ColorMode">
         <div class="flex flex-col items-center">
           <!-- Profile Image -->
           {% if user_info.profile_image %}
@@ -33,37 +34,52 @@
       </section>
   
       <!-- Social Media Section (Closer Icons, Centered) -->
-      <section class="p-4 w-full max-w-md">
-        <div class="flex justify-center space-x-1">
-          <!-- CDN logos of social media -->
-          {% if user_info.facebook_link %}
-          <a href="{{user_info.facebook_link}}"><img src="https://img.icons8.com/ios-filled/50/000000/facebook--v1.png" alt="Facebook" class="w-8 h-8"></a>
-          {% endif %}
-          {% if user_info.x_link %}
-          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/twitter--v1.png" alt="Twitter" class="w-8 h-8"></a>
-          {% endif %}
-
-          {% if user_info.linkedin_link %}
-          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/linkedin.png" alt="LinkedIn" class="w-8 h-8"></a>
-          {% endif %}
-
-          {% if user_info.instagram_link %}
-          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/instagram.png" alt="LinkedIn" class="w-8 h-8"></a>
-          {% endif %}
-          {% if user_info.tiktok_link %}
-          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/tiktok.png" alt="LinkedIn" class="w-8 h-8"></a>
-          {% endif %}
-          {% if user_info.youtube_link %}
-          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/youtube-play.png" alt="LinkedIn" class="w-8 h-8"></a>
-          {% endif %}
-          {% if user_info.spotify_link %}
-          <a href="#"><img src="https://img.icons8.com/ios-filled/50/000000/spotify.png" alt="LinkedIn" class="w-8 h-8"></a>
-          {% endif %}
-
-
+      <section class="p-4 w-full max-w-md social">
+        <div class="flex justify-center space-x-3 ">
+            {% if user_info.facebook_link %}
+            <a href="{{ user_info.facebook_link }}" target="_blank" class="hover:text-blue-600 ">
+                <i class="fab fa-facebook-f text-2xl"></i>
+            </a>
+            {% endif %}
+            
+            {% if user_info.x_link %}
+            <a href="{{ user_info.x_link }}" target="_blank" class="hover:text-blue-400">
+                <i class="fab fa-twitter text-2xl"></i>
+            </a>
+            {% endif %}
+            
+            {% if user_info.linkedin_link %}
+            <a href="{{ user_info.linkedin_link }}" target="_blank" class="hover:text-blue-700">
+                <i class="fab fa-linkedin-in text-2xl"></i>
+            </a>
+            {% endif %}
+            
+            {% if user_info.instagram_link %}
+            <a href="{{ user_info.instagram_link }}" target="_blank" class="hover:text-pink-500">
+                <i class="fab fa-instagram text-2xl"></i>
+            </a>
+            {% endif %}
+            
+            {% if user_info.tiktok_link %}
+            <a href="{{ user_info.tiktok_link }}" target="_blank" class="hover:text-black">
+                <i class="fab fa-tiktok text-2xl"></i>
+            </a>
+            {% endif %}
+            
+            {% if user_info.youtube_link %}
+            <a href="{{ user_info.youtube_link }}" target="_blank" class="hover:text-red-600">
+                <i class="fab fa-youtube text-2xl"></i>
+            </a>
+            {% endif %}
+            
+            {% if user_info.spotify_link %}
+            <a href="{{ user_info.spotify_link }}" target="_blank" class="hover:text-green-500">
+                <i class="fab fa-spotify text-2xl"></i>
+            </a>
+            {% endif %}
         </div>
-      </section>
-  
+    </section>
+    
       <!-- Picture and Text Section -->
       <section class="p-4 w-full max-w-md">
         <div class="relative ">
@@ -84,13 +100,18 @@
         <h2 class="text-xl font-bold mb-4">Notifications</h2>
         <div class="space-y-4">
           <!-- Notification 1 -->
-          <div class="flex items-center shadow  p-4 rounded-2xl">
-            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
+          <div class="flex items-center shadow p-4 rounded-2xl">
+            <!-- User Icon -->
+            <i class="fas fa-user-circle w-10 h-10 "></i>
+            
             <p class="flex-grow px-4">Someone liked your post!</p>
-            <button class="">
-              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
+            
+            <!-- Menu Icon -->
+            <button>
+                <i class="fas fa-ellipsis-h w-5 h-5 "></i>
             </button>
-          </div>
+        </div>
+        
           <!-- Notification 2 -->
           <div class="flex items-center shadow  p-4 rounded-2xl">
             <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">

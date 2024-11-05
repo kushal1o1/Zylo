@@ -7,6 +7,10 @@ BACKGROUND_CHOICES = [
         ('bg2', 'Background 2'),
         ('bg3', 'Background 3'),
         ('bg4', 'Background 4'),
+        ('bg5', 'Background 5'),
+        ('bg6', 'Background 6'),
+        ('bg7', 'Background 7'),
+        ('bg8', 'Background 8'),
     ]
 class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -31,6 +35,7 @@ class UserInfo(models.Model):
     
     selected_background = models.CharField(max_length=3, choices=BACKGROUND_CHOICES, default='bg1')
 
+    userUrl= models.CharField(max_length=100, blank=True, null=True,unique=True)
     
 
     def __str__(self):
