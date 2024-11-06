@@ -40,3 +40,12 @@ class UserInfo(models.Model):
 
     def __str__(self):
         return self.name if self.name else "User Info"
+
+class Highlight(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='highlights')  # Allows multiple highlights per user
+    highlight_thumbnail_image = models.ImageField(upload_to='thumbnail_images/', blank=True, null=True)
+    highlight_title = models.CharField(max_length=100, blank=True, null=True)
+    link = models.URLField(max_length=200, blank=True, null=True)  # Link field for URL
+
+    def __str__(self):
+        return self.highlight_title or "Untitled Highlight"

@@ -7,9 +7,13 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import UserInfo
+from .models import UserInfo,Highlight
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import login_required
+from .models import Highlight
+from .forms import HighlightForm
 
 background_templates = {
         "bg1": "designs/bg2.html",
@@ -48,10 +52,37 @@ def NotFound(request):
 def home(request):
     user_info = None
     if request.user.is_authenticated:
+        highlights = Highlight.objects.filter(user=request.user)
 
         user_info = UserInfo.objects.filter(user=request.user).first()
         user_info.selected_template = background_templates.get(user_info.selected_background)
-    return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates})
+        if request.method == "POST":
+            highlight_id = request.POST.get("highlight_id")  # Get the highlight ID (if editing)
+            
+            if highlight_id:
+                # Editing an existing highlight
+                highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
+                form = HighlightForm(request.POST, request.FILES, instance=highlight)
+                
+                if form.is_valid():
+                    form.save()
+                    return redirect('home')  # Redirect to the highlight list after saving
+                
+            else:
+                # Adding a new highlight
+                form = HighlightForm(request.POST, request.FILES)
+                
+                if form.is_valid():
+                    new_highlight = form.save(commit=False)
+                    new_highlight.user = request.user  # Associate the new highlight with the logged-in user
+                    new_highlight.save()
+                    return redirect('home')  # Redirect to the highlight list after saving
+
+        else:
+            form = HighlightForm()
+
+    return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates,'highlights': highlights,
+            'form': form,})
 
 
 import json
@@ -125,3 +156,94 @@ def update_images(request):
         user_info.save()
         return redirect("home")
     
+    
+# from django.shortcuts import render, redirect, get_object_or_404
+# from django.http import JsonResponse
+# from django.views.decorators.http import require_http_methods
+# from .models import Highlight
+# from . forms import HighlightForm
+# from django.contrib.auth.decorators import login_required
+
+# @login_required
+# def manage_highlights(request):
+#     user_highlights = Highlight.objects.filter(user=request.user)
+
+#     if request.method == "POST":
+#         form = HighlightForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             highlight = form.save(commit=False)
+#             highlight.user = request.user
+#             highlight.save()
+#             return redirect("manage_highlights")
+#     else:
+#         form = HighlightForm()
+
+#     return render(request, "manage_highlights.html", {"form": form, "user_highlights": user_highlights})
+
+
+# @login_required
+# def edit_highlight(request, highlight_id):
+#     highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
+
+#     if request.method == "POST":
+#         form = HighlightForm(request.POST, request.FILES, instance=highlight)
+#         if form.is_valid():
+#             form.save()
+#             return redirect("manage_highlights")
+#     else:
+#         form = HighlightForm(instance=highlight)
+
+#     return render(request, "edit_highlight.html", {"form": form, "highlight": highlight})
+
+
+# @login_required
+# @require_http_methods(["DELETE"])
+# def delete_highlight(request, highlight_id):
+#     highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
+#     highlight.delete()
+#     return JsonResponse({"success": True})
+
+
+@login_required
+def highlight_list(request):
+    # Get all highlights of the current user
+    highlights = Highlight.objects.filter(user=request.user)
+
+    if request.method == "POST":
+        highlight_id = request.POST.get("highlight_id")  # Get the highlight ID (if editing)
+        
+        if highlight_id:
+            # Editing an existing highlight
+            highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
+            form = HighlightForm(request.POST, request.FILES, instance=highlight)
+            
+            if form.is_valid():
+                form.save()
+                return redirect('highlight_list')  # Redirect to the highlight list after saving
+            
+        else:
+            # Adding a new highlight
+            form = HighlightForm(request.POST, request.FILES)
+            
+            if form.is_valid():
+                new_highlight = form.save(commit=False)
+                new_highlight.user = request.user  # Associate the new highlight with the logged-in user
+                new_highlight.save()
+                return redirect('highlight_list')  # Redirect to the highlight list after saving
+
+    else:
+        form = HighlightForm()
+
+    return render(request, 'highlight_list.html', {
+        'highlights': highlights,
+        'form': form,
+    })
+
+
+@login_required
+def delete_highlight(request, highlight_id):
+    # Get the highlight and delete it if it belongs to the current user
+    highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
+    highlight.delete()
+    return redirect('home')  # Redirect back to the highlight list after deletion
+

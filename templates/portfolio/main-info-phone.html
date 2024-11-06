@@ -8,13 +8,6 @@
             <img src="{{ user_info.profile_image.url }}" alt="Profile" class="rounded-full w-full h-full">
           </div>
           {% endif %}
-          <!-- Name and Verified Tick -->
-          <!-- <div class="flex items-center space-x-2">
-            <span class="text-2xl font-semibold text-center">Kushal Baral</span>
-            <svg class="w-6 h-6 text-blue-500 " xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M9 12l2 2 4-4"/>
-            </svg>
-          </div> -->
           <!-- Bio -->
           <header class="animated-bg  text-center relative z-10">
             {% if user_info.name %}
@@ -94,6 +87,24 @@
           {% endif %}
         </div>
       </section>
+      <section class="p-4 w-full max-w-md">
+        {% for highlight in highlights %}
+        <div class="relative mb-4">
+            {% if highlight.highlight_thumbnail_image %}
+            <a href="{{ highlight.link }}" target="_blank">
+                <img src="{{ highlight.highlight_thumbnail_image.url }}" alt="{{ highlight.highlight_title }}" class="w-full h-64 object-cover rounded-lg">
+            </a>
+            {% endif %}
+            
+            {% if highlight.highlight_title %}
+            <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-4 text-center rounded-b-lg">
+                <a href="{{ highlight.link }}" target="_blank" class="text-white font-semibold">{{ highlight.highlight_title }}</a>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </section>
+    
   
       <!-- Notifications Section 1 -->
       <section class="p-4 w-full max-w-md">

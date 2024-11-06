@@ -465,6 +465,9 @@
                     </span>
                     <input type="text" id="userUrl" name="userUrl" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.userUrl %}{{ user_info.userUrl }}{% else %}Enter your host url{% endif %}" />
                 </div>
+
+                {% include 'highlight_list.html' %}
+
             </div>
             <!-- </form> -->
         </div>
