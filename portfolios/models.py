@@ -49,3 +49,24 @@ class Highlight(models.Model):
 
     def __str__(self):
         return self.highlight_title or "Untitled Highlight"
+
+
+# Section Model - One-to-Many relationship with User
+class Section(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="sections")  # User can have many sections
+    section_title = models.CharField(max_length=100)
+    
+    def __str__(self):
+        return self.section_title
+
+# SectionData Model - One-to-Many relationship with Section
+class SectionData(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="section_data")
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name="section_data")  # Each section can have multiple data entries
+    main_title = models.CharField(max_length=100)
+    desc = models.TextField()
+    link = models.URLField()
+    pic = models.ImageField(upload_to='section_images/', blank=True, null=True)
+    
+    def __str__(self):
+        return self.main_title

@@ -105,63 +105,9 @@
         {% endfor %}
     </section>
     
-  
-      <!-- Notifications Section 1 -->
-      <section class="p-4 w-full max-w-md">
-        <h2 class="text-xl font-bold mb-4">Notifications</h2>
-        <div class="space-y-4">
-          <!-- Notification 1 -->
-          <div class="flex items-center shadow p-4 rounded-2xl">
-            <!-- User Icon -->
-            <i class="fas fa-user-circle w-10 h-10 "></i>
-            
-            <p class="flex-grow px-4">Someone liked your post!</p>
-            
-            <!-- Menu Icon -->
-            <button>
-                <i class="fas fa-ellipsis-h w-5 h-5 "></i>
-            </button>
-        </div>
-        
-          <!-- Notification 2 -->
-          <div class="flex items-center shadow  p-4 rounded-2xl">
-            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
-            <p class="flex-grow px-4">Someone liked your post!</p>
-            <button class="">
-              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
-            </button>
-          </div>
-          <!-- Notification 3 -->
-          <div class="flex items-center shadow  p-4 rounded-2xl">
-            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
-            <p class="flex-grow px-4">Someone liked your post!</p>
-            <button class="">
-              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
-            </button>
-          </div>
-        </div>
-      </section>
-  
-      <!-- Notification Section 2 (More Rounded Corners) -->
-      <section class="p-4 w-full max-w-md">
-        <h2 class="text-xl font-bold mb-4">Updates</h2>
-        <div class="space-y-4">
-          <!-- Update 1 -->
-          <div class="flex items-center shadow  p-4 rounded-2xl">
-            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
-            <p class="flex-grow px-4">Someone liked your post!</p>
-            <button class="">
-              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
-            </button>
-          </div>
-          <!-- Update 2 -->
-          <div class="flex items-center shadow  p-4 rounded-2xl">
-            <img src="https://img.icons8.com/ios-filled/50/000000/user-male-circle.png" alt="User" class="w-10 h-10 rounded-full">
-            <p class="flex-grow px-4">Someone liked your post!</p>
-            <button class="">
-              <img src="https://img.icons8.com/ios-filled/50/000000/menu-2.png" alt="Menu" class="w-5 h-5">
-            </button>
-          </div>
-        </div>
-      </section>
+  <section class="p-4 w-full max-w-md">
+    {% include 'section_list.html' %}
+
+  </section>
+
     </div>

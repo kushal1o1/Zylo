@@ -7,13 +7,13 @@ from django.shortcuts import render,redirect
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
-from .models import UserInfo,Highlight
+from .models import UserInfo,Highlight,Section,SectionData
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Highlight
-from .forms import HighlightForm
+from .forms import HighlightForm,SectionForm,SectionDataForm
 
 background_templates = {
         "bg1": "designs/bg2.html",
@@ -39,10 +39,12 @@ background_templates = {
 def index(request,userUrl):
      if userUrl:
         user_info = UserInfo.objects.filter(userUrl=userUrl).first()
+        highlights = Highlight.objects.filter(user=request.user)
+        sections = Section.objects.filter(user=request.user)
         if not user_info:
             return redirect("/NotFound")
         user_info.selected_template = background_templates.get(user_info.selected_background)
-        return render(request, 'portfolio/portfolioServer.html', {'user_info': user_info ,"background_templates": background_templates})
+        return render(request, 'portfolio/portfolioServer.html', {'user_info': user_info ,"background_templates": background_templates,'highlights': highlights,'sections': sections})
      else:
         return redirect("/NotFound")
 
@@ -53,36 +55,60 @@ def home(request):
     user_info = None
     if request.user.is_authenticated:
         highlights = Highlight.objects.filter(user=request.user)
-
+        sections = Section.objects.filter(user=request.user)
         user_info = UserInfo.objects.filter(user=request.user).first()
         user_info.selected_template = background_templates.get(user_info.selected_background)
         if request.method == "POST":
-            highlight_id = request.POST.get("highlight_id")  # Get the highlight ID (if editing)
+            form_type = request.POST.get("form_type")
+            if form_type == "section_form":
+            # Handle creating a new section
+                section_form = SectionForm(request.POST)
+                if section_form.is_valid():
+                    new_section = section_form.save(commit=False)
+                    new_section.user = request.user
+                    new_section.save()
+                    return redirect('home')
             
-            if highlight_id:
-                # Editing an existing highlight
-                highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
-                form = HighlightForm(request.POST, request.FILES, instance=highlight)
+            elif form_type == "section_data_form":
+            # Handle adding a new section data entry to an existing section
+                section_data_form = SectionDataForm(request.POST, request.FILES)
+                if section_data_form.is_valid():
+                    new_section_data = section_data_form.save(commit=False)
+                    new_section_data.user = request.user
+                    new_section_data.save()
+                    return redirect('home')
+
+            elif form_type == "other_form":
+            # Handle the other form submission here
+                highlight_id = request.POST.get("highlight_id")  # Get the highlight ID (if editing)
                 
-                if form.is_valid():
-                    form.save()
-                    return redirect('home')  # Redirect to the highlight list after saving
-                
-            else:
-                # Adding a new highlight
-                form = HighlightForm(request.POST, request.FILES)
-                
-                if form.is_valid():
-                    new_highlight = form.save(commit=False)
-                    new_highlight.user = request.user  # Associate the new highlight with the logged-in user
-                    new_highlight.save()
-                    return redirect('home')  # Redirect to the highlight list after saving
+                if highlight_id:
+                    # Editing an existing highlight
+                    highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
+                    form = HighlightForm(request.POST, request.FILES, instance=highlight)
+                    
+                    if form.is_valid():
+                        form.save()
+                        return redirect('home')  # Redirect to the highlight list after saving
+                    
+                else:
+                    # Adding a new highlight
+                    form = HighlightForm(request.POST, request.FILES)
+                    
+                    if form.is_valid():
+                        new_highlight = form.save(commit=False)
+                        new_highlight.user = request.user  # Associate the new highlight with the logged-in user
+                        new_highlight.save()
+                        return redirect('home')  # Redirect to the highlight list after saving
 
         else:
             form = HighlightForm()
+            section_form = SectionForm()
+            section_data_form = SectionDataForm()
 
-    return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates,'highlights': highlights,
-            'form': form,})
+    return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates,'highlights': highlights,'form': form,'sections': sections,
+        'section_form': section_form,
+        'section_data_form': section_data_form,})
 
 
 import json
@@ -247,3 +273,14 @@ def delete_highlight(request, highlight_id):
     highlight.delete()
     return redirect('home')  # Redirect back to the highlight list after deletion
 
+@login_required
+def delete_section(request, section_id):
+    section = get_object_or_404(Section, id=section_id, user=request.user)
+    section.delete()
+    return redirect('home')
+
+@login_required
+def delete_section_data(request, data_id):
+    section_data = get_object_or_404(SectionData, id=data_id, section__user=request.user)  # Check ownership
+    section_data.delete()
+    return redirect('home')
