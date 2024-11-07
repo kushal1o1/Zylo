@@ -5,16 +5,26 @@ from django.dispatch import receiver
 import os
 
 
-BACKGROUND_CHOICES = [
-        ('bg1', 'Background 1'),
-        ('bg2', 'Background 2'),
-        ('bg3', 'Background 3'),
-        ('bg4', 'Background 4'),
-        ('bg5', 'Background 5'),
-        ('bg6', 'Background 6'),
-        ('bg7', 'Background 7'),
-        ('bg8', 'Background 8'),
-    ]
+
+BACKGROUND_CHOICES = {
+    "bg1": "Minimalistic Graph",
+    "bg2": "Big Box Design",
+    "bg3": "Checkerboard Pattern",
+    "bg4": "Dotted Grid",
+    "bg5": "Dotted Background",
+    "bg6": "Large Grid Boxes",
+    "bg7": "Overlay Effect",
+    "bg8": "Test Pattern",
+    "bg9": "Animated Canvas",
+    "bg10": "Animated Circles",
+    "bg11": "Color Circles Animation",
+    "bg12": "Diagonal Stripes Animation",
+    "bg13": "Hexagonal Pattern",
+    "bg14": "Polygonal Shapes",
+    "bg15": "Star Animation",
+    "bg16": "Test Animation",
+    "bg17": "Particles Animation"
+}
 class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100, blank=True, null=True)
@@ -35,7 +45,7 @@ class UserInfo(models.Model):
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
    
     
-    selected_background = models.CharField(max_length=3, choices=BACKGROUND_CHOICES, default='bg1')
+    selected_background = models.CharField(max_length=6, choices=BACKGROUND_CHOICES, default='bg1')
 
     userUrl= models.CharField(max_length=100, blank=True, null=True,unique=True)
     
