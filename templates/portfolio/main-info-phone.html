@@ -74,19 +74,7 @@
     </section>
     
       <!-- Picture and Text Section -->
-      <section class="p-4 w-full max-w-md">
-        <div class="relative ">
-          {% if user_info.highlight_thumbnail_image%}
-          <img src="{{user_info.highlight_thumbnail_image.url}}" alt="Picture" class="w-full h-64 object-cover rounded-lg ">
-          {% endif%}
-          {% if user_info.highlight_title %}
-          
-          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-4 text-center rounded-b-lg">
-            {{ user_info.highlight_title}}
-          </div>
-          {% endif %}
-        </div>
-      </section>
+
       <section class="p-4 w-full max-w-md">
         {% for highlight in highlights %}
         <div class="relative mb-4">

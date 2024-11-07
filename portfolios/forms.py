@@ -9,14 +9,14 @@ class HighlightForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(HighlightForm, self).__init__(*args, **kwargs)
         self.fields['highlight_title'].widget.attrs.update({
-            'class': 'w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
+            'class': 'mb-6 w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
             'placeholder': 'Enter title'
         })
         self.fields['highlight_thumbnail_image'].widget.attrs.update({
-            'class': 'w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
+            'class': 'mb-6 w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
         })
         self.fields['link'].widget.attrs.update({
-            'class': 'w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
+            'class': 'mb-6 w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
             'placeholder': 'Enter link'
         })
 
@@ -30,7 +30,7 @@ class SectionForm(forms.ModelForm):
         fields = ['section_title']
         widgets = {
             'section_title': forms.TextInput(attrs={
-                'class': 'w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'class': 'mb-6 w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500',
                 'placeholder': 'Enter section title'
             })
         }
@@ -41,23 +41,23 @@ class SectionDataForm(forms.ModelForm):
         fields = ['section', 'main_title', 'desc', 'link', 'pic']
         widgets = {
             'section': forms.Select(attrs={
-                'class': 'w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                'class': 'mb-6 w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
             }),
             'main_title': forms.TextInput(attrs={
-                'class': 'w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'class': 'mb-6 w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500',
                 'placeholder': 'Enter main title'
             }),
             'desc': forms.Textarea(attrs={
-                'class': 'w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'class': 'mb-6 w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500',
                 'placeholder': 'Enter description',
                 'rows': 3
             }),
             'link': forms.URLInput(attrs={
-                'class': 'w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'class': 'mb-6 w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500',
                 'placeholder': 'Enter link'
             }),
             'pic': forms.FileInput(attrs={
-                'class': 'w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
+                'class': 'mb-6 w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500'
             })
         }
 

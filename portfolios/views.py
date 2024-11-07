@@ -34,6 +34,26 @@ background_templates = {
         "bg16": "animated/test.html",
         "bg17": "animated/particles.html",
         }
+background_names = {
+    "bg1": "Minimalistic Graph",
+    "bg2": "Big Box Design",
+    "bg3": "Checkerboard Pattern",
+    "bg4": "Dotted Grid",
+    "bg5": "Dotted Background",
+    "bg6": "Large Grid Boxes",
+    "bg7": "Overlay Effect",
+    "bg8": "Test Pattern",
+    "bg9": "Animated Canvas",
+    "bg10": "Animated Circles",
+    "bg11": "Color Circles Animation",
+    "bg12": "Diagonal Stripes Animation",
+    "bg13": "Hexagonal Pattern",
+    "bg14": "Polygonal Shapes",
+    "bg15": "Star Animation",
+    "bg16": "Test Animation",
+    "bg17": "Particles Animation"
+}
+
 
 # Create your views here.
 def index(request,userUrl):
@@ -108,7 +128,8 @@ def home(request):
 
     return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates,'highlights': highlights,'form': form,'sections': sections,
         'section_form': section_form,
-        'section_data_form': section_data_form,})
+        'section_data_form': section_data_form,
+        'background_names': background_names})
 
 
 import json
@@ -131,7 +152,7 @@ def update_user_info(request):
             'name','bio_txt','profession', 
             'instagram_link','facebook_link', 'tiktok_link',
             'youtube_link', 'x_link', 'spotify_link', 'linkedin_link',
-            'highlight_title','selected_background','userUrl'
+            'selected_background','userUrl'
             
         ]
 
@@ -174,11 +195,6 @@ def update_images(request):
         if 'profile_img' in request.FILES:
             print("done")
             user_info.profile_image = request.FILES['profile_img']
-        
-        # Handle highlight thumbnail image upload
-        if 'highlight_thumbnail_image' in request.FILES:
-            print("I m heres")
-            user_info.highlight_thumbnail_image = request.FILES['highlight_thumbnail_image']
         user_info.save()
         return redirect("home")
     

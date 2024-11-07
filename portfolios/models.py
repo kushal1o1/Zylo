@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_delete, pre_save
+from django.dispatch import receiver
+import os
 
 
 BACKGROUND_CHOICES = [
@@ -30,8 +33,7 @@ class UserInfo(models.Model):
 
     # Media uploads
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
-    highlight_thumbnail_image = models.ImageField(upload_to='thumbnail_images/', blank=True, null=True)
-    highlight_title = models.CharField(max_length=100, blank=True, null=True)
+   
     
     selected_background = models.CharField(max_length=3, choices=BACKGROUND_CHOICES, default='bg1')
 
@@ -70,3 +72,32 @@ class SectionData(models.Model):
     
     def __str__(self):
         return self.main_title
+
+
+@receiver(post_delete, sender=Highlight)
+def delete_highlight_image(sender, instance, **kwargs):
+    if instance.highlight_thumbnail_image:
+        if os.path.isfile(instance.highlight_thumbnail_image.path):
+            os.remove(instance.highlight_thumbnail_image.path)
+
+# Define signal to delete file when SectionData instance is deleted
+@receiver(post_delete, sender=SectionData)
+def delete_sectiondata_image(sender, instance, **kwargs):
+    if instance.pic:
+        if os.path.isfile(instance.pic.path):
+            os.remove(instance.pic.path)
+            
+@receiver(pre_save, sender=UserInfo)
+def delete_old_profile_image(sender, instance, **kwargs):
+    if instance.pk:
+        try:
+            # Get the existing User_Info instance from the database
+            old_instance = UserInfo.objects.get(pk=instance.pk)
+            # Check if there's an existing image that differs from the new one
+            if old_instance.profile_image and old_instance.profile_image != instance.profile_image:
+                # Delete the old image file
+                if os.path.isfile(old_instance.profile_image.path):
+                    os.remove(old_instance.profile_image.path)
+        except UserInfo.DoesNotExist:
+            # If the User_Info instance is new, nothing to delete
+            pass

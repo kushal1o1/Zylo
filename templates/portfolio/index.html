@@ -159,9 +159,13 @@
    
     <main class="flex flex-col items-center justify-between p-12 md:flex-row md:space-x-4 space-y-4 md:space-y-0 hide-scrollbar" style="height:95vh">
 
-    <div class="flex-1 m-5 order-2 md:order-1  h-[90vh] ">
-        <div class="div overflow-y-auto p-4 hide-scrollbar" style="height:90vh">
-          <div class="max-w-4xl mx-auto bg-white p-8 shadow-lg rounded-lg mt-10">
+    <!-- <div class="flex-1 m-5 order-2 md:order-1  h-[90vh] ">
+        <div class="div overflow-y-auto p-4 hide-scrollbar" style="height:90vh"> -->
+
+        <div class="flex flex-col md:flex-row max-w-4xl lg:mx-auto md:p-8 order-2 md:order-1 ">
+    <div class="div flex-1 overflow-y-auto  hide-scrollbar bg-white shadow-lg rounded-lg mt-4 h-auto md:h-[90vh]" style="height:90vh">
+        
+          <div class="max-w-4xl mx-auto bg-white p-1 lg:p-4 md:p-3 shadow-lg rounded-lg mt-10">
 
           <form id="profile_form" method="POST" action="/update_images/" enctype="multipart/form-data">
           {% csrf_token %}
@@ -181,7 +185,7 @@
                       <span class="flex items-center justify-center w-10 text-gray-500">
                           <i class="fas fa-user"></i>
                       </span>
-                      <input type="text" id="name" name="name" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.name %}{{ user_info.name }}{% else %}Enter your name{% endif %}" />
+                      <input type="text" id="name" name="name" class="w-full p-4 text-gray-700 focus:outline-none " placeholder="{% if user_info and user_info.name %}{{ user_info.name }}{% else %}Enter your name{% endif %}" />
                   </div>
               </div>
               <!-- profession -->
@@ -196,7 +200,7 @@
               </div>
       
               <!-- Social Links -->
-              <div class="grid grid-cols-2 gap-4 mb-6">
+              <div class="grid grid-cols-1 gap-4 mb-6  lg:grid-cols-2">
                   <div>
                       <label class="block text-gray-700 text-lg font-bold mb-2" for="instagram">Instagram</label>
                       <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
@@ -262,200 +266,34 @@
                   </div>
               </div>
       
-              <!-- Thumbnail Section -->
               <div class="mb-6">
-                <form id="thumbnail_form" method="POST" action="/update_images/" enctype="multipart/form-data">
-                  {% csrf_token %}
-                  <label class="block text-gray-700 text-lg font-bold mb-2" for="thumbnail_img">Thumbnail Image</label>
-                  <input type="file" id="highlight_thumbnail_image" name="highlight_thumbnail_image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-                  <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Submit
-                  </button>
-                  </form>
-                  <textarea id="highlight_title" name="highlight_title" class="w-full mt-4 p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="2" placeholder="{% if user_info and user_info.highlight_title %}{{ user_info.highlight_title }}{% else %}Highlight Title{% endif %}"></textarea>
-              </div>
-      
-              <!-- Section 1 -->
-              <div class="mb-6">
-                  <label class="block text-gray-700 text-lg font-bold mb-2" for="section1_name">Section 1 Name</label>
-                  <input type="text" id="section1_name" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter section name" />
-              </div>
-      
-              <div class="mb-6">
-                  <label class="block text-gray-700 text-lg font-bold mb-2" for="section1_img">Section 1 Image</label>
-                  <input type="file" id="section1_img" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-              </div>
-      
-              <!-- Title -->
-              <div class="mb-6">
-                  <label class="block text-gray-700 text-lg font-bold mb-2" for="title">Title</label>
-                  <input type="text" id="title" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter title" />
-              </div>
-              <!-- background design -->
+                <p class="block text-gray-700 text-lg font-bold mb-2">Background Design</p>
+                
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                    <!-- Background design options -->
+                    {% for bg_id, bg_name in background_names.items %}
+                    <label class="relative cursor-pointer flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-lg p-3 hover:shadow-xl transition duration-200 ease-in-out transform hover:scale-105">
+                        <input type="radio" name="selected_background" value="{{ bg_id }}" class="hidden peer">
+                        
+                        <!-- Placeholder for background image or icon -->
+                        <div class="w-24 h-24 bg-gray-100 rounded-md flex items-center justify-center mb-3">
+                          <img src="{% static 'images/' %}{{ bg_id }}.jpg" alt="{{ bg_name }}" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
 
-              <div class="mb-6">
-                <p class="block text-gray-700 text-lg font-bold mb-2">Normal Background Design</p>
-            
-                <div class="flex space-x-4">
-                    <!-- Background 1 -->
-                    <label class="cursor-pointer">
-                        <input type="radio" name="selected_background" value="bg1" class="hidden">
-                        <div class="relative">
-                            <img src="{% static 'images/bg1.jpg' %}" alt="Background 1" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                            <span class="block text-center mt-2 font-semibold">Curve</span>
+                             <!-- Icon or image can go here -->
                         </div>
-                    </label>
             
-                    <!-- Background 2 -->
-                    <label class="cursor-pointer">
-                        <input type="radio" name="selected_background" value="bg2" class="hidden">
-                        <div class="relative">
-                            <img src="{% static 'images/bg1.jpg' %}" alt="Background 2" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                            <span class="block text-center mt-2 font-semibold">Minimalstic graph</span>
+                        <!-- Radio checkmark overlay using CSS -->
+                        <div class="absolute top-2 right-2 w-4 h-4 rounded-full bg-blue-500 opacity-0 peer-checked:opacity-100">
+                            <!-- The blue dot will appear only when selected -->
                         </div>
-                    </label>
             
-                    <!-- Background 3 -->
-                    <label class="cursor-pointer">
-                        <input type="radio" name="selected_background" value="bg3" class="hidden">
-                        <div class="relative">
-                            <img src="{% static 'images/bg1.jpg' %}" alt="Background 3" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                            <span class="block text-center mt-2 font-semibold">Checkboard</span>
-                        </div>
+                        <!-- Background name -->
+                        <span class="block text-center text-gray-800 font-semibold">{{ bg_name }}</span>
                     </label>
-            
-                    <!-- Background 4 -->
-                    <label class="cursor-pointer">
-                        <input type="radio" name="selected_background" value="bg4" class="hidden">
-                        <div class="relative">
-                            <img src="{% static 'images/bg1.jpg' %}" alt="Background 4" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                            <span class="block text-center mt-2 font-semibold">plain Dotted</span>
-                        </div>
-                    </label>
-
-                                        <!-- Background 5 -->
-                                        <label class="cursor-pointer">
-                                          <input type="radio" name="selected_background" value="bg5" class="hidden">
-                                          <div class="relative">
-                                              <img src="{% static 'images/bg1.jpg' %}" alt="Background 2" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                                              <span class="block text-center mt-2 font-semibold">Big dotted</span>
-                                          </div>
-                                      </label>
-                              
-                                      <!-- Background 6 -->
-                                      <label class="cursor-pointer">
-                                          <input type="radio" name="selected_background" value="bg6" class="hidden">
-                                          <div class="relative">
-                                              <img src="{% static 'images/bg1.jpg' %}" alt="Background 3" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                                              <span class="block text-center mt-2 font-semibold">graphbigboxes</span>
-                                          </div>
-                                      </label>
-                              
-                                      <!-- Background 7 -->
-                                      <label class="cursor-pointer">
-                                          <input type="radio" name="selected_background" value="bg7" class="hidden">
-                                          <div class="relative">
-                                              <img src="{% static 'images/bg1.jpg' %}" alt="Background 4" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                                              <span class="block text-center mt-2 font-semibold">Graphsboxes </span>
-                                          </div>
-                                      </label>
-                                                          <!-- Background 8 -->
-                    <label class="cursor-pointer">
-                      <input type="radio" name="selected_background" value="bg8" class="hidden">
-                      <div class="relative">
-                          <img src="{% static 'images/bg1.jpg' %}" alt="Background 2" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                          <span class="block text-center mt-2 font-semibold">overlays</span>
-                      </div>
-                  </label>
-          
-
+                    {% endfor %}
                 </div>
             </div>
-
-            <div class="mb-6">
-              <p class="block text-gray-700 text-lg font-bold mb-2">Animated Background Design</p>
-          
-              <div class="flex space-x-4">
-                  <!-- Background 1 -->
-                  <label class="cursor-pointer">
-                      <input type="radio" name="selected_background" value="bg9" class="hidden">
-                      <div class="relative">
-                          <img src="{% static 'images/bg1.jpg' %}" alt="Background 1" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                          <span class="block text-center mt-2 font-semibold">black bg dot</span>
-                      </div>
-                  </label>
-          
-                  <!-- Background 2 -->
-                  <label class="cursor-pointer">
-                      <input type="radio" name="selected_background" value="bg10" class="hidden">
-                      <div class="relative">
-                          <img src="{% static 'images/bg1.jpg' %}" alt="Background 2" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                          <span class="block text-center mt-2 font-semibold"> color dot</span>
-                      </div>
-                  </label>
-          
-                  <!-- Background 3 -->
-                  <label class="cursor-pointer">
-                      <input type="radio" name="selected_background" value="bg11" class="hidden">
-                      <div class="relative">
-                          <img src="{% static 'images/bg1.jpg' %}" alt="Background 3" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                          <span class="block text-center mt-2 font-semibold">colorful dots</span>
-                      </div>
-                  </label>
-          
-                  <!-- Background 4 -->
-                  <label class="cursor-pointer">
-                      <input type="radio" name="selected_background" value="bg12" class="hidden">
-                      <div class="relative">
-                          <img src="{% static 'images/bg1.jpg' %}" alt="Background 4" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                          <span class="block text-center mt-2 font-semibold">diamond</span>
-                      </div>
-                  </label>
-
-                                      <!-- Background 5 -->
-                                      <label class="cursor-pointer">
-                                        <input type="radio" name="selected_background" value="bg13" class="hidden">
-                                        <div class="relative">
-                                            <img src="{% static 'images/bg1.jpg' %}" alt="Background 2" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                                            <span class="block text-center mt-2 font-semibold">floating bubble</span>
-                                        </div>
-                                    </label>
-                            
-                                    <!-- Background 6 -->
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="selected_background" value="bg14" class="hidden">
-                                        <div class="relative">
-                                            <img src="{% static 'images/bg1.jpg' %}" alt="Background 3" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                                            <span class="block text-center mt-2 font-semibold">Space</span>
-                                        </div>
-                                    </label>
-                            
-                                    <!-- Background 7 -->
-                                    <label class="cursor-pointer">
-                                        <input type="radio" name="selected_background" value="bg15" class="hidden">
-                                        <div class="relative">
-                                            <img src="{% static 'images/bg1.jpg' %}" alt="Background 4" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                                            <span class="block text-center mt-2 font-semibold">black(not <working></working>) </span>
-                                        </div>
-                                    </label>
-                                                        <!-- Background 8 -->
-                  <label class="cursor-pointer">
-                    <input type="radio" name="selected_background" value="bg16" class="hidden">
-                    <div class="relative">
-                        <img src="{% static 'images/bg1.jpg' %}" alt="Background 2" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                        <span class="block text-center mt-2 font-semibold">neonPulse</span>
-                    </div>
-                </label>
-                <label class="cursor-pointer">
-                  <input type="radio" name="selected_background" value="bg17" class="hidden">
-                  <div class="relative">
-                      <img src="{% static 'images/bg1.jpg' %}" alt="Background 2" class="w-24 h-24 object-cover rounded-lg shadow-md hover:scale-105 transition-transform">
-                      <span class="block text-center mt-2 font-semibold">particles</span>
-                  </div>
-              </label>
-
-              </div>
-          </div>
+            
             <div class="mb-6">
 
                 <label class="block text-gray-700 text-lg font-bold mb-2" for="name">userUrl</label>
@@ -477,8 +315,10 @@
         </div>
     </div>
     
-        <div class="div flex-2 m-6 order-1 md:order-2 w-[300px] h-[85vh] relative p-4">
-          
+        <!-- <div class="div flex-2 m-6 order-1 md:order-2 w-[300px] h-[85vh] relative p-4">
+           -->
+            <div class="w-[300px] sm:w-[350px] md:w-[500px] h-[80vh] p-6 bg-white rounded-lg shadow-md">
+            
             <div
             x-data="smartphone"
             class="m-6 shadow-2xl border-8 mobile-screen border-gray-800 rounded-3xl bg-center bg-no-repeat bg-cover overflow-  flex flex-col justify-start overflow-y-auto m-4  hide-scrollbar"
@@ -577,9 +417,7 @@
         debounceUpdate('linkedin_link', this.value);
     });
 
-    document.getElementById('highlight_title').addEventListener('change', function() {
-      debounceUpdate('highlight_title', this.value);  // Handle file input for thumbnail title
-  });
+   
   document.getElementById('userUrl').addEventListener('change', function() {
     debounceUpdate('userUrl', this.value);  // Handle file input for thumbnail title
 });
