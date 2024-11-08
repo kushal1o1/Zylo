@@ -7,6 +7,7 @@ import os
 
 
 BACKGROUND_CHOICES = {
+    "bg0": "Default Background",
     "bg1": "Minimalistic Graph",
     "bg2": "Big Box Design",
     "bg3": "Checkerboard Pattern",
@@ -45,7 +46,7 @@ class UserInfo(models.Model):
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
    
     
-    selected_background = models.CharField(max_length=6, choices=BACKGROUND_CHOICES, default='bg1')
+    selected_background = models.CharField(max_length=6, choices=BACKGROUND_CHOICES, default='bg0')
 
     userUrl= models.CharField(max_length=100, blank=True, null=True,unique=True)
     

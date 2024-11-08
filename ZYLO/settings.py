@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+      "allauth_ui",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -30,8 +31,10 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-
+    
     'allauth.socialaccount.providers.facebook',  
+    "widget_tweaks",
+    "slippers",
 ]
 
 MIDDLEWARE = [
@@ -105,10 +108,10 @@ ACCOUNT_AUTHENTICATION_METHOD = 'username_email'  # Can be 'username', 'email', 
 ACCOUNT_USERNAME_REQUIRED = True
 
 # Redirect URLs after login/logout
-LOGIN_REDIRECT_URL = '/'  # Where to redirect users after login
+LOGIN_REDIRECT_URL = '/create/'  # Where to redirect users after login
 LOGOUT_REDIRECT_URL = '/'  # Where to redirect users after logout
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 EMAIL_USE_TLS = config("EMAIL_USE_TLS")
@@ -161,3 +164,5 @@ MEDIA_URL = '/media/'
 
 # MEDIA_ROOT is the server filesystem path where media files will be stored
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+ALLAUTH_UI_THEME = "night"

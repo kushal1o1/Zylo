@@ -16,6 +16,7 @@ from .models import Highlight
 from .forms import HighlightForm,SectionForm,SectionDataForm
 
 background_templates = {
+        "bg0": "designs/default.html",
         "bg1": "designs/bg2.html",
         "bg2": "designs/bigbox.html",
         "bg3": "designs/checkboard.html",
@@ -35,6 +36,7 @@ background_templates = {
         "bg17": "animated/particles.html",
         }
 background_names = {
+    "bg0": "Default Design",    
     "bg1": "Minimalistic Graph",
     "bg2": "Big Box Design",
     "bg3": "Checkerboard Pattern",
@@ -68,15 +70,17 @@ def index(request,userUrl):
      else:
         return redirect("/NotFound")
 
-def NotFound(request):
-    return render(request, 'Notfound.html')
 
+@login_required
 def home(request):
     user_info = None
     if request.user.is_authenticated:
+        print("Iam  here")
         highlights = Highlight.objects.filter(user=request.user)
         sections = Section.objects.filter(user=request.user)
         user_info = UserInfo.objects.filter(user=request.user).first()
+        if not user_info:
+            user_info = UserInfo.objects.create(user=request.user)
         user_info.selected_template = background_templates.get(user_info.selected_background)
         if request.method == "POST":
             form_type = request.POST.get("form_type")
@@ -126,15 +130,15 @@ def home(request):
             section_form = SectionForm()
             section_data_form = SectionDataForm()
 
-    return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates,'highlights': highlights,'form': form,'sections': sections,
+        return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates,'highlights': highlights,'form': form,'sections': sections,
         'section_form': section_form,
         'section_data_form': section_data_form,
         'background_names': background_names})
+    else:
+        return redirect("accounts/login")
 
 
-import json
-from django.http import JsonResponse
-from .models import UserInfo
+
 @login_required  
 @csrf_exempt #To do: remove in production
 def update_user_info(request):
@@ -300,3 +304,6 @@ def delete_section_data(request, data_id):
     section_data = get_object_or_404(SectionData, id=data_id, section__user=request.user)  # Check ownership
     section_data.delete()
     return redirect('home')
+
+def NotFound(request):
+    return render(request, 'Notfound.html')

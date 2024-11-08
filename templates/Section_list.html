@@ -10,7 +10,7 @@
                         {% if data.pic %}
                             <img src="{{ data.pic.url }}" alt="Profile Image" class="w-12 h-12 object-cover rounded-full border-2 border-gray-200">
                         {% else %}
-                            <div class="w-12 h-12 rounded-full"></div> <!-- Placeholder if no image -->
+                            <div class="w-12 h-12 bg-transparent"></div> <!-- Placeholder if no image -->
                         {% endif %}
                         
                         <!-- Content Section, Aligned at Start -->
@@ -25,3 +25,4 @@
         </div>
     {% endfor %}
 </div>
+
