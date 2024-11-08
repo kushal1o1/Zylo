@@ -56,6 +56,9 @@ background_names = {
     "bg17": "Particles Animation"
 }
 
+def MainPage(request):
+    return render(request, 'MainPage/index.html')
+
 
 # Create your views here.
 def index(request,userUrl):
