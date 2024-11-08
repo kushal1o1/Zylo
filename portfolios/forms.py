@@ -1,5 +1,5 @@
 from django import forms
-from .models import Highlight,Section, SectionData
+from .models import Highlight,Section, SectionData,UserInfo
 
 class HighlightForm(forms.ModelForm):
     class Meta:
@@ -64,3 +64,12 @@ class SectionDataForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['section'].empty_label = "Select Section"  # Set custom label for empty dropdown option
+        
+# forms.py
+
+
+class BackgroundImageForm(forms.ModelForm):
+    class Meta:
+        model = UserInfo
+        fields = ['background_image']
+

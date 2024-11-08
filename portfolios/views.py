@@ -13,7 +13,8 @@ from django.utils.decorators import method_decorator
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Highlight
-from .forms import HighlightForm,SectionForm,SectionDataForm
+from .forms import HighlightForm,SectionForm,SectionDataForm,BackgroundImageForm
+import os
 
 background_templates = {
         "bg0": "designs/default.html",
@@ -205,6 +206,16 @@ def update_images(request):
         user_info.save()
         return redirect("home")
     
+@login_required
+def update_background_image(request):
+    if request.method == 'POST':
+        user = request.user
+        user_info, created = UserInfo.objects.get_or_create(user=user)
+        if 'background_image' in request.FILES:
+            user_info.background_image = request.FILES['background_image']
+        user_info.save()
+        return redirect("home")
+    
     
 # from django.shortcuts import render, redirect, get_object_or_404
 # from django.http import JsonResponse
@@ -310,3 +321,22 @@ def delete_section_data(request, data_id):
 
 def NotFound(request):
     return render(request, 'Notfound.html')
+
+
+
+
+@login_required
+def delete_background_image(request):
+    try:
+        user_info = UserInfo.objects.get(user=request.user)
+        if user_info.background_image:
+            # Delete the background image file
+            old_image_path = user_info.background_image.path
+            if os.path.exists(old_image_path):
+                os.remove(old_image_path)
+            user_info.background_image = None
+            user_info.save()
+    except UserInfo.DoesNotExist:
+        pass
+
+    return redirect('home')  

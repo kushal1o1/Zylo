@@ -11,9 +11,12 @@
   </head>
   <body>
   <div class=" ">
-    {% if user_info.selected_template %}
-        {% include user_info.selected_template %}
-    {% endif %}
+
+    {% if user_info.background_image %}
+    {% include 'designs/ownimage.html' %}
+{% elif user_info.selected_template %}
+    {% include user_info.selected_template %}
+{% endif %}
 </div>
   </body>
 </html>

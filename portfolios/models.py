@@ -44,9 +44,10 @@ class UserInfo(models.Model):
 
     # Media uploads
     profile_image = models.ImageField(upload_to='profile_images/', blank=True, null=True)
-   
+    background_image = models.ImageField(upload_to='backgrounds/', null=True, blank=True)
     
     selected_background = models.CharField(max_length=6, choices=BACKGROUND_CHOICES, default='bg0')
+    
 
     userUrl= models.CharField(max_length=100, blank=True, null=True,unique=True)
     
@@ -109,6 +110,20 @@ def delete_old_profile_image(sender, instance, **kwargs):
                 # Delete the old image file
                 if os.path.isfile(old_instance.profile_image.path):
                     os.remove(old_instance.profile_image.path)
+        except UserInfo.DoesNotExist:
+            # If the User_Info instance is new, nothing to delete
+            pass
+@receiver(pre_save, sender=UserInfo)
+def delete_old_background_image(sender, instance, **kwargs):
+    if instance.pk:
+        try:
+            # Get the existing User_Info instance from the database
+            old_instance = UserInfo.objects.get(pk=instance.pk)
+            # Check if there's an existing image that differs from the new one
+            if old_instance.background_image and old_instance.background_image != instance.background_image:
+                # Delete the old image file
+                if os.path.isfile(old_instance.background_image.path):
+                    os.remove(old_instance.background_image.path)
         except UserInfo.DoesNotExist:
             # If the User_Info instance is new, nothing to delete
             pass
