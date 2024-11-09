@@ -1,669 +1,270 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zylo - The All-in-One Platform for Your Online Presence</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-  <style>
-    
-    .hero-bg {
-        position: relative;
-        background-color: #f3f4f6; /* Light base color */
-        background-image: 
-            linear-gradient(90deg, rgba(67, 56, 202, 0.1) 1px, transparent 1px),
-            linear-gradient(180deg, rgba(109, 40, 217, 0.1) 1px, transparent 1px);
-        background-size: 40px 40px; /* Size of each box */
-        min-height: 70vh; /* Full viewport height */
-    }
 
-    .fade-in {
-      animation: fade-in 0.5s ease-in-out;
-    }
-
-    .slide-up {
-      animation: slide-up 0.5s ease-in-out;
-    }
-
-    @keyframes fade-in {
-      0% {
-        opacity: 0;
-      }
-      100% {
-        opacity: 1;
-      }
-    }
-
-    @keyframes slide-up {
-      0% {
-        transform: translateY(50px);
-        opacity: 0;
-      }
-      100% {
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-    
-    /* Main wrapper */
-.loader-wrapper {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999;
-}
-
-/* Logo container */
-.logo-container {
-  text-align: center;
-  position: relative;
-  padding: 20px;
-}
-
-/* Logo styling and animation */
-.animated-logo {
-  width: 120px;
-  height: auto;
-  animation: logoAnimation 2s ease-in-out infinite;
-  filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
-}
-
-/* Loading text */
-.loading-text {
-  margin-top: 20px;
-  font-family: Arial, sans-serif;
-  color: #333;
-  font-size: 16px;
-  letter-spacing: 2px;
-  animation: fadeInOut 1.5s ease-in-out infinite;
-}
-
-/* Loading bar */
-.loading-bar {
-  width: 200px;
-  height: 3px;
-  background: #f0f0f0;
-  margin: 15px auto;
-  position: relative;
-  border-radius: 2px;
-  overflow: hidden;
-}
-
-.loading-bar::after {
-  content: '';
-  position: absolute;
-  left: -50%;
-  height: 100%;
-  width: 50%;
-  background: linear-gradient(90deg, #f0f0f0, #3498db, #f0f0f0);
-  animation: loadingBarAnimation 1.5s ease-in-out infinite;
-}
-
-/* Animations */
-@keyframes logoAnimation {
-  0% {
-      transform: translateY(0) scale(1);
-  }
-  50% {
-      transform: translateY(-10px) scale(1.05);
-  }
-  100% {
-      transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes fadeInOut {
-  0%, 100% {
-      opacity: 0.3;
-  }
-  50% {
-      opacity: 1;
-  }
-}
-
-@keyframes loadingBarAnimation {
-  0% {
-      left: -50%;
-  }
-  100% {
-      left: 100%;
-  }
-}
-
-/* Optional: Hide loader after content loads */
-.loader-wrapper.hidden {
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.5s ease-out;
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .animated-logo {
-      width: 90px;
-  }
-  
-  .loading-bar {
-      width: 150px;
-  }
-  
-  .loading-text {
-      font-size: 14px;
-  }
-}
-  </style>
-  <script>
-    // Loader Class Implementation
-class PageLoader {
-  constructor() {
-      this.initialLoad = true;
-      this.init();
-  }
-
-  init() {
-      // Create and inject the loader HTML
-      this.createLoader();
-      
-      // Initialize loader states
-      this.initializeLoader();
-      
-      // Bind events
-      this.bindEvents();
-  }
-
-  createLoader() {
-      const loaderHTML = `
-          <div class="loader-wrapper" id="pageLoader">
-              <div class="logo-container">
-                {% load static %}
-                    <img src="{% static 'images/logo2.png' %}" alt="Logo" class="animated-logo" id="loaderLogo">
-                  <div class="loading-text">Loading</div>
-                  <div class="loading-bar"></div>
-              </div>
-          </div>
-      `;
-      
-      document.body.insertAdjacentHTML('afterbegin', loaderHTML);
-      
-      // Store loader elements
-      this.loader = document.getElementById('pageLoader');
-      this.logo = document.getElementById('loaderLogo');
-  }
-
-  initializeLoader() {
-      // Prevent scroll while loading
-      document.body.style.overflow = 'hidden';
-      
-      // Show loader
-      this.loader.style.display = 'flex';
-      
-      // Initialize progress
-      this.progress = 0;
-      this.loadingComplete = false;
-  }
-
-  bindEvents() {
-      // Handle page load
-      window.addEventListener('load', () => this.handlePageLoad());
-      
-      // Handle logo load
-      this.logo.addEventListener('load', () => this.handleLogoLoad());
-      
-      // Handle errors
-      this.logo.addEventListener('error', () => this.handleLogoError());
-      
-      // Optional: Handle navigation (for SPA)
-      window.addEventListener('popstate', () => this.showLoader());
-  }
-
-  showLoader() {
-      if (!this.initialLoad) {
-          this.loader.classList.remove('hidden');
-          document.body.style.overflow = 'hidden';
-          this.animateProgress();
-      }
-  }
-
-  hideLoader() {
-      // Add exit animation class
-      this.loader.classList.add('hidden');
-      
-      // Enable scrolling
-      document.body.style.overflow = '';
-      
-      // Remove loader after animation
-      setTimeout(() => {
-          this.loader.style.display = 'none';
-      }, 500); // Match this with CSS transition duration
-  }
-
-  animateProgress() {
-      // Simulate loading progress
-      const interval = setInterval(() => {
-          this.progress += Math.random() * 30;
-          
-          if (this.progress >= 100 && this.loadingComplete) {
-              clearInterval(interval);
-              this.hideLoader();
-          }
-      }, 500);
-  }
-
-  handlePageLoad() {
-    // Flag loading as complete
-    this.loadingComplete = true;
-
-    // Check if progress is at 100 to hide loader
-    if (this.progress >= 100) {
-        this.hideLoader();
-    } else {
-        // Force loader to hide if progress isn't at 100 yet but loading is complete
-        this.progress = 100; // Set progress to 100 immediately when page is fully loaded
-        this.hideLoader();
-    }
-
-    // Mark as not the initial load anymore for future navigations
-    this.initialLoad = false;
-}
-
-  handleLogoLoad() {
-      // Add loaded class for animation
-      this.logo.classList.add('loaded');
-  }
-
-  handleLogoError() {
-      // Replace with fallback logo or hide
-      this.logo.src = 'fallback-logo.png';
-      console.warn('Error loading logo image');
-  }
-
-  // Public method to manually show loader
-  static show() {
-      const loader = document.getElementById('pageLoader');
-      if (loader) {
-          loader.classList.remove('hidden');
-          document.body.style.overflow = 'hidden';
-      }
-  }
-
-  // Public method to manually hide loader
-  static hide() {
-      const loader = document.getElementById('pageLoader');
-      if (loader) {
-          loader.classList.add('hidden');
-          document.body.style.overflow = '';
-      }
-  }
-}
-
-// Optional: Progress bar animation
-class LoadingBarAnimation {
-  constructor(barElement) {
-      this.bar = barElement;
-      this.progress = 0;
-      this.animate();
-  }
-
-  animate() {
-      const increment = () => {
-          if (this.progress < 100) {
-              this.progress += 1;
-              this.bar.style.width = `${this.progress}%`;
-              requestAnimationFrame(increment);
-          }
-      };
-      requestAnimationFrame(increment);
-  }
-}
-
-// Usage and Initialization
-document.addEventListener('DOMContentLoaded', () => {
-  // Initialize loader
-  const pageLoader = new PageLoader();
-
-  // Example: Show loader on page navigation (for SPA)
-  document.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', (e) => {
-          if (link.getAttribute('target') !== '_blank') {
-              e.preventDefault();
-              PageLoader.show();
-              
-              // Simulate page load
-              setTimeout(() => {
-                  window.location.href = link.href;
-              }, 500);
-          }
-      });
-  });
-});
-
-// Example usage in your application:
-// Show loader manually
-function showLoaderManually() {
-  PageLoader.show();
-}
-
-// Hide loader manually
-function hideLoaderManually() {
-  PageLoader.hide();
-}
-
-// For AJAX requests
-function handleAjaxRequest() {
-  PageLoader.show();
-  
-  fetch('your-api-endpoint')
-      .then(response => response.json())
-      .then(data => {
-          // Handle data
-          PageLoader.hide();
-      })
-      .catch(error => {
-          console.error('Error:', error);
-          PageLoader.hide();
-      });
-}
-
-// For form submissions
-function handleFormSubmit(form) {
-  form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      PageLoader.show();
-      
-      // Simulate form processing
-      setTimeout(() => {
-          PageLoader.hide();
-          form.submit();
-      }, 1000);
-  });
-}
-  </script>
-</head>
-<body>
-
-
-  <header class="bg-white bg-opacity-90 shadow-lg backdrop-blur-lg sticky top-0 z-10 py-4">
-    <div class="container mx-auto px-4 md:px-0 flex justify-between items-center relative">
-      <!-- Logo with Z and YLO -->
-      <a href="/" class="flex items-center relative">
-        <!-- Z Logo Image -->
-
+{% extends 'MainPage/base.html' %}
 {% load static %}
 
-        <img src="{% static 'images/logo2.png' %}" alt="Z Logo" class="h-8 md:h-10 object-contain relative z-10">
-            </a>
-        
-            <!-- Navigation Links -->
-      <nav>
-        <ul class="flex space-x-6">
-          <li><a href="#features" class="text-gray-600 hover:text-indigo-600 hover:font-semibold transition duration-300">Features</a></li>
-          <li><a href="#testimonials" class="text-gray-600 hover:text-indigo-600 hover:font-semibold transition duration-300">Testimonials</a></li>
-          <li><a href="#pricing" class="text-gray-600 hover:text-indigo-600 hover:font-semibold transition duration-300">Pricing</a></li>
-          <!-- Sign In Link -->
-          <li><a href="/accounts/login/" class="text-indigo-600 font-medium hover:underline transition duration-300">Sign In</a></li>
-          <!-- Sign Up Button -->
-          <li><a href="/accounts/signup/" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700 transition duration-300">Sign Up</a></li>
+
+{% block title %}Home Page{% endblock %}
+
+{% block content %}
+
+
+  
+
+<div class="hero-bg text-dark py-20">
+  <div class="container mx-auto px-4 md:px-0">
+    <div class="md:flex items-center">
+      <div class="md:w-1/2 fade-in">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">Elevate Your Online Presence with Zylo</h1>
+        <p class="text-lg mb-8">Zylo is the all-in-one platform for tech and non-tech professionals to build their portfolio, showcase their skills, and connect with the world.</p>
+        <div class="flex space-x-4">
+          <a href="/accounts/signup/" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 fade-in">Sign Up</a>
+          <a href="/accounts/login/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 fade-in">Sign In</a>
+        </div>
+      </div>
+      <div class="md:w-1/2 mt-8 md:mt-0 md:pl-8 slide-up">
+        <img src="{% static 'images/logo2.png' %}" alt="Zylo landing page" class="rounded-lg ">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="py-20 bg-gray-50" id="features">
+  <div class="container mx-auto px-4 md:px-0">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-900 mb-16 fade-in">Why Choose Zylo?</h2>
+    
+    <!-- Grid Layout with professional cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+
+      <!-- Feature 1 -->
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-8">
+        <div class="flex justify-center mb-6">
+          <svg class="h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">All-in-One Solution</h3>
+        <p class="text-gray-600 text-center">Zylo provides everything you need to build and manage your online presence in one place. Simplify your workflow and boost productivity with our platform.</p>
+      </div>
+
+      <!-- Feature 2 -->
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-8">
+        <div class="flex justify-center mb-6">
+          <svg class="h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">Trusted by Professionals</h3>
+        <p class="text-gray-600 text-center">Thousands of professionals, both tech and non-tech, rely on Zylo to showcase their skills and grow their online presence. Join a community of innovators.</p>
+      </div>
+
+      <!-- Feature 3 -->
+      <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-8">
+        <div class="flex justify-center mb-6">
+          <svg class="h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+          </svg>
+        </div>
+        <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">Secure and Private</h3>
+        <p class="text-gray-600 text-center">Zylo ensures the safety of your data with robust security measures and a privacy-first approach, giving you peace of mind.</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="py-20 bg-gray-50" id="testimonials">
+  <div class="container mx-auto px-4 md:px-0">
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">What Our Users Say</h2>
+    
+    <!-- Testimonial Cards with a Simple, Clean Design -->
+    <div class="md:grid md:grid-cols-3 gap-8">
+
+      <!-- Testimonial 1 -->
+      <div class="bg-white shadow-lg rounded-lg p-6 transform transition-all hover:scale-102 hover:shadow-xl">
+        <div class="flex items-center mb-4">
+          <img src="{% static 'images/profile.jpeg' %}" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-gray-200 mr-4" />
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900">John Doe</h4>
+            <p class="text-sm text-gray-600">Web Developer</p>
+          </div>
+        </div>
+        <p class="text-gray-700 italic">"Zylo has been a game-changer for my online presence. It's easy to use and helps me stand out from the crowd."</p>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="bg-white shadow-lg rounded-lg p-6 transform transition-all hover:scale-102 hover:shadow-xl">
+        <div class="flex items-center mb-4">
+          <img src="{% static 'images/profile.jpeg' %}" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-gray-200 mr-4" />
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900">Jane Smith</h4>
+            <p class="text-sm text-gray-600">Graphic Designer</p>
+          </div>
+        </div>
+        <p class="text-gray-700 italic">"I've been using Zylo for over a year now, and it's been an essential tool in growing my freelance business."</p>
+      </div>
+
+      <!-- Testimonial 3 -->
+      <div class="bg-white shadow-lg rounded-lg p-6 transform transition-all hover:scale-102 hover:shadow-xl">
+        <div class="flex items-center mb-4">
+          <img src="{% static 'images/profile.jpeg' %}" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-gray-200 mr-4" />
+          <div>
+            <h4 class="text-lg font-semibold text-gray-900">Michael Johnson</h4>
+            <p class="text-sm text-gray-600">UI/UX Designer</p>
+          </div>
+        </div>
+        <p class="text-gray-700 italic">"Zylo makes it easy to showcase my work and connect with potential clients. Highly recommended!"</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="py-20 bg-gray-100" id="pricing">
+  <div class="container mx-auto px-4 md:px-0">
+    <h2 class="text-3xl font-bold mb-8 fade-in">Pricing</h2>
+    <div class="md:flex justify-center -mx-4">
+      <!-- Basic Plan -->
+      <div class="md:w-1/3 px-4 mb-8 md:mb-0 slide-up">
+        <div class="bg-white shadow-lg rounded-lg p-6 h-full flex flex-col">
+          <h3 class="text-xl font-bold mb-4">Basic</h3>
+          <p class="text-4xl font-bold mb-2">
+            <span class="line-through">$9/mo </span>
+            <small class="text-3xl text-blue-800">Free</small>
+          </p>
+          <p class="text-gray-600 mb-6">Perfect for personal portfolios</p>
+          <ul class="text-gray-600 mb-6">
+            <li class="flex items-center mb-2">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Custom domain
+            </li>
+            <li class="flex items-center mb-2">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Portfolio pages
+            </li>
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Social media integration
+            </li>
+          </ul>
+          <a href="/accounts/signup/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 block text-center mt-auto">Get Started</a>
+        </div>
+      </div>
+
+      <!-- Pro Plan -->
+      <div class="md:w-1/3 px-4 mb-8 md:mb-0 slide-up delay-100">
+        <div class="bg-white shadow-lg rounded-lg p-6 h-full flex flex-col">
+          <h3 class="text-xl font-bold mb-4">Pro</h3>
+          <p class="text-4xl font-bold mb-2">$19/mo</p>
+          <p class="text-gray-600 mb-6">Ideal for small businesses and freelancers</p>
+          <ul class="text-gray-600 mb-6">
+            <li class="flex items-center mb-2">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Custom domain
+            </li>
+            <li class="flex items-center mb-2">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Portfolio pages
+            </li>
+            <li class="flex items-center mb-2">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Social media integration
+            </li>
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Analytics and insights
+            </li>
+          </ul>
+          <a href="/accounts/signup/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 block text-center mt-auto">Get Started</a>
+        </div>
+      </div>
+
+      <!-- Enterprise Plan -->
+      <div class="md:w-1/3 px-4 slide-up delay-200">
+        <div class="bg-white shadow-lg rounded-lg p-6 h-full flex flex-col">
+          <h3 class="text-xl font-bold mb-4">Enterprise</h3>
+          <p class="text-4xl font-bold mb-2">Custom</p>
+          <p class="text-gray-600 mb-6">Tailored solutions for growing businesses</p>
+          <ul class="text-gray-600 mb-6">
+            <li class="flex items-center mb-2">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Custom domain
+            </li>
+            <li class="flex items-center mb-2">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Enterprise-grade portfolio pages
+            </li>
+            <li class="flex items-center mb-2">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Advanced social media integration
+            </li>
+            <li class="flex items-center">
+              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              Dedicated account manager
+            </li>
+          </ul>
+          <a href="/contact" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 block text-center mt-auto">Contact Sales</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="bg-gray-900 text-white py-8">
+  <div class="container mx-auto px-4 md:px-0">
+    <!-- Footer Container -->
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-6 md:space-y-0">
+      
+      <!-- Logo and Description -->
+      <div class="fade-in">
+        <a href="/" class="text-indigo-400 font-bold text-2xl">Zylo</a>
+        <p class="text-gray-400 mt-2">The all-in-one platform for your online presence.</p>
+      </div>
+
+      <!-- Navigation Links -->
+      <nav class="w-full md:w-auto fade-in">
+        <ul class="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0 text-center">
+          <li><a href="#features" class="hover:text-indigo-400">Features</a></li>
+          <li><a href="#testimonials" class="hover:text-indigo-400">Testimonials</a></li>
+          <li><a href="#pricing" class="hover:text-indigo-400">Pricing</a></li>
+          <li><a href="/accounts/login/" class="hover:text-indigo-400">Sign In</a></li>
+          <li><a href="/accounts/signup/" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700">Sign Up</a></li>
         </ul>
       </nav>
     </div>
-  </header>
-  
 
-  <div class="hero-bg text-dark py-20">
-    <div class="container mx-auto px-4 md:px-0">
-      <div class="md:flex items-center">
-        <div class="md:w-1/2 fade-in">
-          <h1 class="text-4xl md:text-5xl font-bold mb-4">Elevate Your Online Presence with Zylo</h1>
-          <p class="text-lg mb-8">Zylo is the all-in-one platform for tech and non-tech professionals to build their portfolio, showcase their skills, and connect with the world.</p>
-          <div class="flex space-x-4">
-            <a href="/accounts/signup/" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 fade-in">Sign Up</a>
-            <a href="/accounts/login/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 fade-in">Sign In</a>
-          </div>
-        </div>
-        <div class="md:w-1/2 mt-8 md:mt-0 md:pl-8 slide-up">
-          <img src="{% static 'images/logo2.png' %}" alt="Zylo landing page" class="rounded-lg ">
-        </div>
-      </div>
+    <!-- Copyright Text -->
+    <div class="mt-8 border-t border-gray-700 pt-4 text-gray-400 text-center md:text-left text-sm fade-in">
+      &copy; 2023 Zylo. All rights reserved.
     </div>
   </div>
-  
+</footer>
 
 
-  <div class="py-20 bg-gray-50" id="features">
-    <div class="container mx-auto px-4 md:px-0">
-      <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-900 mb-16 fade-in">Why Choose Zylo?</h2>
-      
-      <!-- Grid Layout with professional cards -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-  
-        <!-- Feature 1 -->
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-8">
-          <div class="flex justify-center mb-6">
-            <svg class="h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">All-in-One Solution</h3>
-          <p class="text-gray-600 text-center">Zylo provides everything you need to build and manage your online presence in one place. Simplify your workflow and boost productivity with our platform.</p>
-        </div>
-  
-        <!-- Feature 2 -->
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-8">
-          <div class="flex justify-center mb-6">
-            <svg class="h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">Trusted by Professionals</h3>
-          <p class="text-gray-600 text-center">Thousands of professionals, both tech and non-tech, rely on Zylo to showcase their skills and grow their online presence. Join a community of innovators.</p>
-        </div>
-  
-        <!-- Feature 3 -->
-        <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-8">
-          <div class="flex justify-center mb-6">
-            <svg class="h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-            </svg>
-          </div>
-          <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">Secure and Private</h3>
-          <p class="text-gray-600 text-center">Zylo ensures the safety of your data with robust security measures and a privacy-first approach, giving you peace of mind.</p>
-        </div>
-  
-      </div>
-    </div>
-  </div>
-  
-
-
-  <div class="py-20 bg-gray-50" id="testimonials">
-    <div class="container mx-auto px-4 md:px-0">
-      <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">What Our Users Say</h2>
-      
-      <!-- Testimonial Cards with a Simple, Clean Design -->
-      <div class="md:grid md:grid-cols-3 gap-8">
-  
-        <!-- Testimonial 1 -->
-        <div class="bg-white shadow-lg rounded-lg p-6 transform transition-all hover:scale-102 hover:shadow-xl">
-          <div class="flex items-center mb-4">
-            <img src="{% static 'images/profile.jpeg' %}" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-gray-200 mr-4" />
-            <div>
-              <h4 class="text-lg font-semibold text-gray-900">John Doe</h4>
-              <p class="text-sm text-gray-600">Web Developer</p>
-            </div>
-          </div>
-          <p class="text-gray-700 italic">"Zylo has been a game-changer for my online presence. It's easy to use and helps me stand out from the crowd."</p>
-        </div>
-  
-        <!-- Testimonial 2 -->
-        <div class="bg-white shadow-lg rounded-lg p-6 transform transition-all hover:scale-102 hover:shadow-xl">
-          <div class="flex items-center mb-4">
-            <img src="{% static 'images/profile.jpeg' %}" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-gray-200 mr-4" />
-            <div>
-              <h4 class="text-lg font-semibold text-gray-900">Jane Smith</h4>
-              <p class="text-sm text-gray-600">Graphic Designer</p>
-            </div>
-          </div>
-          <p class="text-gray-700 italic">"I've been using Zylo for over a year now, and it's been an essential tool in growing my freelance business."</p>
-        </div>
-  
-        <!-- Testimonial 3 -->
-        <div class="bg-white shadow-lg rounded-lg p-6 transform transition-all hover:scale-102 hover:shadow-xl">
-          <div class="flex items-center mb-4">
-            <img src="{% static 'images/profile.jpeg' %}" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-gray-200 mr-4" />
-            <div>
-              <h4 class="text-lg font-semibold text-gray-900">Michael Johnson</h4>
-              <p class="text-sm text-gray-600">UI/UX Designer</p>
-            </div>
-          </div>
-          <p class="text-gray-700 italic">"Zylo makes it easy to showcase my work and connect with potential clients. Highly recommended!"</p>
-        </div>
-  
-      </div>
-    </div>
-  </div>
-  
- 
-
-  <div class="py-20 bg-gray-100" id="pricing">
-    <div class="container mx-auto px-4 md:px-0">
-      <h2 class="text-3xl font-bold mb-8 fade-in">Pricing</h2>
-      <div class="md:flex justify-center -mx-4">
-        <!-- Basic Plan -->
-        <div class="md:w-1/3 px-4 mb-8 md:mb-0 slide-up">
-          <div class="bg-white shadow-lg rounded-lg p-6 h-full flex flex-col">
-            <h3 class="text-xl font-bold mb-4">Basic</h3>
-            <p class="text-4xl font-bold mb-2">
-              <span class="line-through">$9/mo </span>
-              <small class="text-3xl text-blue-800">Free</small>
-            </p>
-            <p class="text-gray-600 mb-6">Perfect for personal portfolios</p>
-            <ul class="text-gray-600 mb-6">
-              <li class="flex items-center mb-2">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Custom domain
-              </li>
-              <li class="flex items-center mb-2">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Portfolio pages
-              </li>
-              <li class="flex items-center">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Social media integration
-              </li>
-            </ul>
-            <a href="/accounts/signup/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 block text-center mt-auto">Get Started</a>
-          </div>
-        </div>
-  
-        <!-- Pro Plan -->
-        <div class="md:w-1/3 px-4 mb-8 md:mb-0 slide-up delay-100">
-          <div class="bg-white shadow-lg rounded-lg p-6 h-full flex flex-col">
-            <h3 class="text-xl font-bold mb-4">Pro</h3>
-            <p class="text-4xl font-bold mb-2">$19/mo</p>
-            <p class="text-gray-600 mb-6">Ideal for small businesses and freelancers</p>
-            <ul class="text-gray-600 mb-6">
-              <li class="flex items-center mb-2">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Custom domain
-              </li>
-              <li class="flex items-center mb-2">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Portfolio pages
-              </li>
-              <li class="flex items-center mb-2">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Social media integration
-              </li>
-              <li class="flex items-center">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Analytics and insights
-              </li>
-            </ul>
-            <a href="/accounts/signup/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 block text-center mt-auto">Get Started</a>
-          </div>
-        </div>
-  
-        <!-- Enterprise Plan -->
-        <div class="md:w-1/3 px-4 slide-up delay-200">
-          <div class="bg-white shadow-lg rounded-lg p-6 h-full flex flex-col">
-            <h3 class="text-xl font-bold mb-4">Enterprise</h3>
-            <p class="text-4xl font-bold mb-2">Custom</p>
-            <p class="text-gray-600 mb-6">Tailored solutions for growing businesses</p>
-            <ul class="text-gray-600 mb-6">
-              <li class="flex items-center mb-2">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Custom domain
-              </li>
-              <li class="flex items-center mb-2">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Enterprise-grade portfolio pages
-              </li>
-              <li class="flex items-center mb-2">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Advanced social media integration
-              </li>
-              <li class="flex items-center">
-                <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-                </svg>
-                Dedicated account manager
-              </li>
-            </ul>
-            <a href="/contact" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 block text-center mt-auto">Contact Sales</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-
-  <footer class="bg-gray-900 text-white py-8">
-    <div class="container mx-auto px-4 md:px-0">
-      <div class="md:flex justify-between items-center">
-        <div class="mb-4 md:mb-0">
-          <a href="/" class="text-indigo-400 font-bold text-2xl fade-in">Zylo</a>
-          <p class="text-gray-400 mt-2 fade-in">The all-in-one platform for your online presence.</p>
-        </div>
-        <nav class="fade-in">
-          <ul class="flex space-x-6">
-            <li><a href="#features" class="hover:text-indigo-400">Features</a></li>
-            <li><a href="#testimonials" class="hover:text-indigo-400">Testimonials</a></li>
-            <li><a href="#pricing" class="hover:text-indigo-400">Pricing</a></li>
-            <li><a href="/accounts/login/" class="hover:text-indigo-400">Sign In</a></li>
-            <li><a href="/accounts/signup/" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700">Sign Up</a></li>
-          </ul>
-        </nav>
-      </div>
-      <div class="mt-8 border-t border-gray-700 pt-4 text-gray-400 text-sm fade-in">
-        &copy; 2023 Zylo. All rights reserved.
-      </div>
-    </div>
-  </footer>
-</body>
-</html>
+{% endblock %}
