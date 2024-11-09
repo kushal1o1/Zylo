@@ -12,7 +12,7 @@ db.sqlite3
 media/
 
 # Django migrations
-*/migrations/*
+
 
 # Tailwind CSS
 node_modules/
@@ -23,4 +23,3 @@ tailwind.config.js
 
 package-lock.json
 package.json
-static/
