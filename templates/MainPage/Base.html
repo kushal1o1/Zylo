@@ -559,7 +559,7 @@ function handleFormSubmit(form) {
           <!-- Links for authenticated users -->
           <li><a href="/create/" class="text-gray-600 hover:text-indigo-600">Create</a></li>
           <li>
-            <form method="post" action="accounts/logout">
+            <form method="post" action="accounts/logout/">
               {% csrf_token %}
               <button type="submit" class="text-red-600 hover:underline">Logout</button>
             </form>
@@ -583,7 +583,7 @@ function handleFormSubmit(form) {
         {% if user.is_authenticated %}
         <li><a href="/create/" class="block text-gray-600 hover:text-indigo-600">Create</a></li>
         <li>
-          <form method="post" action="/accounts/logout">
+          <form method="post" action="/accounts/logout/">
             {% csrf_token %}
             <button type="submit" class="text-red-600 hover:underline">Logout</button>
           </form>
