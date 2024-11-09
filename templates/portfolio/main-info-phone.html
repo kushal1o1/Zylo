@@ -1,95 +1,409 @@
+
+<style>
+   section{
+    font-variant: small-caps;
+   }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-fadeIn {
+    animation: fadeIn 1s ease-out forwards;
+}
+
+
+    /* Main wrapper */
+    .loader-wrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #ffffff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+      }
+      
+      /* Logo container */
+      .logo-container {
+        text-align: center;
+        position: relative;
+        padding: 20px;
+      }
+      
+      /* Logo styling and animation */
+      .animated-logo {
+        width: 120px;
+        height: auto;
+        animation: logoAnimation 2s ease-in-out infinite;
+        filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+      }
+      
+      /* Loading text */
+      .loading-text {
+        margin-top: 20px;
+        font-family: Arial, sans-serif;
+        color: #333;
+        font-size: 16px;
+        letter-spacing: 2px;
+        animation: fadeInOut 1.5s ease-in-out infinite;
+      }
+      
+      /* Loading bar */
+      .loading-bar {
+        width: 200px;
+        height: 3px;
+        background: #f0f0f0;
+        margin: 15px auto;
+        position: relative;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      
+      .loading-bar::after {
+        content: '';
+        position: absolute;
+        left: -50%;
+        height: 100%;
+        width: 50%;
+        background: linear-gradient(90deg, #f0f0f0, #3498db, #f0f0f0);
+        animation: loadingBarAnimation 1.5s ease-in-out infinite;
+      }
+      
+      /* Animations */
+      @keyframes logoAnimation {
+        0% {
+            transform: translateY(0) scale(1);
+        }
+        50% {
+            transform: translateY(-10px) scale(1.05);
+        }
+        100% {
+            transform: translateY(0) scale(1);
+        }
+      }
+      
+      @keyframes fadeInOut {
+        0%, 100% {
+            opacity: 0.3;
+        }
+        50% {
+            opacity: 1;
+        }
+      }
+      
+      @keyframes loadingBarAnimation {
+        0% {
+            left: -50%;
+        }
+        100% {
+            left: 100%;
+        }
+      }
+      
+      /* Optional: Hide loader after content loads */
+      .loader-wrapper.hidden {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.5s ease-out;
+      }
+      
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .animated-logo {
+            width: 90px;
+        }
+        
+        .loading-bar {
+            width: 150px;
+        }
+        
+        .loading-text {
+            font-size: 14px;
+        }
+      }
+        </style>
+        <script>
+          // Loader Class Implementation
+      class PageLoader {
+        constructor() {
+            this.initialLoad = true;
+            this.init();
+        }
+      
+        init() {
+            // Create and inject the loader HTML
+            this.createLoader();
+            
+            // Initialize loader states
+            this.initializeLoader();
+            
+            // Bind events
+            this.bindEvents();
+        }
+      
+        createLoader() {
+            const loaderHTML = `
+                <div class="loader-wrapper" id="pageLoader">
+                    <div class="logo-container">
+                      {% load static %}
+                          <img src="{% static 'images/logo2.png' %}" alt="Logo" class="animated-logo" id="loaderLogo">
+                        <div class="loading-text">Loading</div>
+                        <div class="loading-bar"></div>
+                    </div>
+                </div>
+            `;
+            
+            document.body.insertAdjacentHTML('afterbegin', loaderHTML);
+            
+            // Store loader elements
+            this.loader = document.getElementById('pageLoader');
+            this.logo = document.getElementById('loaderLogo');
+        }
+      
+        initializeLoader() {
+            // Prevent scroll while loading
+            document.body.style.overflow = 'hidden';
+            
+            // Show loader
+            this.loader.style.display = 'flex';
+            
+            // Initialize progress
+            this.progress = 0;
+            this.loadingComplete = false;
+        }
+      
+        bindEvents() {
+            // Handle page load
+            window.addEventListener('load', () => this.handlePageLoad());
+            
+            // Handle logo load
+            this.logo.addEventListener('load', () => this.handleLogoLoad());
+            
+            // Handle errors
+            this.logo.addEventListener('error', () => this.handleLogoError());
+            
+            // Optional: Handle navigation (for SPA)
+            window.addEventListener('popstate', () => this.showLoader());
+        }
+      
+        showLoader() {
+            if (!this.initialLoad) {
+                this.loader.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+                this.animateProgress();
+            }
+        }
+      
+        hideLoader() {
+            // Add exit animation class
+            this.loader.classList.add('hidden');
+            
+            // Enable scrolling
+            document.body.style.overflow = '';
+            
+            // Remove loader after animation
+            setTimeout(() => {
+                this.loader.style.display = 'none';
+            }, 500); // Match this with CSS transition duration
+        }
+      
+        animateProgress() {
+            // Simulate loading progress
+            const interval = setInterval(() => {
+                this.progress += Math.random() * 30;
+                
+                if (this.progress >= 100 && this.loadingComplete) {
+                    clearInterval(interval);
+                    this.hideLoader();
+                }
+            }, 500);
+        }
+      
+        handlePageLoad() {
+          // Flag loading as complete
+          this.loadingComplete = true;
+      
+          // Check if progress is at 100 to hide loader
+          if (this.progress >= 100) {
+              this.hideLoader();
+          } else {
+              // Force loader to hide if progress isn't at 100 yet but loading is complete
+              this.progress = 100; // Set progress to 100 immediately when page is fully loaded
+              this.hideLoader();
+          }
+      
+          // Mark as not the initial load anymore for future navigations
+          this.initialLoad = false;
+      }
+      
+        handleLogoLoad() {
+            // Add loaded class for animation
+            this.logo.classList.add('loaded');
+        }
+      
+        handleLogoError() {
+            // Replace with fallback logo or hide
+            this.logo.src = 'fallback-logo.png';
+            console.warn('Error loading logo image');
+        }
+      
+        // Public method to manually show loader
+        static show() {
+            const loader = document.getElementById('pageLoader');
+            if (loader) {
+                loader.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        }
+      
+        // Public method to manually hide loader
+        static hide() {
+            const loader = document.getElementById('pageLoader');
+            if (loader) {
+                loader.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        }
+      }
+      
+      // Optional: Progress bar animation
+      class LoadingBarAnimation {
+        constructor(barElement) {
+            this.bar = barElement;
+            this.progress = 0;
+            this.animate();
+        }
+      
+        animate() {
+            const increment = () => {
+                if (this.progress < 100) {
+                    this.progress += 1;
+                    this.bar.style.width = `${this.progress}%`;
+                    requestAnimationFrame(increment);
+                }
+            };
+            requestAnimationFrame(increment);
+        }
+      }
+      
+      // Usage and Initialization
+      document.addEventListener('DOMContentLoaded', () => {
+        // Initialize loader
+        const pageLoader = new PageLoader();
+      
+        // Example: Show loader on page navigation (for SPA)
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', (e) => {
+                if (link.getAttribute('target') !== '_blank') {
+                    e.preventDefault();
+                    PageLoader.show();
+                    
+                    // Simulate page load
+                    setTimeout(() => {
+                        window.location.href = link.href;
+                    }, 500);
+                }
+            });
+        });
+      });
+      
+      // Example usage in your application:
+      // Show loader manually
+      function showLoaderManually() {
+        PageLoader.show();
+      }
+      
+      // Hide loader manually
+      function hideLoaderManually() {
+        PageLoader.hide();
+      }
+      
+      // For AJAX requests
+      function handleAjaxRequest() {
+        PageLoader.show();
+        
+        fetch('your-api-endpoint')
+            .then(response => response.json())
+            .then(data => {
+                // Handle data
+                PageLoader.hide();
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                PageLoader.hide();
+            });
+      }
+      
+      // For form submissions
+      function handleFormSubmit(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            PageLoader.show();
+            
+            // Simulate form processing
+            setTimeout(() => {
+                PageLoader.hide();
+                form.submit();
+            }, 1000);
+        });
+      }
+        </script>
       <!-- Personal Info Section -->
        <div class="flex flex-col items-center justify-between ">
       <section class="p-4 text-center w-full max-w-md ColorMode">
-        <div class="flex flex-col items-center">
-          <!-- Profile Image -->
+        <div class="flex flex-col items-center p-4 bg-transparent max-w-sm">
+          <!-- Profile Image with Gradient Border and Scale Animation -->
           {% if user_info.profile_image %}
-          <div class="w-20 h-20 bg-black rounded-full mb-4">
-            <img src="{{ user_info.profile_image.url }}" alt="Profile" class="rounded-full w-full h-full">
+          <div class="w-24 h-24 rounded-full mb-4 bg-gradient-to-r from-blue-500 to-purple-600 p-1 transition-transform duration-500 transform hover:scale-105">
+              <img src="{{ user_info.profile_image.url }}" alt="Profile" class="w-full h-full rounded-full object-cover border-4 border-white shadow-md">
           </div>
           {% endif %}
-          <!-- Bio -->
-          <header class="animated-bg  text-center relative z-10">
-            {% if user_info.name %}
-            <h1 class="text-xl font-bold mb-1 animate-pulse">@{{user_info.name}}</h1>
+      
+          <!-- Bio Section with Subtle Fade-In Animation and Professional Fonts -->
+          <header class="text-center mt-2">
+              {% if user_info.name %}
+              <h1 class="text-2xl font-semibold  animate-fadeIn font-poppins">
+                  {{ user_info.name }}
+                  <span class="text-blue-500"><i class="fas fa-check-circle"></i></span> <!-- Verified Tick Icon -->
+              </h1>
               {% endif %}
+      
               {% if user_info.profession %}
-              <!-- TODO:add new field professsion in model and render -->
-                <p class="text-gray-600 dark:text-gray-400">{{ user_info.profession}}</p>
-                {% endif %}
-              {% if user_info.bio_txt %}
-            <pre class="text-1xl">{{user_info.bio_txt}}</pre>
+              <p class="text-sm  dark:text-gray-400 mt-1 animate-fadeIn font-inter">{{ user_info.profession }}</p>
               {% endif %}
-            
-        </header>
-
-        </div>
+      
+              {% if user_info.bio_txt %}
+              <pre class="text-md  dark:text-gray-300 mt-3 font-medium whitespace-pre-wrap leading-relaxed animate-fadeIn font-poppins">{{ user_info.bio_txt }}</pre>
+              {% endif %}
+          </header>
+      </div>
+      
+      
       </section>
   
-      <!-- Social Media Section (Closer Icons, Centered) -->
-      <section class="p-4 w-full max-w-md social">
-        <div class="flex justify-center space-x-3 ">
-            {% if user_info.facebook_link %}
-            <a href="{{ user_info.facebook_link }}" target="_blank" class="hover:text-blue-600 ">
-                <i class="fab fa-facebook-f text-2xl"></i>
-            </a>
-            {% endif %}
-            
-            {% if user_info.x_link %}
-            <a href="{{ user_info.x_link }}" target="_blank" class="hover:text-blue-400">
-                <i class="fab fa-twitter text-2xl"></i>
-            </a>
-            {% endif %}
-            
-            {% if user_info.linkedin_link %}
-            <a href="{{ user_info.linkedin_link }}" target="_blank" class="hover:text-blue-700">
-                <i class="fab fa-linkedin-in text-2xl"></i>
-            </a>
-            {% endif %}
-            
-            {% if user_info.instagram_link %}
-            <a href="{{ user_info.instagram_link }}" target="_blank" class="hover:text-pink-500">
-                <i class="fab fa-instagram text-2xl"></i>
-            </a>
-            {% endif %}
-            
-            {% if user_info.tiktok_link %}
-            <a href="{{ user_info.tiktok_link }}" target="_blank" class="hover:text-black">
-                <i class="fab fa-tiktok text-2xl"></i>
-            </a>
-            {% endif %}
-            
-            {% if user_info.youtube_link %}
-            <a href="{{ user_info.youtube_link }}" target="_blank" class="hover:text-red-600">
-                <i class="fab fa-youtube text-2xl"></i>
-            </a>
-            {% endif %}
-            
-            {% if user_info.spotify_link %}
-            <a href="{{ user_info.spotify_link }}" target="_blank" class="hover:text-green-500">
-                <i class="fab fa-spotify text-2xl"></i>
-            </a>
-            {% endif %}
-        </div>
-    </section>
+
     
       <!-- Picture and Text Section -->
 
       <section class="p-4 w-full max-w-md">
         {% for highlight in highlights %}
-        <div class="relative mb-4">
-            {% if highlight.highlight_thumbnail_image %}
-            <a href="{{ highlight.link }}" target="_blank">
-                <img src="{{ highlight.highlight_thumbnail_image.url }}" alt="{{ highlight.highlight_title }}" class="w-full h-64 object-cover rounded-lg">
-            </a>
-            {% endif %}
-            
-            {% if highlight.highlight_title %}
-            <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-4 text-center rounded-b-lg">
-                <a href="{{ highlight.link }}" target="_blank" class="text-white font-semibold">{{ highlight.highlight_title }}</a>
-            </div>
-            {% endif %}
-        </div>
+        <div class="relative mb-4 transition-transform duration-500 transform hover:scale-105">
+          {% if highlight.highlight_thumbnail_image %}
+          <a href="{{ highlight.link }}" target="_blank" class="block animate-fadeIn">
+              <img src="{{ highlight.highlight_thumbnail_image.url }}" alt="{{ highlight.highlight_title }}" class="w-full h-64 object-cover rounded-lg">
+          </a>
+          {% endif %}
+          
+          {% if highlight.highlight_title %}
+          <div class="absolute bottom-0 left-0 w-full bg-black bg-opacity-50 text-white p-4 text-center rounded-b-lg animate-fadeIn">
+              <a href="{{ highlight.link }}" target="_blank" class="text-white font-semibold">{{ highlight.highlight_title }}</a>
+          </div>
+          {% endif %}
+      </div>
         {% endfor %}
     </section>
     
@@ -97,5 +411,67 @@
     {% include 'section_list.html' %}
 
   </section>
+
+        <!-- Social Media Section (Closer Icons, Centered) -->
+        <section class="p-4 w-full max-w-md social">
+            <div class="flex justify-center space-x-3 ">
+                {% if user_info.facebook_link %}
+                <a href="{{ user_info.facebook_link }}" target="_blank" class="hover:text-blue-600 ">
+                    <i class="fab fa-facebook-f text-2xl"></i>
+                </a>
+                {% endif %}
+                
+                {% if user_info.x_link %}
+                <a href="{{ user_info.x_link }}" target="_blank" class="hover:text-blue-400">
+                    <i class="fab fa-twitter text-2xl"></i>
+                </a>
+                {% endif %}
+                
+                {% if user_info.linkedin_link %}
+                <a href="{{ user_info.linkedin_link }}" target="_blank" class="hover:text-blue-700">
+                    <i class="fab fa-linkedin-in text-2xl"></i>
+                </a>
+                {% endif %}
+                
+                {% if user_info.instagram_link %}
+                <a href="{{ user_info.instagram_link }}" target="_blank" class="hover:text-pink-500">
+                    <i class="fab fa-instagram text-2xl"></i>
+                </a>
+                {% endif %}
+                
+                {% if user_info.tiktok_link %}
+                <a href="{{ user_info.tiktok_link }}" target="_blank" class="hover:text-black">
+                    <i class="fab fa-tiktok text-2xl"></i>
+                </a>
+                {% endif %}
+                
+                {% if user_info.youtube_link %}
+                <a href="{{ user_info.youtube_link }}" target="_blank" class="hover:text-red-600">
+                    <i class="fab fa-youtube text-2xl"></i>
+                </a>
+                {% endif %}
+                
+                {% if user_info.spotify_link %}
+                <a href="{{ user_info.spotify_link }}" target="_blank" class="hover:text-green-500">
+                    <i class="fab fa-spotify text-2xl"></i>
+                </a>
+                {% endif %}
+            </div>
+        </section>
+  <footer class="text-white py-4 mt-10">
+    <div class="max-w-6xl mx-auto px-4">
+        <!-- Footer Content Wrapper -->
+        <div class="flex flex-col items-center justify-center space-y-2 text-center">
+
+            <!-- Copyright and Logo Message -->
+            <p class="text-gray-400 text-sm">&copy; <script>document.write(new Date().getFullYear());</script> <a href="/" class="">
+                {% load static %}
+                <img src="{% static 'images/logo2.png' %}" alt="Zylo" class="w-8 h-8 inline-flex">.
+        
+        </a> All rights reserved.</p>
+           
+        </div>
+    </div>
+</footer>
 
     </div>

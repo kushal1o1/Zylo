@@ -24,7 +24,8 @@ BACKGROUND_CHOICES = {
     "bg14": "Polygonal Shapes",
     "bg15": "Star Animation",
     "bg16": "Test Animation",
-    "bg17": "Particles Animation"
+    "bg17": "Particles Animation",
+    "bg18": "Wavy Background",
 }
 class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

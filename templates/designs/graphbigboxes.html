@@ -1,19 +1,16 @@
 <style>
-    .neat-grid {
-        background: linear-gradient(to right, #ddd 1px, transparent 1px),
-                    linear-gradient(to bottom, #ddd 1px, transparent 1px);
-        background-size: 50px 50px;
-        padding: 20px;
-        border-radius: 10px;
-        color: #333;
-        text-align: center;
+
+    .bg-diagonal-stripes {
+        background: repeating-linear-gradient(
+            45deg,
+            #f9f9f9,
+            #f9f9f9 10px,
+            #ffffff 10px,
+            #ffffff 20px
+        );
     }
 </style>
 
-<div class="neat-grid">
-    {% if  user_info.selected_background%}
-    {{user_info.selected_background}}
-    {% endif %}
+<div class="bg-diagonal-stripes">
 {% include 'portfolio/main-info-phone.html'%} 
-    <p>This is a neat grid background.</p>
 </div>

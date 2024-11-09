@@ -5,9 +5,11 @@
             padding: 0;
             background: #000;
             color:white;
+            position: relative;
         }
         canvas {
             position: absolute;
+            overflow:hidden;
             top: 0;
             left: 0;
         }
@@ -15,9 +17,6 @@
 <div class="container2">
     <canvas id="canvas"></canvas>
 
-    {% if  user_info.selected_background%}
-    {{user_info.selected_background}}
-    {% endif %}
 {% include 'portfolio/main-info-phone.html'%} 
 </div>
 

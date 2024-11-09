@@ -11,6 +11,7 @@
             overflow: hidden;
             background: #1e1e1e;
             overflow: hidden;
+            position: relative;
         }
         canvas {
             position: absolute;
@@ -22,9 +23,7 @@
 </head>
 <body>
     <div class="container2">
-        {% if  user_info.selected_background%}
-        {{user_info.selected_background}}
-        {% endif %}
+
     {% include 'portfolio/main-info-phone.html'%}
     <canvas id="canvas"></canvas>
     </div>

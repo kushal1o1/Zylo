@@ -35,6 +35,7 @@ background_templates = {
         "bg15": "animated/star.html",
         "bg16": "animated/test.html",
         "bg17": "animated/particles.html",
+        "bg18": "designs/Wavyy.html",
         }
 background_names = {
     "bg0": "Default Design",    
@@ -54,7 +55,8 @@ background_names = {
     "bg14": "Polygonal Shapes",
     "bg15": "Star Animation",
     "bg16": "Test Animation",
-    "bg17": "Particles Animation"
+    "bg17": "Particles Animation",
+    "bg18": "Wavy Background",
 }
 
 def MainPage(request):

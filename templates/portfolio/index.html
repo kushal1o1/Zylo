@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- <script src="https://cdn.tailwindcss.com"></script> -->
     <!-- <script defer src="https://unpkg.com/alpinejs@3.2.2/dist/cdn.min.js"></script> -->
+     
     <style>
+
+
       .mobile-screen {
         width: 340px;
         height: 700px;
@@ -33,125 +36,346 @@
       }
 
 
-      /* bg2 design */
 
-.area {
-  background:transparent;
-  background: -webkit-linear-gradient(to left, #8f94fb, #4e54c8);
- 
-}
-
-.circles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width:90%;
-  height: 45em;
-  overflow: hidden;
-}
-
-.circles li {
-  position: absolute;
-  display: block;
-  list-style: none;
-  width: 20px;
-  height: 20px;
-  background: rgba(29, 17, 207, 0.2);
-  animation: animate 25s linear infinite;
-  bottom: -150px;
-}
-
-.circles li:nth-child(1) {
-  left: 25%;
-  width: 80px;
-  height: 80px;
-  animation-delay: 0s;
-}
-
-.circles li:nth-child(2) {
-  left: 10%;
-  width: 20px;
-  height: 20px;
-  animation-delay: 2s;
-  animation-duration: 12s;
-}
-
-.circles li:nth-child(3) {
-  left: 70%;
-  width: 20px;
-  height: 20px;
-  animation-delay: 4s;
-}
-
-.circles li:nth-child(4) {
-  left: 40%;
-  width: 60px;
-  height: 60px;
-  animation-delay: 0s;
-  animation-duration: 18s;
-}
-
-.circles li:nth-child(5) {
-  left: 65%;
-  width: 20px;
-  height: 20px;
-  animation-delay: 0s;
-}
-
-.circles li:nth-child(6) {
-  left: 75%;
-  width: 110px;
-  height: 110px;
-  animation-delay: 3s;
-}
-
-.circles li:nth-child(7) {
-  left: 35%;
-  width: 150px;
-  height: 150px;
-  animation-delay: 7s;
-}
-
-.circles li:nth-child(8) {
-  left: 50%;
-  width: 25px;
-  height: 25px;
-  animation-delay: 15s;
-  animation-duration: 45s;
-}
-
-.circles li:nth-child(9) {
-  left: 20%;
-  width: 15px;
-  height: 15px;
-  animation-delay: 2s;
-  animation-duration: 35s;
-}
-
-.circles li:nth-child(10) {
-  left: 85%;
-  width: 150px;
-  height: 150px;
-  animation-delay: 0s;
-  animation-duration: 11s;
-}
-
-@keyframes animate {
-  0% {
-     transform: translateY(0) rotate(0deg);
-     opacity: 1;
-     border-radius: 0;
-  }
-
-  100% {
-     transform: translateY(-1000px) rotate(720deg);
-     opacity: 0;
-     border-radius: 50%;
-  }
-}
-
-
-    </style>
+    /* Main wrapper */
+    .loader-wrapper {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+    }
+    
+    /* Logo container */
+    .logo-container {
+      text-align: center;
+      position: relative;
+      padding: 20px;
+    }
+    
+    /* Logo styling and animation */
+    .animated-logo {
+      width: 120px;
+      height: auto;
+      animation: logoAnimation 2s ease-in-out infinite;
+      filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.1));
+    }
+    
+    /* Loading text */
+    .loading-text {
+      margin-top: 20px;
+      font-family: Arial, sans-serif;
+      color: #333;
+      font-size: 16px;
+      letter-spacing: 2px;
+      animation: fadeInOut 1.5s ease-in-out infinite;
+    }
+    
+    /* Loading bar */
+    .loading-bar {
+      width: 200px;
+      height: 3px;
+      background: #f0f0f0;
+      margin: 15px auto;
+      position: relative;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+    
+    .loading-bar::after {
+      content: '';
+      position: absolute;
+      left: -50%;
+      height: 100%;
+      width: 50%;
+      background: linear-gradient(90deg, #f0f0f0, #3498db, #f0f0f0);
+      animation: loadingBarAnimation 1.5s ease-in-out infinite;
+    }
+    
+    /* Animations */
+    @keyframes logoAnimation {
+      0% {
+          transform: translateY(0) scale(1);
+      }
+      50% {
+          transform: translateY(-10px) scale(1.05);
+      }
+      100% {
+          transform: translateY(0) scale(1);
+      }
+    }
+    
+    @keyframes fadeInOut {
+      0%, 100% {
+          opacity: 0.3;
+      }
+      50% {
+          opacity: 1;
+      }
+    }
+    
+    @keyframes loadingBarAnimation {
+      0% {
+          left: -50%;
+      }
+      100% {
+          left: 100%;
+      }
+    }
+    
+    /* Optional: Hide loader after content loads */
+    .loader-wrapper.hidden {
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.5s ease-out;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .animated-logo {
+          width: 90px;
+      }
+      
+      .loading-bar {
+          width: 150px;
+      }
+      
+      .loading-text {
+          font-size: 14px;
+      }
+    }
+      </style>
+      <script>
+        // Loader Class Implementation
+    class PageLoader {
+      constructor() {
+          this.initialLoad = true;
+          this.init();
+      }
+    
+      init() {
+          // Create and inject the loader HTML
+          this.createLoader();
+          
+          // Initialize loader states
+          this.initializeLoader();
+          
+          // Bind events
+          this.bindEvents();
+      }
+    
+      createLoader() {
+          const loaderHTML = `
+              <div class="loader-wrapper" id="pageLoader">
+                  <div class="logo-container">
+                    {% load static %}
+                        <img src="{% static 'images/logo2.png' %}" alt="Logo" class="animated-logo" id="loaderLogo">
+                      <div class="loading-text">Loading</div>
+                      <div class="loading-bar"></div>
+                  </div>
+              </div>
+          `;
+          
+          document.body.insertAdjacentHTML('afterbegin', loaderHTML);
+          
+          // Store loader elements
+          this.loader = document.getElementById('pageLoader');
+          this.logo = document.getElementById('loaderLogo');
+      }
+    
+      initializeLoader() {
+          // Prevent scroll while loading
+          document.body.style.overflow = 'hidden';
+          
+          // Show loader
+          this.loader.style.display = 'flex';
+          
+          // Initialize progress
+          this.progress = 0;
+          this.loadingComplete = false;
+      }
+    
+      bindEvents() {
+          // Handle page load
+          window.addEventListener('load', () => this.handlePageLoad());
+          
+          // Handle logo load
+          this.logo.addEventListener('load', () => this.handleLogoLoad());
+          
+          // Handle errors
+          this.logo.addEventListener('error', () => this.handleLogoError());
+          
+          // Optional: Handle navigation (for SPA)
+          window.addEventListener('popstate', () => this.showLoader());
+      }
+    
+      showLoader() {
+          if (!this.initialLoad) {
+              this.loader.classList.remove('hidden');
+              document.body.style.overflow = 'hidden';
+              this.animateProgress();
+          }
+      }
+    
+      hideLoader() {
+          // Add exit animation class
+          this.loader.classList.add('hidden');
+          
+          // Enable scrolling
+          document.body.style.overflow = '';
+          
+          // Remove loader after animation
+          setTimeout(() => {
+              this.loader.style.display = 'none';
+          }, 500); // Match this with CSS transition duration
+      }
+    
+      animateProgress() {
+          // Simulate loading progress
+          const interval = setInterval(() => {
+              this.progress += Math.random() * 30;
+              
+              if (this.progress >= 100 && this.loadingComplete) {
+                  clearInterval(interval);
+                  this.hideLoader();
+              }
+          }, 500);
+      }
+    
+      handlePageLoad() {
+        // Flag loading as complete
+        this.loadingComplete = true;
+    
+        // Check if progress is at 100 to hide loader
+        if (this.progress >= 100) {
+            this.hideLoader();
+        } else {
+            // Force loader to hide if progress isn't at 100 yet but loading is complete
+            this.progress = 100; // Set progress to 100 immediately when page is fully loaded
+            this.hideLoader();
+        }
+    
+        // Mark as not the initial load anymore for future navigations
+        this.initialLoad = false;
+    }
+    
+      handleLogoLoad() {
+          // Add loaded class for animation
+          this.logo.classList.add('loaded');
+      }
+    
+      handleLogoError() {
+          // Replace with fallback logo or hide
+          this.logo.src = 'fallback-logo.png';
+          console.warn('Error loading logo image');
+      }
+    
+      // Public method to manually show loader
+      static show() {
+          const loader = document.getElementById('pageLoader');
+          if (loader) {
+              loader.classList.remove('hidden');
+              document.body.style.overflow = 'hidden';
+          }
+      }
+    
+      // Public method to manually hide loader
+      static hide() {
+          const loader = document.getElementById('pageLoader');
+          if (loader) {
+              loader.classList.add('hidden');
+              document.body.style.overflow = '';
+          }
+      }
+    }
+    
+    // Optional: Progress bar animation
+    class LoadingBarAnimation {
+      constructor(barElement) {
+          this.bar = barElement;
+          this.progress = 0;
+          this.animate();
+      }
+    
+      animate() {
+          const increment = () => {
+              if (this.progress < 100) {
+                  this.progress += 1;
+                  this.bar.style.width = `${this.progress}%`;
+                  requestAnimationFrame(increment);
+              }
+          };
+          requestAnimationFrame(increment);
+      }
+    }
+    
+    // Usage and Initialization
+    document.addEventListener('DOMContentLoaded', () => {
+      // Initialize loader
+      const pageLoader = new PageLoader();
+    
+      // Example: Show loader on page navigation (for SPA)
+      document.querySelectorAll('a').forEach(link => {
+          link.addEventListener('click', (e) => {
+              if (link.getAttribute('target') !== '_blank') {
+                  e.preventDefault();
+                  PageLoader.show();
+                  
+                  // Simulate page load
+                  setTimeout(() => {
+                      window.location.href = link.href;
+                  }, 500);
+              }
+          });
+      });
+    });
+    
+    // Example usage in your application:
+    // Show loader manually
+    function showLoaderManually() {
+      PageLoader.show();
+    }
+    
+    // Hide loader manually
+    function hideLoaderManually() {
+      PageLoader.hide();
+    }
+    
+    // For AJAX requests
+    function handleAjaxRequest() {
+      PageLoader.show();
+      
+      fetch('your-api-endpoint')
+          .then(response => response.json())
+          .then(data => {
+              // Handle data
+              PageLoader.hide();
+          })
+          .catch(error => {
+              console.error('Error:', error);
+              PageLoader.hide();
+          });
+    }
+    
+    // For form submissions
+    function handleFormSubmit(form) {
+      form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          PageLoader.show();
+          
+          // Simulate form processing
+          setTimeout(() => {
+              PageLoader.hide();
+              form.submit();
+          }, 1000);
+      });
+    }
+      </script>
   </head>
   <body>
     <header class="bg-white bg-opacity-90 shadow-lg backdrop-blur-lg sticky top-0 z-10 py-4">
@@ -447,35 +671,35 @@
           }, 1000);  // 5 seconds delay (debounce)
       }
   
-      document.getElementById('name').addEventListener('input', function() {
+      document.getElementById('name').addEventListener('change', function() {
         debounceUpdate('name', this.value);
     });
-    document.getElementById('bio').addEventListener('input', function() {
+    document.getElementById('bio').addEventListener('change', function() {
       console.log("Textarea input detected");
         debounceUpdate('bio_txt', this.value);
     });
-    document.getElementById('profession').addEventListener('input', function() {
+    document.getElementById('profession').addEventListener('change', function() {
         debounceUpdate('profession', this.value);
     });
-    document.getElementById('facebook').addEventListener('input', function() {
+    document.getElementById('facebook').addEventListener('change', function() {
         debounceUpdate('facebook_link', this.value);
     });
-    document.getElementById('instagram').addEventListener('input', function() {
+    document.getElementById('instagram').addEventListener('change', function() {
         debounceUpdate('instagram_link', this.value);
     });
-    document.getElementById('tiktok').addEventListener('input', function() {
+    document.getElementById('tiktok').addEventListener('change', function() {
         debounceUpdate('tiktok_link', this.value);
     });
-    document.getElementById('youtube').addEventListener('input', function() {
+    document.getElementById('youtube').addEventListener('change', function() {
         debounceUpdate('youtube_link', this.value);
     });
-    document.getElementById('x').addEventListener('input', function() {
+    document.getElementById('x').addEventListener('change', function() {
         debounceUpdate('x_link', this.value);
     });
-    document.getElementById('spotify').addEventListener('input', function() {
+    document.getElementById('spotify').addEventListener('change', function() {
         debounceUpdate('spotify_link', this.value);
     });
-    document.getElementById('linkedin').addEventListener('input', function() {
+    document.getElementById('linkedin').addEventListener('change', function() {
         debounceUpdate('linkedin_link', this.value);
     });
 
