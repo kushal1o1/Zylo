@@ -5,12 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page Not Found</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        /* Animation for floating effect */
+        .float-animation {
+            animation: float 3s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+    </style>
 </head>
-<body class="flex items-center justify-center h-screen bg-gray-100">
-    <div class="text-center">
-        <h1 class="text-6xl font-bold mb-4">404</h1>
-        <p class="text-xl mb-6">Page Not Found</p>
-        <a href="/" class="inline-block px-6 py-3 text-white bg-blue-500 rounded hover:bg-blue-700">Create New Page</a>
+<body class="flex items-center justify-center h-screen bg-gray-900 text-white relative overflow-hidden">
+    <!-- Background Image -->
+    <div class="absolute inset-0 bg-[url('https://source.unsplash.com/1600x900/?space,stars')] bg-cover bg-center opacity-30"></div>
+    
+    <!-- Content Wrapper -->
+    <div class="relative text-center z-10">
+        <!-- Floating Icon -->
+        <div class="float-animation mb-6">
+            <img src="https://img.icons8.com/ios-filled/100/ffffff/planet.png" alt="Lost in Space" class="mx-auto opacity-80">
+        </div>
+        <!-- Error Code -->
+        <h1 class="text-8xl font-extrabold mb-4">404</h1>
+        <p class="text-2xl font-light mb-8">Oops! You seem to be lost in space...</p>
+        <!-- Button to go back -->
+        <a href="/" class="inline-block px-8 py-3 text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition duration-300 ease-in-out shadow-lg transform hover:scale-105">
+            Return to Home
+        </a>
     </div>
 </body>
 </html>

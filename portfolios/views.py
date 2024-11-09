@@ -36,6 +36,8 @@ background_templates = {
         "bg16": "animated/test.html",
         "bg17": "animated/particles.html",
         "bg18": "designs/Wavyy.html",
+        "bg19": "designs/polygon.html",
+        "bg20": "designs/Celebration.html",
         }
 background_names = {
     "bg0": "Default Design",    
@@ -57,6 +59,8 @@ background_names = {
     "bg16": "Test Animation",
     "bg17": "Particles Animation",
     "bg18": "Wavy Background",
+    "bg19": "Polygonal Background",
+    "bg20": "Celebrations Background",
 }
 
 def MainPage(request):
@@ -172,22 +176,7 @@ def update_user_info(request):
                 setattr(user_info, field, data[field])  # Dynamically set the value
                 user_info.save()
 
-        # Handle the section fields (assuming they are passed as a list of dictionaries)
-        # sections = data.get('sections', [])
-        # for section_data in sections:
-        #     section_name = section_data.get('section_name')
-        #     section_title = section_data.get('section_title')
-        #     section_image = section_data.get('section_image')  # Handle file upload as needed
-
-        #     # If section_name is provided, create or update the section
-        #     if section_name or section_title:
-        #         section, _ = Section.objects.get_or_create(user_info=user_info, section_name=section_name)
-        #         section.section_title = section_title
-        #         if section_image:
-        #             section.section_image = section_image  # Handle file uploads appropriately
-        #         section.save()
-
-          # Save the updated UserInfo instance
+        
 
         return JsonResponse({'message': 'User info updated successfully!'})
 
@@ -219,51 +208,6 @@ def update_background_image(request):
         return redirect("home")
     
     
-# from django.shortcuts import render, redirect, get_object_or_404
-# from django.http import JsonResponse
-# from django.views.decorators.http import require_http_methods
-# from .models import Highlight
-# from . forms import HighlightForm
-# from django.contrib.auth.decorators import login_required
-
-# @login_required
-# def manage_highlights(request):
-#     user_highlights = Highlight.objects.filter(user=request.user)
-
-#     if request.method == "POST":
-#         form = HighlightForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             highlight = form.save(commit=False)
-#             highlight.user = request.user
-#             highlight.save()
-#             return redirect("manage_highlights")
-#     else:
-#         form = HighlightForm()
-
-#     return render(request, "manage_highlights.html", {"form": form, "user_highlights": user_highlights})
-
-
-# @login_required
-# def edit_highlight(request, highlight_id):
-#     highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
-
-#     if request.method == "POST":
-#         form = HighlightForm(request.POST, request.FILES, instance=highlight)
-#         if form.is_valid():
-#             form.save()
-#             return redirect("manage_highlights")
-#     else:
-#         form = HighlightForm(instance=highlight)
-
-#     return render(request, "edit_highlight.html", {"form": form, "highlight": highlight})
-
-
-# @login_required
-# @require_http_methods(["DELETE"])
-# def delete_highlight(request, highlight_id):
-#     highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
-#     highlight.delete()
-#     return JsonResponse({"success": True})
 
 
 @login_required
