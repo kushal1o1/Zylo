@@ -17,8 +17,10 @@ class HighlightForm(forms.ModelForm):
         })
         self.fields['link'].widget.attrs.update({
             'class': 'mb-6 w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
-            'placeholder': 'Enter link'
+            'placeholder': 'Enter link (optional)'
         })
+        self.fields['link'].required = False
+        
     def clean_highlight_title(self):
         """Validate the highlight title"""
         highlight_title = self.cleaned_data.get('highlight_title')
@@ -43,6 +45,7 @@ class HighlightForm(forms.ModelForm):
             raise forms.ValidationError("File size must not exceed 5MB.")
         
         return image
+    
 
 
 
@@ -100,6 +103,8 @@ class SectionDataForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['section'].empty_label = "Select Section"  # Set custom label for empty dropdown option
+        self.fields['link'].required = False
+        self.fields['pic'].required = False
     
     
     def clean_section(self):
@@ -116,12 +121,7 @@ class SectionDataForm(forms.ModelForm):
             raise forms.ValidationError("Main title is required.")
         return main_title
 
-    def clean_link(self):
-        """Validate the link if provided"""
-        link = self.cleaned_data.get('link')
-        if link and not link.startswith('http'):
-            raise forms.ValidationError("Enter a valid URL.")
-        return link
+  
 
     def clean_pic(self):
         """Validate the uploaded image (optional)"""
@@ -135,6 +135,11 @@ class SectionDataForm(forms.ModelForm):
             if pic.size > max_file_size:
                 raise forms.ValidationError("File size must not exceed 5MB.")
         return pic
+    
+    def clean_desc(self):
+        """Make description optional"""
+        return self.cleaned_data.get('desc', '')
+
 # forms.py
 
 

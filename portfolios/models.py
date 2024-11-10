@@ -40,7 +40,7 @@ class Highlight(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='highlights')  # Allows multiple highlights per user
     highlight_thumbnail_image = models.ImageField(upload_to='thumbnail_images/', blank=True, null=True)
     highlight_title = models.CharField(max_length=100, blank=True, null=True)
-    link = models.URLField(max_length=200, blank=True, null=True)  # Link field for URL
+    link = models.URLField(blank=True, null=True)  # Link field for URL
 
     def __str__(self):
         return self.highlight_title or "Untitled Highlight"
@@ -59,8 +59,8 @@ class SectionData(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="section_data")
     section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name="section_data")  # Each section can have multiple data entries
     main_title = models.CharField(max_length=100)
-    desc = models.TextField()
-    link = models.URLField()
+    desc = models.TextField(max_length=200, blank=True, null=True)
+    link = models.URLField(max_length=200, blank=True, null=True)
     pic = models.ImageField(upload_to='section_images/', blank=True, null=True)
     
     def __str__(self):

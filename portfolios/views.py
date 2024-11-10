@@ -216,9 +216,16 @@ def delete_highlight(request, highlight_id):
     highlight.delete()
     return redirect('home')  # Redirect back to the highlight list after deletion
 
+
 @login_required
 def delete_section(request, section_id):
+    # Fetch the section associated with the logged-in user
     section = get_object_or_404(Section, id=section_id, user=request.user)
+    
+    # Check if there are any associated SectionData entries
+    related_data = SectionData.objects.filter(section=section,user=request.user)
+    if related_data.exists():
+        SectionData.objects.filter(section=section,user=request.user).delete()
     section.delete()
     return redirect('home')
 
