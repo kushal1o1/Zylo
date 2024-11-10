@@ -23,6 +23,10 @@
             {% csrf_token %}
             <input type="hidden" name="form_type" value="section_data_form"> 
             {{ section_data_form.as_p }}
+            {% if form.section.errors %}
+            <p class="text-red-500 text-sm">{{ form.section.errors.0 }}</p>
+        {% endif %}
+
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Add Section Content</button>
         </form>
     </div>
@@ -34,10 +38,10 @@
             
             <div class="section-data space-y-4">
                 {% for data in section.section_data.all %}
-                    <a href="{{ data.link }}" class="block bg-transparent p-3 rounded-lg flex items-center space-x-4 shadow-md hover:bg-gray-200 transition-all relative">
+                    <div class="block bg-transparent p-3 rounded-lg flex items-center space-x-4 shadow-md hover:bg-gray-200 transition-all relative">
                         
                         <!-- Delete Icon for SectionData -->
-                        <form action="{% url 'delete_section_data' data.id %}" method="POST" class="absolute top-2 right-2">
+                        <form action="{% url 'delete_section_data' data.id %}" method="POST" class="absolute top-2 right-2 z-2">
                             {% csrf_token %}
                             <button type="submit">
                                 <i class="fas fa-trash text-red-500 hover:text-red-700"></i>
@@ -56,7 +60,7 @@
                             <h3 class="font-medium text-lg text-gray-900">{{ data.main_title }}</h3>
                             <p class="text-gray-600 text-sm">{{ data.desc }}</p>
                         </div>
-                    </a>
+                    </div>
                 {% endfor %}
             </div>
             <form action="{% url 'delete_section' section.id %}" method="POST" class="mt-4">

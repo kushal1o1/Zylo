@@ -17,7 +17,6 @@ urlpatterns = [
     
 
     
-    path('highlights/', views.highlight_list, name='highlight_list'),  # List and create/edit highlights
     path('highlights/delete/<int:highlight_id>/', views.delete_highlight, name='delete_highlight'),  # Delete highlight
 
     path('sections/delete/<int:section_id>/', views.delete_section, name='delete_section'),

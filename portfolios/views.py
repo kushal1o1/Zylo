@@ -69,15 +69,14 @@ def MainPage(request):
 
 # Create your views here.
 def index(request,userUrl):
-     if userUrl:
-        user_info = UserInfo.objects.filter(userUrl=userUrl).first()
-        highlights = Highlight.objects.filter(user=request.user)
-        sections = Section.objects.filter(user=request.user)
-        if not user_info:
-            return redirect("/NotFound")
+    user_info = UserInfo.objects.filter(userUrl=userUrl).first()
+    if user_info:
+        
+        highlights = Highlight.objects.filter(user=user_info.user)
+        sections = Section.objects.filter(user=user_info.user)
         user_info.selected_template = background_templates.get(user_info.selected_background)
         return render(request, 'portfolio/portfolioServer.html', {'user_info': user_info ,"background_templates": background_templates,'highlights': highlights,'sections': sections})
-     else:
+    else:
         return redirect("/NotFound")
 
 
@@ -85,7 +84,6 @@ def index(request,userUrl):
 def home(request):
     user_info = None
     if request.user.is_authenticated:
-        print("Iam  here")
         highlights = Highlight.objects.filter(user=request.user)
         sections = Section.objects.filter(user=request.user)
         user_info = UserInfo.objects.filter(user=request.user).first()
@@ -135,10 +133,11 @@ def home(request):
                         new_highlight.save()
                         return redirect('home')  # Redirect to the highlight list after saving
 
-        else:
-            form = HighlightForm()
-            section_form = SectionForm()
-            section_data_form = SectionDataForm()
+        
+        form = HighlightForm()
+        section_form = SectionForm()
+        section_data_form = SectionDataForm()
+
 
         return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates,'highlights': highlights,'form': form,'sections': sections,
         'section_form': section_form,
@@ -211,42 +210,6 @@ def update_background_image(request):
 
 
 @login_required
-def highlight_list(request):
-    # Get all highlights of the current user
-    highlights = Highlight.objects.filter(user=request.user)
-
-    if request.method == "POST":
-        highlight_id = request.POST.get("highlight_id")  # Get the highlight ID (if editing)
-        
-        if highlight_id:
-            # Editing an existing highlight
-            highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
-            form = HighlightForm(request.POST, request.FILES, instance=highlight)
-            
-            if form.is_valid():
-                form.save()
-                return redirect('highlight_list')  # Redirect to the highlight list after saving
-            
-        else:
-            # Adding a new highlight
-            form = HighlightForm(request.POST, request.FILES)
-            
-            if form.is_valid():
-                new_highlight = form.save(commit=False)
-                new_highlight.user = request.user  # Associate the new highlight with the logged-in user
-                new_highlight.save()
-                return redirect('highlight_list')  # Redirect to the highlight list after saving
-
-    else:
-        form = HighlightForm()
-
-    return render(request, 'highlight_list.html', {
-        'highlights': highlights,
-        'form': form,
-    })
-
-
-@login_required
 def delete_highlight(request, highlight_id):
     # Get the highlight and delete it if it belongs to the current user
     highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
@@ -261,6 +224,8 @@ def delete_section(request, section_id):
 
 @login_required
 def delete_section_data(request, data_id):
+    print("heheh")
+    print(data_id)
     section_data = get_object_or_404(SectionData, id=data_id, section__user=request.user)  # Check ownership
     section_data.delete()
     return redirect('home')
