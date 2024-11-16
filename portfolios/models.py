@@ -44,6 +44,16 @@ class Highlight(models.Model):
 
     def __str__(self):
         return self.highlight_title or "Untitled Highlight"
+    def save(self, *args, **kwargs):
+        # Ensure the user has no more than 7 highlights
+        if self.user.highlights.count() >= 7:
+            # Delete the oldest highlight (first one ordered by creation date)
+            oldest_highlight = self.user.highlights.order_by('id').first()
+            if oldest_highlight:
+                oldest_highlight.delete()
+        
+        # Proceed with saving the new highlight
+        super().save(*args, **kwargs)
 
 
 # Section Model - One-to-Many relationship with User
