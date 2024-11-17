@@ -101,11 +101,19 @@ class SectionDataForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        # Pop the user from kwargs
+        user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)
-        self.fields['section'].empty_label = "Select Section"  # Set custom label for empty dropdown option
+        print(user)
+        # Filter sections based on the logged-in user
+        if user:
+            self.fields['section'].queryset = Section.objects.filter(user=user)
+        else:
+            self.fields['section'].queryset = Section.objects.none()
+
+        self.fields['section'].empty_label = "Select Section"
         self.fields['link'].required = False
         self.fields['pic'].required = False
-    
     
     def clean_section(self):
         """Ensure section is selected"""

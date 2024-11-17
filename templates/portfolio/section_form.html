@@ -23,8 +23,8 @@
             {% csrf_token %}
             <input type="hidden" name="form_type" value="section_data_form"> 
             {{ section_data_form.as_p }}
-            {% if form.section.errors %}
-            <p class="text-red-500 text-sm">{{ form.section.errors.0 }}</p>
+            {% if section_data_form.section.errors %}
+            <p class="text-red-500 text-sm">{{ section_data_form.section.errors.0 }}</p>
         {% endif %}
 
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded mt-2">Add Section Content</button>

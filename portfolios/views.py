@@ -103,7 +103,7 @@ def home(request):
             
             elif form_type == "section_data_form":
             # Handle adding a new section data entry to an existing section
-                section_data_form = SectionDataForm(request.POST, request.FILES)
+                section_data_form = SectionDataForm(request.POST, request.FILES,user=request.user)
                 if section_data_form.is_valid():
                     new_section_data = section_data_form.save(commit=False)
                     new_section_data.user = request.user
@@ -136,7 +136,7 @@ def home(request):
         
         form = HighlightForm()
         section_form = SectionForm()
-        section_data_form = SectionDataForm()
+        section_data_form = SectionDataForm(user=request.user)
 
 
         return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates,'highlights': highlights,'form': form,'sections': sections,
