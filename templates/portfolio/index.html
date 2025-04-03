@@ -203,50 +203,51 @@
 
   <!-- <div class="div flex-2 m-6 order-1 md:order-2 w-[300px] h-[85vh] relative p-4">
      -->
-      <div class="w-[300px] sm:w-[350px] md:w-[500px] h-[80vh] p-6 bg-white rounded-lg shadow-md">
-      
+    
+     <div class="w-full sm:w-[350px] md:w-[500px] lg:w-[600px] h-[80vh] p-6 bg-white rounded-lg shadow-md">
+
       <div
-      x-data="smartphone"
-      class="m-6 shadow-2xl border-8 mobile-screen border-gray-800 rounded-3xl bg-center bg-no-repeat bg-cover overflow-  flex flex-col justify-start overflow-y-auto m-4  hide-scrollbar"
-      :class="background.current"
-    >
-      <!-- Battery -->
-      <div
-        class="flex flex-row justify-end items-center pr-3 transition-colors bg-black text-white sticky"
-        :class="step > 2 ? 'bg-gray-100' : 'bg-transparent'"
+        x-data="smartphone"
+        class="w-full sm:w-[350px] md:w-[370px] lg:w-[400px] h-[75vh] m-6 shadow-2xl border-8 mobile-screen border-gray-800 rounded-3xl bg-center bg-no-repeat bg-cover flex flex-col justify-start overflow-y-auto m-4 hide-scrollbar"
+        :class="background.current"
       >
-        
- 
-        <p
-          class="text-xs font-semibold"
-          :class="step > 2 ? 'text-gray-800' : 'text-white'"
-          x-text="batteryPower"
+        <!-- Battery -->
+        <div
+          class="flex flex-row justify-end items-center pr-3 transition-colors bg-black text-white sticky top-0"
+          :class="step > 2 ? 'bg-gray-100' : 'bg-transparent'"
         >
-          100%
-        </p>
-        <svg
-          class="fill-current h-4 w-6 text-white"
-          :class="step > 2 ? 'text-gray-800' : 'text-white'"
-          viewBox="0 0 20 20"
-        >
-          <path
-            d="M18.834,6.961h-0.655V5.18c0-0.459-0.373-0.834-0.834-0.834H1.166c-0.461,0-0.834,0.375-0.834,0.834v9.64c0,0.461,0.373,0.834,0.834,0.834h16.179c0.461,0,0.834-0.373,0.834-0.834v-1.711h0.655c0.461,0,0.834-0.372,0.834-0.834v-4.48C19.669,7.334,19.295,6.961,18.834,6.961z M16.511,13.986H2V6.014h14.511v1.781v4.48V13.986z"
-          ></path>
-          <rect x="3" y="6.775" width="13" height="6.448"></rect>
-        </svg>
+          <p
+            class="text-xs font-semibold"
+            :class="step > 2 ? 'text-gray-800' : 'text-white'"
+            x-text="batteryPower"
+          >
+            100%
+          </p>
+          <svg
+            class="fill-current h-4 w-6 text-white"
+            :class="step > 2 ? 'text-gray-800' : 'text-white'"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M18.834,6.961h-0.655V5.18c0-0.459-0.373-0.834-0.834-0.834H1.166c-0.461,0-0.834,0.375-0.834,0.834v9.64c0,0.461,0.373,0.834,0.834,0.834h16.179c0.461,0,0.834-0.373,0.834-0.834v-1.711h0.655c0.461,0,0.834-0.372,0.834-0.834v-4.48C19.669,7.334,19.295,6.961,18.834,6.961z M16.511,13.986H2V6.014h14.511v1.781v4.48V13.986z"
+            ></path>
+            <rect x="3" y="6.775" width="13" height="6.448"></rect>
+          </svg>
+        </div>
+    
+        <!-- Here goes your content -->
+        <div id="codeSnippetContainer" class="flex-1 overflow-y-auto">
+          {% include 'portfolio/codesnippet.html' %}
+        </div>
       </div>
-    <!-- here goes my content -->
-     <div id="codeSnippetContainer">
-      {% include 'portfolio/codesnippet.html' %}
-     </div>
-      </div>
-      
-      <p class="text-lg font-medium text-gray-700">Visit your website: <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300">http://127.0.0.1:8000/{{ user_info.userUrl }}/</a></p>
-
-
-
-  </div>
-
+    
+      <p class="text-lg font-medium text-gray-700 mt-4">Visit your website: 
+        <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300">
+          http://127.0.0.1:8000/{{ user_info.userUrl }}/
+        </a>
+      </p>
+    </div>
+    
 </main>
 <script>
 let timeout = null;
