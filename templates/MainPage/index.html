@@ -1,284 +1,147 @@
-
-{% extends 'MainPage/Base.html' %}
-{% load static %}
-
-
-{% block title %}Home Page{% endblock %}
+{% extends "MainPage/Base.html" %}
 
 {% block content %}
-
-
-  
-
-<div class="hero-bg text-dark py-20">
-  <div class="container mx-auto px-4 md:px-0">
-    <div class="md:flex items-center">
-      <div class="md:w-1/2 fade-in">
-        <h1 class="text-4xl md:text-5xl font-bold mb-4">Elevate Your Online Presence with Zylo</h1>
-        <p class="text-lg mb-8">Build multi-purpose landing websites to grow your business, showcase your skills, gather all your links, and connect with the world—all in one place..</p>
-        <div class="flex space-x-4">
-          <a href="/accounts/signup/" class="bg-white text-indigo-600 px-6 py-3 rounded-lg font-medium hover:bg-gray-200 fade-in">Sign Up</a>
-          <a href="/accounts/login/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 fade-in">Sign In</a>
+<!-- Hero Section -->
+<section class="hero-gradient pt-32 pb-20">
+    <div class="container mx-auto px-6 text-center">
+        <h1 class="text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-6" data-aos="fade-up">
+            Create Stunning Websites<br>in Minutes
+        </h1>
+        <p class="text-xl text-gray-600 dark:text-gray-300 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            Build professional websites for your business, portfolio, or personal brand. No coding required.
+        </p>
+        <div class="flex flex-col md:flex-row justify-center gap-4" data-aos="fade-up" data-aos-delay="200">
+            <a href="/templates" class="px-8 py-4 bg-indigo-600 text-white rounded-full font-medium hover:bg-indigo-700 transition-colors">
+                Explore Templates
+            </a>
+            <a href="#showcase" class="px-8 py-4 bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 rounded-full font-medium hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">
+                View Examples
+            </a>
         </div>
-      </div>
-      <div class="md:w-1/2 mt-8 md:mt-0 md:pl-8 slide-up">
-        <img src="{% static 'images/logo2.png' %}" alt="Zylo landing page" class="rounded-lg ">
-      </div>
     </div>
-  </div>
-</div>
+</section>
 
-
-
-<div class="py-20 bg-gray-50" id="features">
-  <div class="container mx-auto px-4 md:px-0">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-center text-gray-900 mb-16 fade-in">Why Choose Zylo?</h2>
-    
-    <!-- Grid Layout with professional cards -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
-  
-      <!-- Feature 1 -->
-      <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-8">
-        <div class="flex justify-center mb-6">
-          <svg class="h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-          </svg>
+<!-- Features Section -->
+<section id="features" class="py-20">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 dark:text-white" data-aos="fade-up">
+            Everything You Need to Succeed Online
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm" data-aos="fade-up">
+                <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-4 dark:text-white">Beautiful Templates</h3>
+                <p class="text-gray-600 dark:text-gray-300">Choose from our collection of professionally designed templates for any purpose.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-4 dark:text-white">Easy Customization</h3>
+                <p class="text-gray-600 dark:text-gray-300">Customize every aspect of your website with our intuitive drag-and-drop editor.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-800 p-8 rounded-2xl shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                <div class="w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-lg flex items-center justify-center mb-6">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+                <h3 class="text-xl font-semibold mb-4 dark:text-white">Lightning Fast</h3>
+                <p class="text-gray-600 dark:text-gray-300">Your website loads instantly with our optimized hosting infrastructure.</p>
+            </div>
         </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">All-in-One Platform</h3>
-        <p class="text-gray-600 text-center">Create multi-purpose landing pages, portfolios, and link hubs effortlessly. Zylo combines functionality and style for your digital presence.</p>
-      </div>
-  
-      <!-- Feature 2 -->
-      <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-8">
-        <div class="flex justify-center mb-6">
-          <svg class="h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">Trusted by Professionals</h3>
-        <p class="text-gray-600 text-center">From entrepreneurs to creators, Zylo is trusted by a diverse community to build professional profiles, showcase skills, and grow businesses.</p>
-      </div>
-  
-      <!-- Feature 3 -->
-      <div class="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out p-8">
-        <div class="flex justify-center mb-6">
-          <svg class="h-16 w-16 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-          </svg>
-        </div>
-        <h3 class="text-xl font-semibold text-gray-900 mb-4 text-center">Secure and Reliable</h3>
-        <p class="text-gray-600 text-center">Zylo prioritizes your data privacy and security, ensuring a reliable and trustworthy platform to grow your online presence.</p>
-      </div>
-  
     </div>
-  </div>
-  
-</div>
+</section>
 
-
-
-<div class="py-20 bg-gray-50" id="testimonials">
-  <div class="container mx-auto px-4 md:px-0">
-    <h2 class="text-3xl md:text-4xl font-bold text-center text-gray-900 mb-16">What Our Users Say</h2>
-    
-    <!-- Testimonial Cards with a Simple, Clean Design -->
-    <div class="md:grid md:grid-cols-3 gap-8">
-
-      <!-- Testimonial 1 -->
-      <div class="bg-white shadow-lg rounded-lg p-6 transform transition-all hover:scale-102 hover:shadow-xl">
-        <div class="flex items-center mb-4">
-          <img src="{% static 'images/sthgirl.jpg' %}" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-gray-200 mr-4" />
-          <div>
-            <h4 class="text-lg font-semibold text-gray-900">Kaira Deneresq</h4>
-            <p class="text-sm text-gray-600">Web Developer</p>
-          </div>
+<!-- Templates Section -->
+<section id="templates" class="py-20 bg-white dark:bg-gray-900">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 dark:text-white" data-aos="fade-up">
+            Templates for Every Need
+        </h2>
+        <div class="grid md:grid-cols-3 gap-8">
+            <div class="group relative rounded-2xl overflow-hidden" data-aos="fade-up">
+                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800" 
+                     alt="Business Template" 
+                     class="w-full h-64 object-cover transition-transform group-hover:scale-110"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Business</h3>
+                        <p class="text-gray-200">Perfect for companies and startups</p>
+                    </div>
+                </div>
+            </div>
+            <div class="group relative rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1534531173927-aeb928d54385?auto=format&fit=crop&w=800" 
+                     alt="Portfolio Template" 
+                     class="w-full h-64 object-cover transition-transform group-hover:scale-110"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Portfolio</h3>
+                        <p class="text-gray-200">Showcase your work beautifully</p>
+                    </div>
+                </div>
+            </div>
+            <div class="group relative rounded-2xl overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1559925393-8be0ec4767c8?auto=format&fit=crop&w=800" 
+                     alt="Restaurant Template" 
+                     class="w-full h-64 object-cover transition-transform group-hover:scale-110"/>
+                <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end p-6">
+                    <div>
+                        <h3 class="text-xl font-semibold text-white mb-2">Restaurant</h3>
+                        <p class="text-gray-200">Showcase your menu and location</p>
+                    </div>
+                </div>
+            </div>
         </div>
-        <p class="text-gray-700 italic">"Zylo has been a game-changer for my online presence. It's easy to use and helps me stand out from the crowd."</p>
-      </div>
-
-      <!-- Testimonial 2 -->
-      <div class="bg-white shadow-lg rounded-lg p-6 transform transition-all hover:scale-102 hover:shadow-xl">
-        <div class="flex items-center mb-4">
-          <img src="{% static 'images/sthhh.jpg' %}" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-gray-200 mr-4" />
-          <div>
-            <h4 class="text-lg font-semibold text-gray-900">Jane Smith</h4>
-            <p class="text-sm text-gray-600">Graphic Designer</p>
-          </div>
-        </div>
-        <p class="text-gray-700 italic">"I've been using Zylo for over a year now, and it's been an essential tool in growing my freelance business."</p>
-      </div>
-
-      <!-- Testimonial 3 -->
-      <div class="bg-white shadow-lg rounded-lg p-6 transform transition-all hover:scale-102 hover:shadow-xl">
-        <div class="flex items-center mb-4">
-          <img src="{% static 'images/smith.png' %}" alt="User Avatar" class="w-14 h-14 rounded-full border-2 border-gray-200 mr-4" />
-          <div>
-            <h4 class="text-lg font-semibold text-gray-900">Michael Johnson</h4>
-            <p class="text-sm text-gray-600">UI/UX Designer</p>
-          </div>
-        </div>
-        <p class="text-gray-700 italic">"Zylo makes it easy to showcase my work and connect with potential clients. Highly recommended!"</p>
-      </div>
-
     </div>
-  </div>
-</div>
+</section>
 
-
-
-<div class="py-20 bg-gray-100" id="pricing">
-  <div class="container mx-auto px-4 md:px-0">
-    <h2 class="text-3xl font-bold mb-8 fade-in">Pricing</h2>
-    <div class="md:flex justify-center -mx-4">
-      <!-- Basic Plan -->
-      <div class="md:w-1/3 px-4 mb-8 md:mb-0 slide-up">
-        <div class="bg-white shadow-lg rounded-lg p-6 h-full flex flex-col">
-          <h3 class="text-xl font-bold mb-4">Basic</h3>
-          <p class="text-4xl font-bold mb-2">
-            <span class="line-through">$9/mo </span>
-            <small class="text-3xl text-blue-800">Free</small>
-          </p>
-          <p class="text-gray-600 mb-6">Perfect for personal portfolios</p>
-          <ul class="text-gray-600 mb-6">
-            <li class="flex items-center mb-2">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Custom domain
-            </li>
-            <li class="flex items-center mb-2">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Portfolio pages
-            </li>
-            <li class="flex items-center">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Social media integration
-            </li>
-          </ul>
-          <a href="/accounts/signup/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 block text-center mt-auto">Get Started</a>
+<!-- FAQ Section -->
+<section id="faq" class="py-20 bg-gray-50 dark:bg-gray-800">
+    <div class="container mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-16 dark:text-white" data-aos="fade-up">
+            Frequently Asked Questions
+        </h2>
+        <div class="max-w-3xl mx-auto space-y-6">
+            <div class="bg-white dark:bg-gray-700 rounded-lg p-6 shadow-sm" data-aos="fade-up">
+                <h3 class="text-xl font-semibold mb-3 dark:text-white">Is Zylo really free?</h3>
+                <p class="text-gray-600 dark:text-gray-300">Yes! You can create and publish your website completely free. We also offer premium features for users who need more advanced functionality.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-700 rounded-lg p-6 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="text-xl font-semibold mb-3 dark:text-white">Do I need coding knowledge?</h3>
+                <p class="text-gray-600 dark:text-gray-300">Not at all! Our drag-and-drop builder makes it easy for anyone to create a professional website without any coding experience.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-700 rounded-lg p-6 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                <h3 class="text-xl font-semibold mb-3 dark:text-white">Can I use my own domain?</h3>
+                <p class="text-gray-600 dark:text-gray-300">Absolutely! You can connect your own domain or purchase one through us. We provide free SSL certificates for all domains.</p>
+            </div>
+            <div class="bg-white dark:bg-gray-700 rounded-lg p-6 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                <h3 class="text-xl font-semibold mb-3 dark:text-white">What kind of support do you offer?</h3>
+                <p class="text-gray-600 dark:text-gray-300">We provide 24/7 customer support via email and live chat. Our knowledge base is also available with detailed guides and tutorials.</p>
+            </div>
         </div>
-      </div>
-
-      <!-- Pro Plan -->
-      <div class="md:w-1/3 px-4 mb-8 md:mb-0 slide-up delay-100">
-        <div class="bg-white shadow-lg rounded-lg p-6 h-full flex flex-col">
-          <h3 class="text-xl font-bold mb-4">Pro</h3>
-          <p class="text-4xl font-bold mb-2">$19/mo</p>
-          <p class="text-gray-600 mb-6">Ideal for small businesses and freelancers</p>
-          <ul class="text-gray-600 mb-6">
-            <li class="flex items-center mb-2">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Custom domain
-            </li>
-            <li class="flex items-center mb-2">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Portfolio pages
-            </li>
-            <li class="flex items-center mb-2">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Social media integration
-            </li>
-            <li class="flex items-center">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Analytics and insights
-            </li>
-          </ul>
-          <a href="/accounts/signup/" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 block text-center mt-auto">Get Started</a>
-        </div>
-      </div>
-
-      <!-- Enterprise Plan -->
-      <div class="md:w-1/3 px-4 slide-up delay-200">
-        <div class="bg-white shadow-lg rounded-lg p-6 h-full flex flex-col">
-          <h3 class="text-xl font-bold mb-4">Enterprise</h3>
-          <p class="text-4xl font-bold mb-2">Custom</p>
-          <p class="text-gray-600 mb-6">Tailored solutions for growing businesses</p>
-          <ul class="text-gray-600 mb-6">
-            <li class="flex items-center mb-2">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Custom domain
-            </li>
-            <li class="flex items-center mb-2">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Enterprise-grade portfolio pages
-            </li>
-            <li class="flex items-center mb-2">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Advanced social media integration
-            </li>
-            <li class="flex items-center">
-              <svg class="h-5 w-5 text-green-500 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              Dedicated account manager
-            </li>
-          </ul>
-          <a href="/contact" class="bg-indigo-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-indigo-700 block text-center mt-auto">Contact Sales</a>
-        </div>
-      </div>
     </div>
-  </div>
-</div>
-<footer class="bg-gray-900 text-white py-8">
-  <div class="container mx-auto px-4 md:px-0">
-    <!-- Footer Container -->
-    <div class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-6 md:space-y-0">
-      
-      <!-- Logo and Description -->
-      <div class="fade-in">
-        <a href="/" class="text-indigo-400 font-bold text-2xl">Zylo</a>
-        <p class="text-gray-400 mt-2">The all-in-one platform for your online presence.</p>
-      </div>
+</section>
 
-      <!-- Navigation Links -->
-      <nav class="w-full md:w-auto fade-in">
-        <ul class="flex flex-col md:flex-row md:space-x-6 space-y-4 md:space-y-0 text-center">
-          <li><a href="#features" class="hover:text-indigo-400">Features</a></li>
-          <li><a href="#testimonials" class="hover:text-indigo-400">Testimonials</a></li>
-          <li><a href="#pricing" class="hover:text-indigo-400">Pricing</a></li>
-          <li><a href="/accounts/login/" class="hover:text-indigo-400">Sign In</a></li>
-          <li><a href="/accounts/signup/" class="bg-indigo-600 text-white px-4 py-2 rounded-lg font-medium hover:bg-indigo-700">Sign Up</a></li>
-        </ul>
-      </nav>
+<!-- CTA Section -->
+<section class="py-20 bg-indigo-600 dark:bg-indigo-700">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-8" data-aos="fade-up">
+            Ready to Create Your Website?
+        </h2>
+        <p class="text-xl text-indigo-100 mb-8 max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
+            Join thousands of satisfied customers who built their online presence with Zylo.
+        </p>
+        <a href="/accounts/signup/" class="inline-block px-8 py-4 bg-white text-indigo-600 rounded-full font-medium hover:bg-gray-100 transition-colors" data-aos="fade-up" data-aos-delay="200">
+            Start Building for Free
+        </a>
     </div>
-
-
-    <!-- Footer Section -->
-<div class="mt-8 border-t border-gray-700 pt-4 text-gray-400 text-center md:text-left text-sm fade-in" >
-  <!-- <p style="font-size: 16px; font-weight: 500;font-variant: small-caps;">Built with Love <span style="color: #ff5e5e;">&hearts;</span> 
-    <a href="https://www.facebook.com/kushal1o1/" target="_blank" style="text-decoration: none;">kushal1o1</a>
-  </p> -->
-  <p style="font-size: 14px; color: #bbb;">&copy; 2023 Zylo. All rights reserved.</p>
-
-</div>
-
-
-
-
-<!-- FontAwesome for Instagram Icon -->
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
-
-
-  </div>
-</footer>
-
-
-{% endblock %}
+</section>
+{% endblock %}  
