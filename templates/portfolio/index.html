@@ -7,13 +7,15 @@
 {% block title %}Create | ZYLO{% endblock %}
 
 {% block content %}
+<script src="{{ fasurl }}" crossorigin="anonymous"></script>
+
 <main class="flex flex-col items-center justify-between p-12 md:flex-row md:space-x-4 space-y-4 md:space-y-0 hide-scrollbar" style="height:95vh">
 
 
   <div class="flex flex-col md:flex-row max-w-4xl lg:mx-auto md:p-8 order-2 md:order-1 ">
 <div class="div flex-1 overflow-y-auto  hide-scrollbar bg-white shadow-lg rounded-lg mt-4 h-auto md:h-[90vh]" style="height:90vh">
   
-    <div class="max-w-4xl mx-auto bg-white p-1 lg:p-4 md:p-3 shadow-lg rounded-lg mt-10">
+    <div class="max-w-4xl mx-auto  p-1 lg:p-4 md:p-3 shadow-lg rounded-lg mt-10">
 
     <form id="profile_form" method="POST" action="/update_images/" enctype="multipart/form-data">
     {% csrf_token %}
@@ -146,11 +148,16 @@
           <label class="block text-gray-700 text-lg font-bold mb-2" for="name">userUrl</label>
           <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
               <span class="flex items-center justify-center w-10 text-gray-500">
-                  <i class="fas fa-url"></i>
+                  <i class="fas fa-url">:></i>
               </span>
               <input type="text" id="userUrl" name="userUrl" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.userUrl %}{{ user_info.userUrl }}{% else %}Enter your host url{% endif %}" />
+             
           </div>
-
+          <p class="text-lg font-medium text-gray-700 mt-4">Visit your website: 
+            <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300">
+              http://127.0.0.1:8000/{{ user_info.userUrl }}/
+            </a>
+          </p>
         
 
 <div class="container mx-auto p-4">
@@ -187,6 +194,7 @@
 
   <button type="submit" class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md">Upload New Background</button>
 </form>
+
 </div>
 
 
@@ -204,11 +212,11 @@
   <!-- <div class="div flex-2 m-6 order-1 md:order-2 w-[300px] h-[85vh] relative p-4">
      -->
     
-     <div class="w-full sm:w-[350px] md:w-[500px] lg:w-[600px] h-[80vh] p-6 bg-white rounded-lg shadow-md">
+     <div class=" flex items-center justify-center   w-full sm:w-[350px] md:w-[500px] lg:w-[600px] h-[80vh]  rounded-lg shadow-md">
 
       <div
         x-data="smartphone"
-        class="w-full sm:w-[350px] md:w-[370px] lg:w-[400px] h-[75vh] m-6 shadow-2xl border-8 mobile-screen border-gray-800 rounded-3xl bg-center bg-no-repeat bg-cover flex flex-col justify-start overflow-y-auto m-4 hide-scrollbar"
+        class="bg-white w-full sm:w-[350px] md:w-[370px] lg:w-[400px] h-[75vh]  shadow-2xl border-8 mobile-screen border-gray-800 rounded-3xl bg-center bg-no-repeat bg-cover flex flex-col justify-start overflow-y-auto  hide-scrollbar"
         :class="background.current"
       >
         <!-- Battery -->
@@ -241,13 +249,9 @@
         </div>
       </div>
     
-      <p class="text-lg font-medium text-gray-700 mt-4">Visit your website: 
-        <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300">
-          http://127.0.0.1:8000/{{ user_info.userUrl }}/
-        </a>
-      </p>
+      
     </div>
-    
+   
 </main>
 <script>
 let timeout = null;
@@ -318,15 +322,6 @@ radio.addEventListener('change', function() {
 debounceUpdate('selected_background', this.value);  // Call the debounce function for background selection
 });
 });
-// document.getElementById('section1_name').addEventListener('input', function() {
-//     debounceUpdate('section1_name', this.value);
-//});
-//document.getElementById('section1_title').addEventListener('input', function() {
-//    debounceUpdate('section1_title', this.value);
-//});
-//document.getElementById('section1_image').addEventListener('change', function() {
-//    debounceUpdate('section1_image', this.files[0]);  // Handle file input for section image
-//});
 
 
 </script>

@@ -39,7 +39,7 @@
                 <div class="absolute top-2 right-2">
                     <form action="{% url 'delete_highlight' highlight.id %}" method="POST">
                         {% csrf_token %}
-                        <button type="submit" class="text-red-500 hover:text-red-700 text-2xl">
+                        <button type="submit" class="text-red-500 hover:text-red-700 text-2xl bg-red-100 rounded-full  p-1 transition duration-200 ease-in-out">
                             <i class="fas fa-trash-alt"></i> <!-- FontAwesome Trash Icon -->
                         </button>
                     </form>

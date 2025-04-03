@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Highlight
 from .forms import HighlightForm,SectionForm,SectionDataForm,BackgroundImageForm
 import os
+from decouple import config
 
 background_templates = {
         "bg0": "designs/default.html",
@@ -63,6 +64,7 @@ background_names = {
     "bg20": "Celebrations Background",
 }
 
+fasurl=config("FASURL")
 def MainPage(request):
     return render(request, 'MainPage/index.html')
 
@@ -142,7 +144,10 @@ def home(request):
         return render(request, 'portfolio/index.html', {'user_info': user_info, "background_templates": background_templates,'highlights': highlights,'form': form,'sections': sections,
         'section_form': section_form,
         'section_data_form': section_data_form,
-        'background_names': background_names})
+        'background_names': background_names,
+         "fasurl":fasurl
+         }
+       )
     else:
         return redirect("accounts/login")
 
