@@ -263,3 +263,15 @@ def delete_background_image(request):
         pass
 
     return redirect('home')  
+@login_required
+def get_code_snippet(request):
+    # Get any necessary context data
+    user_info =UserInfo.objects.filter(user=request.user).first()
+    print(user_info.selected_background)
+    user_info.selected_template = background_templates.get(user_info.selected_background)
+    highlights = Highlight.objects.filter(user=user_info.user)
+    sections = Section.objects.filter(user=user_info.user)
+    
+    
+    # Just render the partial template
+    return render(request, 'portfolio/codesnippet.html', {"user_info":user_info,'highlights': highlights,'sections': sections})

@@ -451,7 +451,46 @@
   </div>
 </main>
 
+
 <script>
+
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  }
+  
+    function updateCodeSnippet() {
+      const container = document.getElementById('codeSnippetContainer');
+      
+      // Show loading state (optional)
+      container.classList.add('updating');
+      
+      // Fetch just the updated snippet from server
+      fetch('/get-code-snippet/', {
+        method: 'GET',
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
+      .then(response => response.text())
+      .then(html => {
+        console.log(html)
+        // Replace just the content of the container
+        container.innerHTML = html;
+        container.classList.remove('updating');
+      })
+      .catch(error => {
+        console.error('Error updating code snippet:', error);
+        container.classList.remove('updating');
+      });
+    }
+    
+    // Create debounced version of the update function (300ms delay)
+const debouncedUpdateSnippet = debounce(updateCodeSnippet, 300);
 // Wizard navigation
 let currentStep = 1;
 const totalSteps = 6;
@@ -536,6 +575,8 @@ function debounceUpdate(field, value) {
       console.log(data.message);
       // Optional toast notification instead of page reload
       showNotification('Updated successfully!');
+  debouncedUpdateSnippet();
+
     })
     .catch(error => console.error('Error:', error));
   }, 1000);
@@ -563,6 +604,7 @@ function showNotification(message) {
 // Event listeners for form fields
 document.getElementById('name').addEventListener('change', function() {
   debounceUpdate('name', this.value);
+
 });
 document.getElementById('bio').addEventListener('change', function() {
   debounceUpdate('bio_txt', this.value);

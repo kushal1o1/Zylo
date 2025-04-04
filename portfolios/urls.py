@@ -21,9 +21,10 @@ urlpatterns = [
 
     path('sections/delete/<int:section_id>/', views.delete_section, name='delete_section'),
     path('delete-section-data/<int:data_id>/', views.delete_section_data, name='delete_section_data'),
-
+    path('get-code-snippet/', views.get_code_snippet, name='get_code_snippet'),
     path("NotFound/",views.NotFound,name="NotFound"),
     path('<str:userUrl>/',views.index,name="index"),
+    
     
   
 
