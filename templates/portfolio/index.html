@@ -8,7 +8,7 @@
 
 <main class="flex flex-col items-center justify-between p-12 md:flex-row md:space-x-4 space-y-4 md:space-y-0 hide-scrollbar" style="height:95vh">
 
-  <div class="flex flex-col md:flex-row max-w-4xl lg:mx-auto md:p-8 order-2 md:order-1">
+  <div class="mt-5 flex flex-col md:flex-1 md:flex-row max-w-6xl lg:mx-auto md:p-4 order-2 md:order-1 ">
     <div class="div flex-1 overflow-y-auto hide-scrollbar bg-white shadow-lg rounded-lg mt-4 h-auto md:h-[90vh]" style="height:90vh">
       
       <!-- Step Navigation -->
@@ -32,7 +32,7 @@
         </div>
       </div>
       
-      <div class="max-w-4xl mx-auto p-1 lg:p-4 md:p-3 rounded-lg mt-2">
+      <div class="max-w-6xl mx-auto p-1 lg:p-4 md:p-3 rounded-lg mt-2 ">
       
         <!-- Step 1: Basic Info -->
         <div class="step-content" id="step-1">
@@ -280,7 +280,7 @@
   </div>
 
   <!-- Mobile Preview -->
-  <div class="flex items-center justify-center w-full sm:w-[350px] md:w-[500px] lg:w-[600px] h-[80vh] rounded-lg shadow-md">
+  <div class="flex items-center md:flex-3 justify-center w-full sm:w-[350px] md:w-[500px] lg:w-[600px] h-[80vh] rounded-lg shadow-md">
     <div
       x-data="smartphone"
       class="sticky top-12 bg-white w-full sm:w-[350px] md:w-[370px] lg:w-[400px] h-[75vh] shadow-2xl border-8 mobile-screen border-gray-800 rounded-3xl bg-center bg-no-repeat bg-cover flex flex-col justify-start overflow-y-auto hide-scrollbar"
@@ -466,7 +466,7 @@ document.querySelectorAll('input[name="selected_background"]').forEach(function(
   });
 });
 
-
+// Add CSS styles for the wizard
 document.head.insertAdjacentHTML('beforeend', `
 <style>
   .step-tab {
