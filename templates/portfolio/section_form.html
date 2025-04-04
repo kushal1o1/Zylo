@@ -6,7 +6,7 @@
 <div class="section-list">
 
     <!-- Form for Adding a New Section -->
-    <div class="p-6 bg-white rounded-lg shadow-lg mb-6">
+    <div class="p-6 dark:text-gray-300 rounded-lg shadow-lg mb-6">
         <h2 class="text-xl font-semibold mb-4">Add New Section</h2>
         <form method="post">
             {% csrf_token %}
@@ -17,7 +17,7 @@
     </div>
 
     <!-- Form for Adding Section Data to an Existing Section -->
-    <div class="p-6 bg-white rounded-lg shadow-lg mb-6">
+    <div class="p-6 rounded-lg shadow-lg mb-6 dark:text-gray-300">
         <h2 class="text-xl font-semibold mb-4">Add Section Content</h2>
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}

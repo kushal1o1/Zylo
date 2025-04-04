@@ -12,7 +12,7 @@
   <div class="mt-5 flex flex-col md:flex-1 md:flex-row max-w-6xl lg:mx-auto md:p-4 order-2 md:order-1 ">
     <div class="flex-1 overflow-y-auto hide-scrollbar shadow-lg rounded-lg mt-4 h-auto md:h-[90vh]">
       <!-- Step Navigation -->
-      <div class="mb-6 p-6 sticky top-0 z-10 shadow-sm border-b">
+      <div class="dark:bg-dark-secondary bg-white mb-6 p-6 sticky top-0 z-100 shadow-sm border-b">
         <div class="flex justify-between items-center">
           <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-300 dark:text-gray-300">Create Your Profile</h1>
           <div class="text-sm font-medium text-gray-600 bg-gray-100 dark:text-black px-3 py-1 rounded-full" id="step-indicator">
@@ -21,13 +21,13 @@
         </div>
         
         <!-- Progress Bar -->
-        <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+        <div class="z-100 w-full bg-gray-200 rounded-full h-2 mt-4">
           <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500" 
                id="progress-bar" style="width: 15%"></div>
         </div>
         
         <!-- Step Tabs -->
-        <div class="flex overflow-x-auto pb-2 mt-6 gap-1 hide-scrollbar  lg:flex-row flex-col">
+        <div class=" flex overflow-x-auto pb-2 mt-6 gap-1 hide-scrollbar  lg:flex-row flex-col">
           <button class="step-tab flex flex-col items-center px-4 py-3 rounded-lg transition-all duration-300 active" 
                   data-step="1">
             <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-1">
@@ -77,7 +77,6 @@
           </button>
         </div>
       </div>
-      
       <div class="max-w-4xl p-4 lg:p-6 md:p-4">
         <!-- Step 1: Basic Info -->
         <div class="step-content" id="step-1">
@@ -153,7 +152,7 @@
                   <i class="fab fa-instagram text-lg text-pink-600"></i>
                 </span>
                 <input type="text" id="instagram" name="instagram" 
-                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       class="bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none bg-transparent dark:text-gray-300" 
                        placeholder="{% if user_info and user_info.instagram_link %}{{ user_info.instagram_link }}{% else %}Instagram Link{% endif %}" />
               </div>
             </div>
@@ -166,7 +165,7 @@
                   <i class="fab fa-facebook text-lg text-blue-600"></i>
                 </span>
                 <input type="text" id="facebook" name="facebook" 
-                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       class="bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none" 
                        placeholder="{% if user_info and user_info.facebook_link %}{{ user_info.facebook_link }}{% else %}Facebook Link{% endif %}" />
               </div>
             </div>
@@ -179,7 +178,7 @@
                   <i class="fab fa-tiktok text-lg text-black"></i>
                 </span>
                 <input type="text" id="tiktok" name="tiktok" 
-                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       class=" bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none" 
                        placeholder="{% if user_info and user_info.tiktok_link %}{{ user_info.tiktok_link }}{% else %}TikTok Link{% endif %}" />
               </div>
             </div>
@@ -192,7 +191,7 @@
                   <i class="fab fa-youtube text-lg text-red-600"></i>
                 </span>
                 <input type="text" id="youtube" name="youtube" 
-                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       class="bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none" 
                        placeholder="{% if user_info and user_info.youtube_link %}{{ user_info.youtube_link }}{% else %}YouTube Link{% endif %}" />
               </div>
             </div>
@@ -205,7 +204,7 @@
                   <i class="fab fa-x text-lg text-black"></i>
                 </span>
                 <input type="text" id="x" name="x" 
-                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       class=" bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none" 
                        placeholder="{% if user_info and user_info.x_link %}{{ user_info.x_link }}{% else %}X Link{% endif %}" />
               </div>
             </div>
@@ -218,7 +217,7 @@
                   <i class="fab fa-spotify text-lg text-green-500"></i>
                 </span>
                 <input type="text" id="spotify" name="spotify" 
-                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       class="bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none" 
                        placeholder="{% if user_info and user_info.spotify_link %}{{ user_info.spotify_link }}{% else %}Spotify Link{% endif %}" />
               </div>
             </div>
@@ -231,7 +230,7 @@
                   <i class="fab fa-linkedin text-lg text-blue-700"></i>
                 </span>
                 <input type="text" id="linkedin" name="linkedin" 
-                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       class=" bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none" 
                        placeholder="{% if user_info and user_info.linkedin_link %}{{ user_info.linkedin_link }}{% else %}LinkedIn Link{% endif %}" />
               </div>
             </div>
@@ -259,7 +258,7 @@
             
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {% for bg_id, bg_name in background_names.items %}
-              <label class="relative cursor-pointer flex flex-col items-center bg-white border-2 border-gray-200 rounded-xl shadow-md p-4 hover:shadow-lg hover:border-blue-200 transition duration-200 ease-in-out transform hover:-translate-y-1 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-200">
+              <label class="relative cursor-pointer flex flex-col items-center  border-2 border-gray-200 rounded-xl shadow-md p-4 hover:shadow-lg hover:border-blue-200 transition duration-200 ease-in-out transform hover:-translate-y-1 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-200">
                 <input type="radio" name="selected_background" value="{{ bg_id }}" class="hidden peer">
                 
                 <!-- Placeholder for background image or icon -->
@@ -280,7 +279,7 @@
           </div>
           
           <!-- Background Image Upload -->
-          <div class="mb-8 p-6 border-2 border-dashed border-gray-300 rounded-xl bg-gray-50">
+          <div class="mb-8 p-6 border-2 border-dashed border-gray-300 rounded-xl">
             <h3 class="text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">Or upload your own background</h3>
             
             <!-- Display current background image -->
@@ -385,7 +384,7 @@
                 <i class="fas fa-link text-lg"></i>
               </span>
               <input type="text" id="userUrl" name="userUrl" 
-                     class="w-full p-4 text-gray-700 focus:outline-none" 
+                     class="bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none" 
                      placeholder="{% if user_info and user_info.userUrl %}{{ user_info.userUrl }}{% else %}Enter your host url{% endif %}" />
             </div>
             <p class="text-lg font-medium text-gray-800 dark:text-gray-300 mt-4">Your website will be available at: 
