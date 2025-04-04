@@ -4,210 +4,298 @@
 {% block title %}Create | ZYLO{% endblock %}
 
 {% block content %}
+
 <script src="{{ fasurl }}" crossorigin="anonymous"></script>
 
 <main class="flex flex-col items-center justify-between p-12 md:flex-row md:space-x-4 space-y-4 md:space-y-0 hide-scrollbar" style="height:95vh">
 
   <div class="mt-5 flex flex-col md:flex-1 md:flex-row max-w-6xl lg:mx-auto md:p-4 order-2 md:order-1 ">
-    <div class="div flex-1 overflow-y-auto hide-scrollbar bg-white shadow-lg rounded-lg mt-4 h-auto md:h-[90vh]" style="height:90vh">
-      
+    <div class="flex-1 overflow-y-auto hide-scrollbar bg-white shadow-lg rounded-lg mt-4 h-auto md:h-[90vh]">
       <!-- Step Navigation -->
-      <div class="mb-6 bg-white p-4 sticky top-0 z-10 shadow-sm border-b">
+      <div class="mb-6 bg-white p-6 sticky top-0 z-10 shadow-sm border-b">
         <div class="flex justify-between items-center">
-          <h1 class="text-xl font-bold text-gray-800">Create Your Profile</h1>
-          <div class="text-sm text-gray-600" id="step-indicator">Step <span id="current-step">1</span> of 6</div>
+          <h1 class="text-2xl font-bold text-gray-800">Create Your Profile</h1>
+          <div class="text-sm font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-full" id="step-indicator">
+            Step <span id="current-step" class="font-bold">1</span> of 6
+          </div>
         </div>
         
         <!-- Progress Bar -->
-        <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-          <div class="bg-blue-600 h-2.5 rounded-full" id="progress-bar" style="width: 15%"></div>
+        <div class="w-full bg-gray-200 rounded-full h-2 mt-4">
+          <div class="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500" 
+               id="progress-bar" style="width: 15%"></div>
         </div>
         
         <!-- Step Tabs -->
-        <div class="flex flex-col sm:flex-col md:flex-row  lg:flex-row bg-white justify-between  mt-4">
-          <button class="step-tab active" data-step="1">Basic Info</button>
-          <button class="step-tab" data-step="2">Social Links</button>
-          <button class="step-tab" data-step="3">Design</button>
-          <button class="step-tab" data-step="4">Highlights</button>
-          <button class="step-tab" data-step="5">Sections</button>
-          <button class="step-tab" data-step="6">Finishing Touches</button>
+        <div class="flex overflow-x-auto pb-2 mt-6 gap-1 hide-scrollbar  lg:flex-row flex-col">
+          <button class="step-tab flex flex-col items-center px-4 py-3 rounded-lg transition-all duration-300 active" 
+                  data-step="1">
+            <div class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-1">
+              1
+            </div>
+            <span class="text-sm font-medium">Basic Info</span>
+          </button>
+          
+          <button class="step-tab flex flex-col items-center px-4 py-3 rounded-lg transition-all duration-300" 
+                  data-step="2">
+            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center mb-1">
+              2
+            </div>
+            <span class="text-sm font-medium">Social Links</span>
+          </button>
+          
+          <button class="step-tab flex flex-col items-center px-4 py-3 rounded-lg transition-all duration-300" 
+                  data-step="3">
+            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center mb-1">
+              3
+            </div>
+            <span class="text-sm font-medium">Design</span>
+          </button>
+          
+          <button class="step-tab flex flex-col items-center px-4 py-3 rounded-lg transition-all duration-300" 
+                  data-step="4">
+            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center mb-1">
+              4
+            </div>
+            <span class="text-sm font-medium">Highlights</span>
+          </button>
+          
+          <button class="step-tab flex flex-col items-center px-4 py-3 rounded-lg transition-all duration-300" 
+                  data-step="5">
+            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center mb-1">
+              5
+            </div>
+            <span class="text-sm font-medium">Sections</span>
+          </button>
+          
+          <button class="step-tab flex flex-col items-center px-4 py-3 rounded-lg transition-all duration-300" 
+                  data-step="6">
+            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center mb-1">
+              6
+            </div>
+            <span class="text-sm font-medium">Finish</span>
+          </button>
         </div>
       </div>
       
-      <div class="max-w-6xl mx-auto p-1 lg:p-4 md:p-3 rounded-lg mt-2 ">
-      
+      <div class="max-w-4xl mx-auto p-4 lg:p-6 md:p-4">
         <!-- Step 1: Basic Info -->
         <div class="step-content" id="step-1">
-          <h2 class="text-xl font-bold text-gray-700 mb-4">Let's start with the basics</h2>
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Let's start with the basics</h2>
           
           <!-- Profile Image -->
-          <form id="profile_form" method="POST" action="/update_images/" enctype="multipart/form-data" class="mb-6">
+          <form id="profile_form" method="POST" action="/update_images/" enctype="multipart/form-data" class="mb-8">
             {% csrf_token %}
-            <label class="block text-gray-700 text-lg font-bold mb-2" for="profile_img">Profile Image</label>
-            <input type="file" id="profile_img" name="profile_img" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
-            <button type="submit" class="mt-2 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Upload Profile Picture
-            </button>
+            <label class="block text-lg font-bold text-gray-800 mb-3">Profile Image</label>
+            <div class="flex items-center gap-6">
+              <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-4 border-white shadow-md">
+                <!-- Profile image placeholder -->
+                <i class="fas fa-user text-3xl text-gray-400"></i>
+              </div>
+              <div class="flex-1">
+                <input type="file" id="profile_img" name="profile_img" 
+                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+                <button type="submit" class="mt-3 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition duration-200">
+                  Upload Profile Picture
+                </button>
+              </div>
+            </div>
           </form>
           
           <!-- Name -->
           <div class="mb-6">
-            <label class="block text-gray-700 text-lg font-bold mb-2" for="name">Name</label>
-            <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-              <span class="flex items-center justify-center w-10 text-gray-500">
-                <i class="fas fa-user"></i>
+            <label class="block text-lg font-bold text-gray-800 mb-3" for="name">Name</label>
+            <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
+              <span class="flex items-center justify-center w-12 text-gray-500">
+                <i class="fas fa-user text-lg"></i>
               </span>
-              <input type="text" id="name" name="name" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.name %}{{ user_info.name }}{% else %}Enter your name{% endif %}" />
+              <input type="text" id="name" name="name" 
+                     class="w-full p-4 text-gray-700 focus:outline-none bg-transparent" 
+                     placeholder="{% if user_info and user_info.name %}{{ user_info.name }}{% else %}Enter your name{% endif %}" />
             </div>
           </div>
           
           <!-- Profession -->
           <div class="mb-6">
-            <label class="block text-gray-700 text-lg font-bold mb-2" for="Profession">Profession</label>
-            <input id="profession" name="profession" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="{% if user_info and user_info.profession %}{{ user_info.profession }}{% else %}Write your Position...{% endif %}">
+            <label class="block text-lg font-bold text-gray-800 mb-3" for="profession">Profession</label>
+            <input id="profession" name="profession" 
+                   class="w-full p-4 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
+                   placeholder="{% if user_info and user_info.profession %}{{ user_info.profession }}{% else %}Write your Position...{% endif %}">
           </div>
           
           <!-- Bio -->
-          <div class="mb-6">
-            <label class="block text-gray-700 text-lg font-bold mb-2" for="bio">Bio</label>
-            <textarea id="bio" name="bio" class="w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" rows="4" placeholder="{% if user_info and user_info.bio_txt %}{{ user_info.bio_txt }}{% else %}Write your bio...{% endif %}"></textarea>
+          <div class="mb-8">
+            <label class="block text-lg font-bold text-gray-800 mb-3" for="bio">Bio</label>
+            <textarea id="bio" name="bio" 
+                      class="w-full p-4 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
+                      rows="4" 
+                      placeholder="{% if user_info and user_info.bio_txt %}{{ user_info.bio_txt }}{% else %}Write your bio...{% endif %}"></textarea>
           </div>
           
           <div class="flex justify-end">
-            <button class="next-step bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded" data-goto="2">
-              Next: Social Links <i class="fas fa-arrow-right ml-2"></i>
+            <button class="next-step bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="2">
+              Next: Social Links <i class="fas fa-arrow-right ml-3"></i>
             </button>
           </div>
         </div>
         
         <!-- Step 2: Social Links -->
         <div class="step-content hidden" id="step-2">
-          <h2 class="text-xl font-bold text-gray-700 mb-4">Connect your social presence</h2>
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Connect your social presence</h2>
           
-          <div class="grid grid-cols-1 gap-4 mb-6 lg:grid-cols-2">
+          <div class="grid grid-cols-1 gap-6 mb-8 lg:grid-cols-2">
+            <!-- Instagram -->
             <div>
-              <label class="block text-gray-700 text-lg font-bold mb-2" for="instagram">Instagram</label>
-              <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                <span class="flex items-center justify-center w-10 text-gray-500">
-                  <i class="fab fa-instagram"></i>
+              <label class="block text-lg font-bold text-gray-800 mb-3" for="instagram">Instagram</label>
+              <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
+                <span class="flex items-center justify-center w-12 text-gray-500">
+                  <i class="fab fa-instagram text-lg text-pink-600"></i>
                 </span>
-                <input type="text" id="instagram" name="instagram" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.instagram_link %}{{ user_info.instagram_link }}{% else %}Instagram Link{% endif %}" />
+                <input type="text" id="instagram" name="instagram" 
+                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       placeholder="{% if user_info and user_info.instagram_link %}{{ user_info.instagram_link }}{% else %}Instagram Link{% endif %}" />
               </div>
             </div>
+            
+            <!-- Facebook -->
             <div>
-              <label class="block text-gray-700 text-lg font-bold mb-2" for="facebook">Facebook</label>
-              <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                <span class="flex items-center justify-center w-10 text-gray-500">
-                  <i class="fab fa-facebook"></i>
+              <label class="block text-lg font-bold text-gray-800 mb-3" for="facebook">Facebook</label>
+              <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
+                <span class="flex items-center justify-center w-12 text-gray-500">
+                  <i class="fab fa-facebook text-lg text-blue-600"></i>
                 </span>
-                <input type="text" id="facebook" name="facebook" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.facebook_link %}{{ user_info.facebook_link }}{% else %}Facebook Link{% endif %}" />
+                <input type="text" id="facebook" name="facebook" 
+                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       placeholder="{% if user_info and user_info.facebook_link %}{{ user_info.facebook_link }}{% else %}Facebook Link{% endif %}" />
               </div>
             </div>
+            
+            <!-- TikTok -->
             <div>
-              <label class="block text-gray-700 text-lg font-bold mb-2" for="tiktok">TikTok</label>
-              <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                <span class="flex items-center justify-center w-10 text-gray-500">
-                  <i class="fab fa-tiktok"></i>
+              <label class="block text-lg font-bold text-gray-800 mb-3" for="tiktok">TikTok</label>
+              <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
+                <span class="flex items-center justify-center w-12 text-gray-500">
+                  <i class="fab fa-tiktok text-lg text-black"></i>
                 </span>
-                <input type="text" id="tiktok" name="tiktok" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.tiktok_link %}{{ user_info.tiktok_link }}{% else %}TikTok Link{% endif %}" />
+                <input type="text" id="tiktok" name="tiktok" 
+                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       placeholder="{% if user_info and user_info.tiktok_link %}{{ user_info.tiktok_link }}{% else %}TikTok Link{% endif %}" />
               </div>
             </div>
+            
+            <!-- YouTube -->
             <div>
-              <label class="block text-gray-700 text-lg font-bold mb-2" for="youtube">YouTube</label>
-              <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                <span class="flex items-center justify-center w-10 text-gray-500">
-                  <i class="fab fa-youtube"></i>
+              <label class="block text-lg font-bold text-gray-800 mb-3" for="youtube">YouTube</label>
+              <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
+                <span class="flex items-center justify-center w-12 text-gray-500">
+                  <i class="fab fa-youtube text-lg text-red-600"></i>
                 </span>
-                <input type="text" id="youtube" name="youtube" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.youtube_link %}{{ user_info.youtube_link }}{% else %}YouTube Link{% endif %}" />
+                <input type="text" id="youtube" name="youtube" 
+                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       placeholder="{% if user_info and user_info.youtube_link %}{{ user_info.youtube_link }}{% else %}YouTube Link{% endif %}" />
               </div>
             </div>
+            
+            <!-- X (Twitter) -->
             <div>
-              <label class="block text-gray-700 text-lg font-bold mb-2" for="x">X (Twitter)</label>
-              <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                <span class="flex items-center justify-center w-10 text-gray-500">
-                  <i class="fab fa-x"></i>
+              <label class="block text-lg font-bold text-gray-800 mb-3" for="x">X (Twitter)</label>
+              <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
+                <span class="flex items-center justify-center w-12 text-gray-500">
+                  <i class="fab fa-x text-lg text-black"></i>
                 </span>
-                <input type="text" id="x" name="x" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.x_link %}{{ user_info.x_link }}{% else %}X Link{% endif %}" />
+                <input type="text" id="x" name="x" 
+                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       placeholder="{% if user_info and user_info.x_link %}{{ user_info.x_link }}{% else %}X Link{% endif %}" />
               </div>
             </div>
+            
+            <!-- Spotify -->
             <div>
-              <label class="block text-gray-700 text-lg font-bold mb-2" for="spotify">Spotify</label>
-              <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                <span class="flex items-center justify-center w-10 text-gray-500">
-                  <i class="fab fa-spotify"></i>
+              <label class="block text-lg font-bold text-gray-800 mb-3" for="spotify">Spotify</label>
+              <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
+                <span class="flex items-center justify-center w-12 text-gray-500">
+                  <i class="fab fa-spotify text-lg text-green-500"></i>
                 </span>
-                <input type="text" id="spotify" name="spotify" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.spotify_link %}{{ user_info.spotify_link }}{% else %}Spotify Link{% endif %}" />
+                <input type="text" id="spotify" name="spotify" 
+                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       placeholder="{% if user_info and user_info.spotify_link %}{{ user_info.spotify_link }}{% else %}Spotify Link{% endif %}" />
               </div>
             </div>
+            
+            <!-- LinkedIn -->
             <div>
-              <label class="block text-gray-700 text-lg font-bold mb-2" for="linkedin">LinkedIn</label>
-              <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-                <span class="flex items-center justify-center w-10 text-gray-500">
-                  <i class="fab fa-linkedin"></i>
+              <label class="block text-lg font-bold text-gray-800 mb-3" for="linkedin">LinkedIn</label>
+              <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
+                <span class="flex items-center justify-center w-12 text-gray-500">
+                  <i class="fab fa-linkedin text-lg text-blue-700"></i>
                 </span>
-                <input type="text" id="linkedin" name="linkedin" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.linkedin_link %}{{ user_info.linkedin_link }}{% else %}LinkedIn Link{% endif %}" />
+                <input type="text" id="linkedin" name="linkedin" 
+                       class="w-full p-4 text-gray-700 focus:outline-none" 
+                       placeholder="{% if user_info and user_info.linkedin_link %}{{ user_info.linkedin_link }}{% else %}LinkedIn Link{% endif %}" />
               </div>
             </div>
           </div>
           
-          <div class="flex justify-between">
-            <button class="prev-step bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded" data-goto="1">
+          <div class="flex justify-between pt-4">
+            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="1">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
-            <button class="next-step bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded" data-goto="3">
-              Next: Design <i class="fas fa-arrow-right ml-2"></i>
+            <button class="next-step bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="3">
+              Next: Design <i class="fas fa-arrow-right ml-3"></i>
             </button>
           </div>
         </div>
         
         <!-- Step 3: Design -->
         <div class="step-content hidden" id="step-3">
-          <h2 class="text-xl font-bold text-gray-700 mb-4">Choose your style</h2>
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Choose your style</h2>
           
           <!-- Background Design Options -->
-          <div class="mb-6">
-            <p class="block text-gray-700 text-lg font-bold mb-2">Background Design</p>
+          <div class="mb-8">
+            <p class="block text-lg font-bold text-gray-800 mb-4">Background Design</p>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {% for bg_id, bg_name in background_names.items %}
-              <label class="relative cursor-pointer flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow-lg p-3 hover:shadow-xl transition duration-200 ease-in-out transform hover:scale-105">
+              <label class="relative cursor-pointer flex flex-col items-center bg-white border-2 border-gray-200 rounded-xl shadow-md p-4 hover:shadow-lg hover:border-blue-200 transition duration-200 ease-in-out transform hover:-translate-y-1 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-200">
                 <input type="radio" name="selected_background" value="{{ bg_id }}" class="hidden peer">
                 
                 <!-- Placeholder for background image or icon -->
-                <div class="w-24 h-24 bg-gray-100 rounded-md flex items-center justify-center mb-3">
-                  <span class="text-3xl text-gray-400">🎨</span>
-                   <!-- Icon or image can go here -->
+                <div class="w-full h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-md flex items-center justify-center mb-3">
+                  <span class="text-4xl text-gray-400">🎨</span>
                 </div>
-    
+      
                 <!-- Radio checkmark overlay using CSS -->
-                <div class="absolute top-2 right-2 w-4 h-4 rounded-full bg-blue-500 opacity-0 peer-checked:opacity-100">
-                  <!-- The blue dot will appear only when selected -->
+                <div class="absolute top-3 right-3 w-5 h-5 rounded-full bg-blue-500 opacity-0 peer-checked:opacity-100 flex items-center justify-center text-white text-xs">
+                  ✓
                 </div>
-    
+      
                 <!-- Background name -->
-                <span class="block text-center text-gray-800 font-semibold">{{ bg_name }}</span>
+                <span class="block text-center text-gray-800 font-medium">{{ bg_name }}</span>
               </label>
               {% endfor %}
             </div>
           </div>
           
           <!-- Background Image Upload -->
-          <div class="mb-6 p-4 border rounded-lg bg-gray-50">
-            <h3 class="text-lg font-bold text-gray-700 mb-4">Or upload your own background</h3>
+          <div class="mb-8 p-6 border-2 border-dashed border-gray-300 rounded-xl bg-gray-50">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Or upload your own background</h3>
             
             <!-- Display current background image -->
             {% if user_info.background_image %}
             <div class="mt-4 mb-6">
-              <p class="text-md text-gray-600">Current Background:</p>
-              <div class="flex justify-between items-center">
+              <p class="text-md font-medium text-gray-700 mb-2">Current Background:</p>
+              <div class="flex justify-between items-center bg-white p-3 rounded-lg shadow-sm">
                 <div class="max-w-xs">
-                  <img src="{{ user_info.background_image.url }}" alt="Current background" class="rounded-md shadow-lg">
+                  <img src="{{ user_info.background_image.url }}" alt="Current background" class="rounded-md shadow-lg w-full h-auto">
                 </div>
                 <!-- Delete icon -->
                 <form method="POST" action="{% url 'delete_background_image' %}" class="text-red-500 hover:text-red-700">
                   {% csrf_token %}
-                  <button type="submit" class="text-lg">
-                    <i class="fas fa-trash-alt"></i> Delete
+                  <button type="submit" class="text-lg font-medium flex items-center">
+                    <i class="fas fa-trash-alt mr-2"></i> Delete
                   </button>
                 </form>
               </div>
@@ -217,94 +305,112 @@
             <!-- Background Image Upload Form -->
             <form id="background_image_form" method="POST" action="/update_background_image/" enctype="multipart/form-data" class="space-y-4">
               {% csrf_token %}
-              <div class="mb-6">
-                <label for="background_image" class="block text-md font-semibold text-gray-700">Upload Your Background Image</label>
-                <input type="file" id="background_image" name="background_image" class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
+              <div class="mb-4">
+                <label for="background_image" class="block text-md font-semibold text-gray-800 mb-2">Upload Your Background Image</label>
+                <input type="file" id="background_image" name="background_image" 
+                       class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
               </div>
             
-              <button type="submit" class="w-full py-2 px-4 bg-blue-500 hover:bg-blue-700 text-white font-semibold rounded-md">Upload New Background</button>
+              <button type="submit" class="w-full py-3 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg transition duration-200">
+                Upload New Background
+              </button>
             </form>
           </div>
           
-          <div class="flex justify-between">
-            <button class="prev-step bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded" data-goto="2">
+          <div class="flex justify-between pt-4">
+            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="2">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
-            <button class="next-step bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded" data-goto="4">
-              Next: Finishing Touches <i class="fas fa-arrow-right ml-2"></i>
+            <button class="next-step bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="4">
+              Next: Highlights <i class="fas fa-arrow-right ml-3"></i>
             </button>
           </div>
         </div>
-        <!-- step 4:Highlights -->
+        
+        <!-- Step 4: Highlights -->
         <div class="step-content hidden" id="step-4">
-          <h2 class="text-xl font-bold text-gray-700 mb-4">Highlights</h2>
-            <!-- Portfolio Highlights -->
-            <div class="mb-6">
-              <h3 class="text-lg font-bold text-gray-700 mb-4">Showcase your work</h3>
-              {% include 'highlight_list.html' %}
-            </div>
-
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Highlights</h2>
           
-          <div class="flex justify-between">
-            <button class="prev-step bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded" data-goto="3">
+          <!-- Portfolio Highlights -->
+          <div class="mb-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Showcase your work</h3>
+            {% include 'highlight_list.html' %}
+          </div>
+          
+          <div class="flex justify-between pt-4">
+            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="3">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
-            <button class="next-step bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded" data-goto="5">
-              Next: Sections <i class="fas fa-arrow-right ml-2"></i>
+            <button class="next-step bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="5">
+              Next: Sections <i class="fas fa-arrow-right ml-3"></i>
             </button>
           </div>
         </div>
-        <!-- step 5: Sections -->
+        
+        <!-- Step 5: Sections -->
         <div class="step-content hidden" id="step-5">
-          <h2 class="text-xl font-bold text-gray-700 mb-4">Sections</h2>
-           <!-- Portfolio Sections -->
-           <div class="mb-6">
-            <h3 class="text-lg font-bold text-gray-700 mb-4">Add content sections</h3>
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Sections</h2>
+          
+          <!-- Portfolio Sections -->
+          <div class="mb-8">
+            <h3 class="text-lg font-bold text-gray-800 mb-4">Add content sections</h3>
             {% include 'portfolio/section_form.html' %}
           </div>
           
-          <div class="flex justify-between">
-            <button class="prev-step bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded" data-goto="4">
+          <div class="flex justify-between pt-4">
+            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="4">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
-            <button class="next-step bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded" data-goto="6">
-              Next: Finishing Touches <i class="fas fa-arrow-right ml-2"></i>
+            <button class="next-step bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 px-8 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="6">
+              Next: Finishing Touches <i class="fas fa-arrow-right ml-3"></i>
             </button>
           </div>
         </div>
-        <!-- Step 4: Finishing Touches -->
+        
+        <!-- Step 6: Finishing Touches -->
         <div class="step-content hidden" id="step-6">
-          <h2 class="text-xl font-bold text-gray-700 mb-4">Final details</h2>
+          <h2 class="text-2xl font-bold text-gray-800 mb-6">Final details</h2>
           
           <!-- Custom URL -->
-          <div class="mb-6">
-            <label class="block text-gray-700 text-lg font-bold mb-2" for="userUrl">Your Custom URL</label>
-            <div class="flex items-center border rounded-lg focus-within:ring-2 focus-within:ring-blue-500">
-              <span class="flex items-center justify-center w-10 text-gray-500">
-                <i class="fas fa-link"></i>
+          <div class="mb-8">
+            <label class="block text-lg font-bold text-gray-800 mb-3" for="userUrl">Your Custom URL</label>
+            <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
+              <span class="flex items-center justify-center w-12 text-gray-500">
+                <i class="fas fa-link text-lg"></i>
               </span>
-              <input type="text" id="userUrl" name="userUrl" class="w-full p-4 text-gray-700 focus:outline-none" placeholder="{% if user_info and user_info.userUrl %}{{ user_info.userUrl }}{% else %}Enter your host url{% endif %}" />
+              <input type="text" id="userUrl" name="userUrl" 
+                     class="w-full p-4 text-gray-700 focus:outline-none" 
+                     placeholder="{% if user_info and user_info.userUrl %}{{ user_info.userUrl }}{% else %}Enter your host url{% endif %}" />
             </div>
-            <p class="text-lg font-medium text-gray-700 mt-4">Your website will be available at: 
-              <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/" class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300">
+            <p class="text-lg font-medium text-gray-800 mt-4">Your website will be available at: 
+              <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/" 
+                 class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300 underline">
                 http://127.0.0.1:8000/{{ user_info.userUrl }}/
               </a>
             </p>
           </div>
           
-          
-          <div class="flex justify-between">
-            <button class="prev-step bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-6 rounded" data-goto="3">
+          <div class="flex justify-between pt-4">
+            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+                    data-goto="5">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
-            <button id="submit-all" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-6 rounded">
-              Complete Profile <i class="fas fa-check ml-2"></i>
+            <button id="submit-all" 
+                    class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium py-3 px-8 rounded-lg transition duration-200 flex items-center shadow-md hover:shadow-lg">
+              Complete Profile <i class="fas fa-check ml-3"></i>
             </button>
           </div>
         </div>
-    
       </div>
     </div>
+    
+ 
   </div>
 
   <!-- Mobile Preview -->
