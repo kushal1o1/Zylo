@@ -24,3 +24,8 @@ done = False
 
 # TODO: Add a better approach for error handling and showing error messages to the user
 done = False
+
+
+# TODO: Divide in steps or roadmap like structure for the user to follow creating  a website
+done = False
+
