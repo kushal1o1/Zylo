@@ -10,12 +10,12 @@
 <main class="flex flex-col items-center justify-between p-12 md:flex-row md:space-x-4 space-y-4 md:space-y-0 hide-scrollbar" style="height:95vh">
 
   <div class="mt-5 flex flex-col md:flex-1 md:flex-row max-w-6xl lg:mx-auto md:p-4 order-2 md:order-1 ">
-    <div class="flex-1 overflow-y-auto hide-scrollbar bg-white shadow-lg rounded-lg mt-4 h-auto md:h-[90vh]">
+    <div class="flex-1 overflow-y-auto hide-scrollbar shadow-lg rounded-lg mt-4 h-auto md:h-[90vh]">
       <!-- Step Navigation -->
-      <div class="mb-6 bg-white p-6 sticky top-0 z-10 shadow-sm border-b">
+      <div class="mb-6 p-6 sticky top-0 z-10 shadow-sm border-b">
         <div class="flex justify-between items-center">
-          <h1 class="text-2xl font-bold text-gray-800">Create Your Profile</h1>
-          <div class="text-sm font-medium text-gray-600 bg-gray-100 px-3 py-1 rounded-full" id="step-indicator">
+          <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-300 dark:text-gray-300">Create Your Profile</h1>
+          <div class="text-sm font-medium text-gray-600 bg-gray-100 dark:text-black px-3 py-1 rounded-full" id="step-indicator">
             Step <span id="current-step" class="font-bold">1</span> of 6
           </div>
         </div>
@@ -38,7 +38,7 @@
           
           <button class="step-tab flex flex-col items-center px-4 py-3 rounded-lg transition-all duration-300" 
                   data-step="2">
-            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600 flex items-center justify-center mb-1">
+            <div class="w-8 h-8 rounded-full bg-gray-100 text-gray-600  flex items-center justify-center mb-1">
               2
             </div>
             <span class="text-sm font-medium">Social Links</span>
@@ -81,12 +81,12 @@
       <div class="max-w-4xl p-4 lg:p-6 md:p-4">
         <!-- Step 1: Basic Info -->
         <div class="step-content" id="step-1">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6">Let's start with the basics</h2>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-6">Let's start with the basics</h2>
           
           <!-- Profile Image -->
           <form id="profile_form" method="POST" action="/update_images/" enctype="multipart/form-data" class="mb-8">
             {% csrf_token %}
-            <label class="block text-lg font-bold text-gray-800 mb-3">Profile Image</label>
+            <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3">Profile Image</label>
             <div class="flex items-center gap-6">
               <div class="w-24 h-24 rounded-full bg-gray-200 flex items-center justify-center overflow-hidden border-4 border-white shadow-md">
                 <!-- Profile image placeholder -->
@@ -104,30 +104,30 @@
           
           <!-- Name -->
           <div class="mb-6">
-            <label class="block text-lg font-bold text-gray-800 mb-3" for="name">Name</label>
+            <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="name">Name</label>
             <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
               <span class="flex items-center justify-center w-12 text-gray-500">
                 <i class="fas fa-user text-lg"></i>
               </span>
               <input type="text" id="name" name="name" 
-                     class="w-full p-4 text-gray-700 focus:outline-none bg-transparent" 
+                     class="w-full p-4 text-gray-700 focus:outline-none bg-transparent dark:text-gray-300" 
                      placeholder="{% if user_info and user_info.name %}{{ user_info.name }}{% else %}Enter your name{% endif %}" />
             </div>
           </div>
           
           <!-- Profession -->
           <div class="mb-6">
-            <label class="block text-lg font-bold text-gray-800 mb-3" for="profession">Profession</label>
+            <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="profession">Profession</label>
             <input id="profession" name="profession" 
-                   class="w-full p-4 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
+                   class="w-full p-4 text-gray-700 bg-transparent dark:text-gray-300 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
                    placeholder="{% if user_info and user_info.profession %}{{ user_info.profession }}{% else %}Write your Position...{% endif %}">
           </div>
           
           <!-- Bio -->
           <div class="mb-8">
-            <label class="block text-lg font-bold text-gray-800 mb-3" for="bio">Bio</label>
+            <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="bio">Bio</label>
             <textarea id="bio" name="bio" 
-                      class="w-full p-4 text-gray-700 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
+                      class="w-full p-4 text-gray-700 bg-transparent dark:text-gray-300 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-200" 
                       rows="4" 
                       placeholder="{% if user_info and user_info.bio_txt %}{{ user_info.bio_txt }}{% else %}Write your bio...{% endif %}"></textarea>
           </div>
@@ -142,12 +142,12 @@
         
         <!-- Step 2: Social Links -->
         <div class="step-content hidden" id="step-2">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6">Connect your social presence</h2>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-6">Connect your social presence</h2>
           
           <div class="grid grid-cols-1 gap-6 mb-8 lg:grid-cols-2">
             <!-- Instagram -->
             <div>
-              <label class="block text-lg font-bold text-gray-800 mb-3" for="instagram">Instagram</label>
+              <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="instagram">Instagram</label>
               <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
                 <span class="flex items-center justify-center w-12 text-gray-500">
                   <i class="fab fa-instagram text-lg text-pink-600"></i>
@@ -160,7 +160,7 @@
             
             <!-- Facebook -->
             <div>
-              <label class="block text-lg font-bold text-gray-800 mb-3" for="facebook">Facebook</label>
+              <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="facebook">Facebook</label>
               <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
                 <span class="flex items-center justify-center w-12 text-gray-500">
                   <i class="fab fa-facebook text-lg text-blue-600"></i>
@@ -173,7 +173,7 @@
             
             <!-- TikTok -->
             <div>
-              <label class="block text-lg font-bold text-gray-800 mb-3" for="tiktok">TikTok</label>
+              <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="tiktok">TikTok</label>
               <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
                 <span class="flex items-center justify-center w-12 text-gray-500">
                   <i class="fab fa-tiktok text-lg text-black"></i>
@@ -186,7 +186,7 @@
             
             <!-- YouTube -->
             <div>
-              <label class="block text-lg font-bold text-gray-800 mb-3" for="youtube">YouTube</label>
+              <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="youtube">YouTube</label>
               <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
                 <span class="flex items-center justify-center w-12 text-gray-500">
                   <i class="fab fa-youtube text-lg text-red-600"></i>
@@ -199,7 +199,7 @@
             
             <!-- X (Twitter) -->
             <div>
-              <label class="block text-lg font-bold text-gray-800 mb-3" for="x">X (Twitter)</label>
+              <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="x">X (Twitter)</label>
               <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
                 <span class="flex items-center justify-center w-12 text-gray-500">
                   <i class="fab fa-x text-lg text-black"></i>
@@ -212,7 +212,7 @@
             
             <!-- Spotify -->
             <div>
-              <label class="block text-lg font-bold text-gray-800 mb-3" for="spotify">Spotify</label>
+              <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="spotify">Spotify</label>
               <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
                 <span class="flex items-center justify-center w-12 text-gray-500">
                   <i class="fab fa-spotify text-lg text-green-500"></i>
@@ -225,7 +225,7 @@
             
             <!-- LinkedIn -->
             <div>
-              <label class="block text-lg font-bold text-gray-800 mb-3" for="linkedin">LinkedIn</label>
+              <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="linkedin">LinkedIn</label>
               <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
                 <span class="flex items-center justify-center w-12 text-gray-500">
                   <i class="fab fa-linkedin text-lg text-blue-700"></i>
@@ -238,7 +238,7 @@
           </div>
           
           <div class="flex justify-between pt-4">
-            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+            <button class="prev-step bg-gray-200 hover:bg-gray-300 dark:text-black text-gray-800 dark:text-gray-300 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
                     data-goto="1">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
@@ -251,11 +251,11 @@
         
         <!-- Step 3: Design -->
         <div class="step-content hidden" id="step-3">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6">Choose your style</h2>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-6">Choose your style</h2>
           
           <!-- Background Design Options -->
           <div class="mb-8">
-            <p class="block text-lg font-bold text-gray-800 mb-4">Background Design</p>
+            <p class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">Background Design</p>
             
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {% for bg_id, bg_name in background_names.items %}
@@ -273,7 +273,7 @@
                 </div>
       
                 <!-- Background name -->
-                <span class="block text-center text-gray-800 font-medium">{{ bg_name }}</span>
+                <span class="block text-center text-gray-800 dark:text-gray-300 font-medium">{{ bg_name }}</span>
               </label>
               {% endfor %}
             </div>
@@ -281,7 +281,7 @@
           
           <!-- Background Image Upload -->
           <div class="mb-8 p-6 border-2 border-dashed border-gray-300 rounded-xl bg-gray-50">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">Or upload your own background</h3>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">Or upload your own background</h3>
             
             <!-- Display current background image -->
             {% if user_info.background_image %}
@@ -306,7 +306,7 @@
             <form id="background_image_form" method="POST" action="/update_background_image/" enctype="multipart/form-data" class="space-y-4">
               {% csrf_token %}
               <div class="mb-4">
-                <label for="background_image" class="block text-md font-semibold text-gray-800 mb-2">Upload Your Background Image</label>
+                <label for="background_image" class="block text-md font-semibold text-gray-800 dark:text-gray-300 mb-2">Upload Your Background Image</label>
                 <input type="file" id="background_image" name="background_image" 
                        class="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100" />
               </div>
@@ -318,7 +318,7 @@
           </div>
           
           <div class="flex justify-between pt-4">
-            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+            <button class="prev-step dark:text-black  bg-gray-200 hover:bg-gray-300 text-gray-800 dark:text-gray-300 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
                     data-goto="2">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
@@ -331,16 +331,16 @@
         
         <!-- Step 4: Highlights -->
         <div class="step-content hidden" id="step-4">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6">Highlights</h2>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-6">Highlights</h2>
           
           <!-- Portfolio Highlights -->
           <div class="mb-8">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">Showcase your work</h3>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">Showcase your work</h3>
             {% include 'highlight_list.html' %}
           </div>
           
           <div class="flex justify-between pt-4">
-            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+            <button class="prev-step dark:text-black   bg-gray-200 hover:bg-gray-300 text-gray-800 dark:text-gray-300 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
                     data-goto="3">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
@@ -353,16 +353,16 @@
         
         <!-- Step 5: Sections -->
         <div class="step-content hidden" id="step-5">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6">Sections</h2>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-6">Sections</h2>
           
           <!-- Portfolio Sections -->
           <div class="mb-8">
-            <h3 class="text-lg font-bold text-gray-800 mb-4">Add content sections</h3>
+            <h3 class="text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">Add content sections</h3>
             {% include 'portfolio/section_form.html' %}
           </div>
           
           <div class="flex justify-between pt-4">
-            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+            <button class="prev-step dark:text-black  bg-gray-200 hover:bg-gray-300 text-gray-800 dark:text-gray-300 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
                     data-goto="4">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
@@ -375,11 +375,11 @@
         
         <!-- Step 6: Finishing Touches -->
         <div class="step-content hidden" id="step-6">
-          <h2 class="text-2xl font-bold text-gray-800 mb-6">Final details</h2>
+          <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-300 mb-6">Final details</h2>
           
           <!-- Custom URL -->
           <div class="mb-8">
-            <label class="block text-lg font-bold text-gray-800 mb-3" for="userUrl">Your Custom URL</label>
+            <label class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-3" for="userUrl">Your Custom URL</label>
             <div class="flex items-center border border-gray-300 rounded-lg focus-within:ring-2 focus-within:ring-blue-500 focus-within:border-blue-500 transition duration-200">
               <span class="flex items-center justify-center w-12 text-gray-500">
                 <i class="fas fa-link text-lg"></i>
@@ -388,7 +388,7 @@
                      class="w-full p-4 text-gray-700 focus:outline-none" 
                      placeholder="{% if user_info and user_info.userUrl %}{{ user_info.userUrl }}{% else %}Enter your host url{% endif %}" />
             </div>
-            <p class="text-lg font-medium text-gray-800 mt-4">Your website will be available at: 
+            <p class="text-lg font-medium text-gray-800 dark:text-gray-300 mt-4">Your website will be available at: 
               <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/" 
                  class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300 underline">
                 http://127.0.0.1:8000/{{ user_info.userUrl }}/
@@ -397,7 +397,7 @@
           </div>
           
           <div class="flex justify-between pt-4">
-            <button class="prev-step bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
+            <button class="prev-step dark:text-black  bg-gray-200 hover:bg-gray-300 text-gray-800 dark:text-gray-300 font-medium py-3 px-6 rounded-lg transition duration-200 flex items-center" 
                     data-goto="5">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
