@@ -34,11 +34,11 @@
     <!-- Display Sections and Section Data -->
     {% for section in sections %}
         <div class="section p-6 rounded-xl shadow-lg">
-            <h2 class="text-2xl font-semibold mb-4">{{ section.section_title }}</h2>
+            <h2 class="text-2xl dark:text-gray-300  font-semibold mb-4">{{ section.section_title }}</h2>
             
             <div class="section-data space-y-4">
                 {% for data in section.section_data.all %}
-                    <div class="block bg-transparent p-3 rounded-lg flex items-center space-x-4 shadow-md hover:bg-gray-200 transition-all relative">
+                    <div class="block bg-white  p-3 rounded-lg flex items-center space-x-4 shadow-md hover:bg-gray-200 transition-all relative">
                         
                         <!-- Delete Icon for SectionData -->
                         <form action="{% url 'delete_section_data' data.id %}" method="POST" class="absolute top-2 right-2 z-2">
