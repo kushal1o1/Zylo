@@ -12,7 +12,7 @@
   <div class="mt-5 flex flex-col md:flex-1 md:flex-row max-w-6xl lg:mx-auto md:p-4 order-2 md:order-1 ">
     <div class="flex-1 overflow-y-auto hide-scrollbar shadow-lg rounded-lg mt-4 h-auto md:h-[90vh]">
       <!-- Step Navigation -->
-      <div class="dark:bg-dark-secondary bg-white mb-6 p-6 sticky top-0 z-100 shadow-sm border-b">
+      <div class="dark:bg-dark-secondary bg-white mb-6 p-6 sticky top-0  shadow-sm border-b">
         <div class="flex justify-between items-center">
           <h1 class="text-2xl font-bold text-gray-800 dark:text-gray-300">Create Your Profile</h1>
           <div class="text-sm font-medium text-gray-600 bg-gray-100 dark:text-black px-3 py-1 rounded-full" id="step-indicator">
@@ -256,13 +256,13 @@
           <div class="mb-8">
             <p class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">Background Design</p>
             
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {% for bg_id, bg_name in background_names.items %}
-              <label class="relative cursor-pointer flex flex-col items-center  border-2 border-gray-200 rounded-xl shadow-md p-4 hover:shadow-lg hover:border-blue-200 transition duration-200 ease-in-out transform hover:-translate-y-1 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-200">
-                <input type="radio" name="selected_background" value="{{ bg_id }}" class="hidden peer">
+              <label class=" relative cursor-pointer flex flex-col items-center  border-2 border-gray-200 rounded-xl shadow-md p-4 hover:shadow-lg hover:border-blue-200 transition duration-200 ease-in-out transform hover:-translate-y-1 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-200">
+                <input type="radio" name="selected_background" value="{{ bg_id }}" class="hidden peer ">
                 
                 <!-- Placeholder for background image or icon -->
-                <div class="w-full h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-md flex items-center justify-center mb-3">
+                <div class=" w-full h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-md flex items-center justify-center mb-3">
                   <span class="text-4xl text-gray-400">🎨</span>
                 </div>
       
