@@ -20,11 +20,11 @@
         
         <!-- Progress Bar -->
         <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
-          <div class="bg-blue-600 h-2.5 rounded-full" id="progress-bar" style="width: 25%"></div>
+          <div class="bg-blue-600 h-2.5 rounded-full" id="progress-bar" style="width: 15%"></div>
         </div>
         
         <!-- Step Tabs -->
-        <div class="flex justify-between mt-4">
+        <div class="flex flex-col sm:flex-col md:flex-row  lg:flex-row bg-white justify-between  mt-4">
           <button class="step-tab active" data-step="1">Basic Info</button>
           <button class="step-tab" data-step="2">Social Links</button>
           <button class="step-tab" data-step="3">Design</button>
@@ -349,7 +349,7 @@
 <script>
 // Wizard navigation
 let currentStep = 1;
-const totalSteps = 4;
+const totalSteps = 6;
 
 // Initialize step handlers
 document.addEventListener('DOMContentLoaded', function() {
@@ -406,6 +406,7 @@ function goToStep(step) {
   currentStep = step;
   document.getElementById('current-step').textContent = step;
   document.getElementById('progress-bar').style.width = (step / totalSteps * 100) + '%';
+
 }
 
 // Debounce function for form fields
