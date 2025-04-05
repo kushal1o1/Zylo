@@ -403,10 +403,10 @@
                     data-goto="5">
               <i class="fas fa-arrow-left mr-2"></i> Previous
             </button>
-            <button id="submit-all" 
+            <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/" target="_blank" id="submit-all" 
                     class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-medium py-3 px-8 rounded-lg transition duration-200 flex items-center shadow-md hover:shadow-lg">
-              Complete Profile <i class="fas fa-check ml-3"></i>
-            </button>
+             All Done ,See Your Website <i class="fas fa-check ml-3"></i>
+            </a>
           </div>
         </div>
       </div>
@@ -538,9 +538,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   // Submit all button
   document.getElementById('submit-all').addEventListener('click', function() {
-    alert('Profile updated successfully!');
-    // Optional: redirect to the profile view page
-    // window.location.href = '/profile/' + document.getElementById('userUrl').value;
+   showNotification('All done! Your website is ready to view.');
   });
 });
 
