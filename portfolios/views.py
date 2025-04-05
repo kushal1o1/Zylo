@@ -65,7 +65,7 @@ background_names = {
 }
 
 fasurl=config("FASURL")
-def MainPage(request):
+def main_page(request):
     return render(request, 'MainPage/index.html')
 
 
@@ -242,7 +242,7 @@ def delete_section_data(request, data_id):
     section_data.delete()
     return redirect('home')
 
-def NotFound(request):
+def not_found(request):
     return render(request, 'Notfound.html')
 
 
@@ -263,6 +263,7 @@ def delete_background_image(request):
         pass
 
     return redirect('home')  
+
 @login_required
 def get_code_snippet(request):
     # Get any necessary context data
