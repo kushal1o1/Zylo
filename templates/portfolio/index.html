@@ -389,9 +389,12 @@
             </div>
             <p class="text-lg font-medium text-gray-800 dark:text-gray-300 mt-4">Your website will be available at: 
               <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/" 
-                 class="text-blue-600 hover:text-blue-800 font-semibold transition duration-300 underline">
+                 class="copyUrltag text-blue-600 hover:text-blue-800 font-semibold transition duration-300 underline">
                 http://127.0.0.1:8000/{{ user_info.userUrl }}/
               </a>
+              <!-- Copy Feature  -->
+              <button id="copyUrl" class="ml-2 text-sm text-gray-500 hover:text-gray-700 font-medium transition duration-200">
+                <i class="fas fa-copy"></i> Copy URL
             </p>
           </div>
           
@@ -453,6 +456,18 @@
 
 
 <script>
+//script for copying url from copyUrltag a tag .copy its href or its content inside it
+  const copyUrlButton = document.getElementById('copyUrl');
+  const copyUrlTag = document.querySelector('.copyUrltag');
+
+  copyUrlButton.addEventListener('click', function() {
+    const urlToCopy = copyUrlTag.getAttribute('href');
+    navigator.clipboard.writeText(urlToCopy).then(function() {
+     showNotification('URL copied to clipboard!');
+    }, function(err) {
+      showNotification('Failed to copy URL: ' + err);
+    });
+  });
 
   function debounce(func, wait) {
     let timeout;
