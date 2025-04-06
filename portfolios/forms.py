@@ -1,6 +1,9 @@
 from django import forms
 from .models import Highlight,Section, SectionData,UserInfo
 
+tailwind_css_for_highlights ='bg-transparent dark:text-gray-300 mb-6 w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
+tailwind_css_for_sections='bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none border rounded-lge focus:ring-2 focus:ring-blue-500'
+
 class HighlightForm(forms.ModelForm):
     class Meta:
         model = Highlight
@@ -9,14 +12,15 @@ class HighlightForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(HighlightForm, self).__init__(*args, **kwargs)
         self.fields['highlight_title'].widget.attrs.update({
-            'class': 'bg-transparent dark:text-gray-300 mb-6 w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
-            'placeholder': 'Enter title'
-        })
+            'class': tailwind_css_for_highlights,
+            'placeholder': 'Enter highlight title'
+        }
+        )
         self.fields['highlight_thumbnail_image'].widget.attrs.update({
-            'class': 'bg-transparent dark:text-gray-300 mb-6 w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
+            'class': tailwind_css_for_highlights,
         })
         self.fields['link'].widget.attrs.update({
-            'class': 'bg-transparent dark:text-gray-300 mb-6 w-full p-4 text-gray-700 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
+            'class': tailwind_css_for_highlights,
             'placeholder': 'Enter link (optional)'
         })
         self.fields['link'].required = False
@@ -56,7 +60,7 @@ class SectionForm(forms.ModelForm):
         fields = ['section_title']
         widgets = {
             'section_title': forms.TextInput(attrs={
-                'class': 'border rounded-lg bg-transparent dark:text-gray-300 mb-6 w-full p-3 rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500',
+                'class': tailwind_css_for_highlights,
                 'placeholder': 'Enter section title(min 2 characters)'
             })
         }
@@ -83,20 +87,20 @@ class SectionDataForm(forms.ModelForm):
                 'class': ' dark:bg-dark dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
             }),
             'main_title': forms.TextInput(attrs={
-                'class': 'bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none border rounded-lg focus:ring-2 focus:ring-blue-500 mb-6',
+                'class': tailwind_css_for_sections,
                 'placeholder': 'Enter main title'
             }),
             'desc': forms.Textarea(attrs={
-                'class': 'bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none border rounded-lge focus:ring-2 focus:ring-blue-500',
+                'class': tailwind_css_for_sections,
                 'placeholder': 'Enter description',
                 'rows': 3
             }),
             'link': forms.URLInput(attrs={
-                'class': 'bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none border rounded-lg focus:ring-2 focus:ring-blue-500',
+                'class': tailwind_css_for_sections,
                 'placeholder': 'Enter link'
             }),
             'pic': forms.FileInput(attrs={
-                'class': 'bg-transparent dark:text-gray-300 w-full p-4 text-gray-700 focus:outline-none border rounded-lg focus:ring-2 focus:ring-blue-500'
+                'class': tailwind_css_for_sections
             })
         }
 

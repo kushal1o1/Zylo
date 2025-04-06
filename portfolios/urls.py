@@ -18,9 +18,10 @@ urlpatterns = [
     # Urls for handling highlights
     path('highlights/delete/<int:highlight_id>/', views.delete_highlight, name='delete_highlight'),  # Delete highlight
 
-
+    # Urls for handling sections
     path('sections/delete/<int:section_id>/', views.delete_section, name='delete_section'),
     path('delete-section-data/<int:data_id>/', views.delete_section_data, name='delete_section_data'),
+    
     path('get-code-snippet/', views.get_code_snippet, name='get_code_snippet'),
     path("NotFound/",views.not_found,name="NotFound"),
     path('<str:userUrl>/',views.index,name="index"),
