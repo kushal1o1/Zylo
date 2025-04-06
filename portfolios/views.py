@@ -66,11 +66,17 @@ background_names = {
 
 fasurl=config("FASURL")
 def main_page(request):
+    """
+    Landing Page 
+    """
     return render(request, 'MainPage/index.html')
 
 
-# Create your views here.
 def index(request,userUrl):
+    """
+    It serve users Website by fetching the user info and highlights from the database.
+    It also fetches the sections and their data for the user. The selected background template is set based on the user's choice.
+    """
     user_info = UserInfo.objects.filter(userUrl=userUrl).first()
     if user_info:
         
@@ -84,6 +90,9 @@ def index(request,userUrl):
 
 @login_required
 def home(request):
+    """
+    Home Page for Creating and Managing Website with Highlights and Sections
+    """
     user_info = None
     if request.user.is_authenticated:
         highlights = Highlight.objects.filter(user=request.user)
@@ -156,6 +165,10 @@ def home(request):
 @login_required  
 @csrf_exempt #To do: remove in production
 def update_user_info(request):
+    """
+    Update User Information Through AJAX Request
+    This view handles the AJAX request to update user information such as name, bio, and social media links.
+    """
     if request.method == 'POST':
         data = json.loads(request.body)  # Parse the JSON data from the request
         # Get the current logged-in user
@@ -188,6 +201,9 @@ def update_user_info(request):
 
 @login_required  
 def update_images(request):
+    """
+    Update User Profile Image 
+    """
     if request.method == 'POST':
        
         user = request.user
@@ -203,6 +219,9 @@ def update_images(request):
     
 @login_required
 def update_background_image(request):
+    """
+    Update User Background Image 
+    """
     if request.method == 'POST':
         user = request.user
         user_info, created = UserInfo.objects.get_or_create(user=user)
@@ -210,20 +229,23 @@ def update_background_image(request):
             user_info.background_image = request.FILES['background_image']
         user_info.save()
         return redirect("home")
-    
-    
-
+       
 
 @login_required
 def delete_highlight(request, highlight_id):
+    """
+    Delete Highlight Entry
+    """
     # Get the highlight and delete it if it belongs to the current user
     highlight = get_object_or_404(Highlight, id=highlight_id, user=request.user)
     highlight.delete()
     return redirect('home')  # Redirect back to the highlight list after deletion
 
-
 @login_required
 def delete_section(request, section_id):
+    """
+    Delete Section Entry
+    """
     # Fetch the section associated with the logged-in user
     section = get_object_or_404(Section, id=section_id, user=request.user)
     
@@ -236,6 +258,9 @@ def delete_section(request, section_id):
 
 @login_required
 def delete_section_data(request, data_id):
+    """
+    Delete Section Data Entry
+    """
     print("heheh")
     print(data_id)
     section_data = get_object_or_404(SectionData, id=data_id, section__user=request.user)  # Check ownership
@@ -243,13 +268,16 @@ def delete_section_data(request, data_id):
     return redirect('home')
 
 def not_found(request):
+    """
+    Render Not Found Page
+    """
     return render(request, 'Notfound.html')
-
-
-
 
 @login_required
 def delete_background_image(request):
+    """
+    Delete Background Image
+    """
     try:
         user_info = UserInfo.objects.get(user=request.user)
         if user_info.background_image:
@@ -266,6 +294,9 @@ def delete_background_image(request):
 
 @login_required
 def get_code_snippet(request):
+    """
+    Render Code Snippet Partial Template for User To see their website while creating it
+    """
     # Get any necessary context data
     user_info =UserInfo.objects.filter(user=request.user).first()
     print(user_info.selected_background)
