@@ -29,3 +29,5 @@ done = False
 # TODO: Divide in steps or roadmap like structure for the user to follow creating  a website
 done = False
 
+
+#TODO: Add a user input validation for images and other inputs from forms
