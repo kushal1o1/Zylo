@@ -106,7 +106,7 @@ def home(request):
             if form_type == "section_form":
                 # Handle creating a new section
                 section_form = SectionForm(request.POST)
-                if handle_section_form(section_form,request.user)
+                if handle_section_form(section_form,request.user):
                     messages.success(request, "Section created successfully.")
                     return redirect('home')
                 else:
@@ -116,10 +116,11 @@ def home(request):
             elif form_type == "section_data_form":
             # Handle adding a new section data entry to an existing section
                 section_data_form = SectionDataForm(request.POST, request.FILES,user=request.user)
-                if section_data_form.is_valid():
-                    new_section_data = section_data_form.save(commit=False)
-                    new_section_data.user = request.user
-                    new_section_data.save()
+                if handle_section_form(section_data_form,request.user):
+                    messages.success(request, "Section data created successfully.")
+                    return redirect('home')
+                else:
+                    messages.error(request, "Failed to create section data. Please try again.")
                     return redirect('home')
 
             elif form_type == "other_form":
@@ -143,7 +144,10 @@ def home(request):
                         new_highlight = form.save(commit=False)
                         new_highlight.user = request.user  # Associate the new highlight with the logged-in user
                         new_highlight.save()
+                        messages.success(request, "Highlight created successfully.")    
                         return redirect('home')  # Redirect to the highlight list after saving
+                
+
 
         
         form = HighlightForm()

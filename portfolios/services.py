@@ -41,3 +41,12 @@ def handle_section_form(section_form,user):
         new_section.save()
         return True
     return False
+
+def handle_section_data_form(section_data_form,user):
+    if section_data_form.is_valid():
+        new_section_data = section_data_form.save(commit=False)
+        new_section_data.user = user
+        new_section_data.save()
+        return True
+    return False
+
