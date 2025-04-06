@@ -16,6 +16,7 @@ from .models import Highlight
 from .forms import HighlightForm,SectionForm,SectionDataForm,BackgroundImageForm
 import os
 from decouple import config
+from . services import get_user_data
 
 background_templates = {
         "bg0": "designs/default.html",
@@ -40,6 +41,7 @@ background_templates = {
         "bg19": "designs/polygon.html",
         "bg20": "designs/Celebration.html",
         }
+
 background_names = {
     "bg0": "Default Design",    
     "bg1": "Minimalistic Graph",
@@ -79,10 +81,7 @@ def index(request,userUrl):
     """
     user_info = UserInfo.objects.filter(userUrl=userUrl).first()
     if user_info:
-        
-        highlights = Highlight.objects.filter(user=user_info.user)
-        sections = Section.objects.filter(user=user_info.user)
-        user_info.selected_template = background_templates.get(user_info.selected_background)
+        highlights, sections, user_info =get_user_data(user_info)
         return render(request, 'portfolio/portfolioServer.html', {'user_info': user_info ,"background_templates": background_templates,'highlights': highlights,'sections': sections})
     else:
         return redirect("/NotFound")
