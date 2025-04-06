@@ -32,3 +32,12 @@ def get_user_data(user_info):
     sections = Section.objects.filter(user=user_info.user)
     user_info.selected_template = background_templates.get(user_info.selected_background)
     return highlights, sections, user_info
+
+
+def handle_section_form(section_form,user):
+    if section_form.is_valid():
+        new_section = section_form.save(commit=False)
+        new_section.user = user
+        new_section.save()
+        return True
+    return False

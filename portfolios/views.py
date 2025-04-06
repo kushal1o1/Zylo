@@ -16,7 +16,8 @@ from .models import Highlight
 from .forms import HighlightForm,SectionForm,SectionDataForm,BackgroundImageForm
 import os
 from decouple import config
-from . services import get_user_data
+from . services import get_user_data,handle_section_form
+from django.contrib import messages
 
 background_templates = {
         "bg0": "designs/default.html",
@@ -103,12 +104,13 @@ def home(request):
         if request.method == "POST":
             form_type = request.POST.get("form_type")
             if form_type == "section_form":
-            # Handle creating a new section
+                # Handle creating a new section
                 section_form = SectionForm(request.POST)
-                if section_form.is_valid():
-                    new_section = section_form.save(commit=False)
-                    new_section.user = request.user
-                    new_section.save()
+                if handle_section_form(section_form,request.user)
+                    messages.success(request, "Section created successfully.")
+                    return redirect('home')
+                else:
+                    messages.error(request, "Failed to create section. Please try again.")
                     return redirect('home')
             
             elif form_type == "section_data_form":
