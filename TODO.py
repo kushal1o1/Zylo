@@ -33,3 +33,6 @@ done = False
 #TODO: Add a user input validation for images and other inputs from forms
 done =False
 
+
+# TODO: Add a Different colors for different types of messages like success, error, warning etc
+done = False
