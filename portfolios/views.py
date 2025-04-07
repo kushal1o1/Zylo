@@ -221,10 +221,10 @@ def update_images(request):
         if 'profile_img' in request.FILES:
             image_file = request.FILES['profile_img']
 
-            valid_extensions = ['jpeg', 'jpg', 'png']
+            valid_extensions = ['jpeg', 'jpg', 'png','gif']
             extension = image_file.name.split('.')[-1].lower()
             if extension not in valid_extensions:
-                messages.warning(request,"Only JPEG and PNG files are allowed.")
+                messages.warning(request,"Only JPEG , PNG , Gif files are allowed.")
                 return redirect("home")
 
             try:
@@ -234,6 +234,10 @@ def update_images(request):
                     return redirect("home")
             except Exception as e:
                 messages.warning(request,"Invalid image file.")
+                return redirect("home")
+            
+            if image_file.size > 2 * 1024 * 1024:
+                messages.warning(request,"Image size exceeds 2MB.")
                 return redirect("home")
             
         user_info.profile_image = request.FILES['profile_img']
