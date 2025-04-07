@@ -50,3 +50,10 @@ def handle_section_data_form(section_data_form,user):
         return True
     return False
 
+def handle_background_image_form(background_image_form, user):
+    if background_image_form.is_valid():
+        user_info = background_image_form.save(commit=False)
+        user_info.user = user
+        user_info.save()
+        return True
+    return False

@@ -16,7 +16,7 @@ from .models import Highlight
 from .forms import HighlightForm,SectionForm,SectionDataForm,BackgroundImageForm
 import os
 from decouple import config
-from . services import get_user_data,handle_section_form
+from . services import get_user_data,handle_section_form,handle_background_image_form
 from django.contrib import messages
 from PIL import Image 
 import imghdr
@@ -70,6 +70,7 @@ background_names = {
 }
 
 fasurl=config("FASURL")
+
 def main_page(request):
     """
     Landing Page 
@@ -252,11 +253,20 @@ def update_background_image(request):
     """
     if request.method == 'POST':
         user = request.user
-        user_info, created = UserInfo.objects.get_or_create(user=user)
-        if 'background_image' in request.FILES:
-            user_info.background_image = request.FILES['background_image']
-        user_info.save()
-        return redirect("home")
+        user_info, created = UserInfo.objects.get_or_create(user=user)   
+
+        form = BackgroundImageForm(request.POST, request.FILES, instance=user_info)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Background image updated successfully.")
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.warning(request, f"{field.capitalize()}: {error}")
+            messages.warning(request, "Background image not updated.")
+
+        return redirect('home')
+        
        
 
 @login_required
