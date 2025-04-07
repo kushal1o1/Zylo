@@ -455,6 +455,7 @@
 </main>
 
 
+
 <script>
 //script for copying url from copyUrltag a tag .copy its href or its content inside it
   const copyUrlButton = document.getElementById('copyUrl');
@@ -679,4 +680,12 @@ document.head.insertAdjacentHTML('beforeend', `
 </style>
 `);
 </script>
+{% if messages %}
+<script>
+  {% for message in messages %}
+    console.log("messages are there")
+    showNotification("{{ message|escapejs }}", "{{ message.tags }}");
+  {% endfor %}
+</script>
+{% endif %}
 {% endblock %}
