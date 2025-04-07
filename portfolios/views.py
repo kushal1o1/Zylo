@@ -202,6 +202,16 @@ def update_user_info(request):
         # Update fields dynamically if they exist in the request
         for field in fields_to_update:
             if field in data:
+                value = data[field].strip()
+
+
+                if field == 'userUrl':
+                    print(value)
+                    print(UserInfo.objects.filter(userUrl=value).exists())
+                    if UserInfo.objects.filter(userUrl=value).exclude(user=user).exists():
+                        print("exists")
+                        messages.error(request, "This URL is already taken.")
+                        return redirect('home')
                 setattr(user_info, field, data[field])  # Dynamically set the value
                 user_info.save()
 

@@ -6,7 +6,7 @@ from django.utils.html import mark_safe
 
 @admin.register(UserInfo)
 class UserInfoAdmin(admin.ModelAdmin):
-    list_display = ('user', 'name', 'profession', 'bio_txt', 'profile_image_preview', 'background_image_preview')
+    list_display = ('user', 'userUrl','name', 'profession', 'bio_txt', 'profile_image_preview', 'background_image_preview')
     search_fields = ('user__username', 'name')
     
     # Specify the fields to display in the detail view and set the preview fields as read-only
