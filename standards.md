@@ -33,3 +33,6 @@
 - Keep `.env.example` committed 
 -  `.env`
 
+## 9. Admin default Password
+-user id `admin`
+-password `openadmin`
