@@ -113,6 +113,9 @@ def home(request):
                     messages.success(request, "Section created successfully.")
                     return redirect('home')
                 else:
+                    for field, errors in section_form.errors.items():
+                        for error in errors:
+                            messages.warning(request, f"{field.capitalize()}: {error}")
                     messages.error(request, "Failed to create section. Please try again.")
                     return redirect('home')
             
@@ -123,6 +126,9 @@ def home(request):
                     messages.success(request, "Section data created successfully.")
                     return redirect('home')
                 else:
+                    for field, errors in section_data_form.errors.items():
+                        for error in errors:
+                            messages.warning(request, f"{field.capitalize()}: {error}")
                     messages.error(request, "Failed to create section data. Please try again.")
                     return redirect('home')
 
