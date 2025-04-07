@@ -18,6 +18,8 @@ import os
 from decouple import config
 from . services import get_user_data,handle_section_form
 from django.contrib import messages
+from PIL import Image 
+import imghdr
 
 background_templates = {
         "bg0": "designs/default.html",
@@ -165,8 +167,6 @@ def home(request):
     else:
         return redirect("accounts/login")
 
-
-
 @login_required  
 @csrf_exempt #To do: remove in production
 def update_user_info(request):
@@ -216,10 +216,29 @@ def update_images(request):
        
         user_info, created = UserInfo.objects.get_or_create(user=user)
         
+        # if 'profile_img' in request.FILES:
+        #     user_info.profile_image = request.FILES['profile_img']
         if 'profile_img' in request.FILES:
-            print("done")
-            user_info.profile_image = request.FILES['profile_img']
+            image_file = request.FILES['profile_img']
+
+            valid_extensions = ['jpeg', 'jpg', 'png']
+            extension = image_file.name.split('.')[-1].lower()
+            if extension not in valid_extensions:
+                messages.warning(request,"Only JPEG and PNG files are allowed.")
+                return redirect("home")
+
+            try:
+                img = Image.open(image_file)
+                if img.format not in ['JPEG', 'PNG']:
+                    messages.warning(request,"Uploaded file is not a valid image.")
+                    return redirect("home")
+            except Exception as e:
+                messages.warning(request,"Invalid image file.")
+                return redirect("home")
+            
+        user_info.profile_image = request.FILES['profile_img']
         user_info.save()
+        
         return redirect("home")
     
 @login_required
