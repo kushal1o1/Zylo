@@ -175,7 +175,6 @@ def home(request):
         return redirect("accounts/login")
 
 @login_required  
-@csrf_exempt #To do: remove in production
 def update_user_info(request):
     """
     Update User Information Through AJAX Request
