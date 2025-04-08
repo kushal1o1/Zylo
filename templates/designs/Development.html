@@ -1,0 +1,236 @@
+
+  <style>
+   
+    @font-face {
+      font-family: 'Rajdhani';
+      font-style: normal;
+      font-weight: 500;
+      src: url(https://fonts.gstatic.com/s/rajdhani/v15/LDI2apCSOBg7S-QT7pb0EPOqeef2kg.woff2) format('woff2');
+    }
+    
+    .gaming-background {
+      overflow: hidden;
+      background-color: #070b14;
+      width: 100%;
+      min-height: auto;
+
+    }
+    
+    .hex-grid-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .scan-line {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0) 98%,
+        rgba(0, 40, 100, 0.2) 98%,
+        rgba(0, 40, 100, 0.2) 100%
+      );
+      background-size: 100% 5px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    .vignette {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      box-shadow: inset 0 0 150px rgba(0, 0, 0, 0.7);
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    .contentgame {
+     
+      z-index: 1;
+      color: #00faff;
+      background: rgba(13, 20, 40, 0.7);
+      backdrop-filter: blur(8px);
+      border-radius: 8px;
+      padding: 1.5rem;
+      margin: 2rem auto;
+      max-width: 90%;
+      box-shadow: 0 0 20px rgba(0, 150, 255, 0.3),
+                  inset 0 0 10px rgba(0, 200, 255, 0.2);
+      border: 1px solid rgba(0, 200, 255, 0.3);
+    }
+    
+    .contentgame::before {
+      content: '';
+     
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, 
+        rgba(0, 200, 255, 0), 
+        rgba(0, 200, 255, 0.8) 20%, 
+        rgba(0, 200, 255, 0.2) 40%,
+        rgba(0, 200, 255, 0.8) 60%,
+        rgba(0, 200, 255, 0) 80%);
+      animation: scanEffect 4s infinite linear;
+    }
+    
+    @keyframes scanEffect {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+  </style>
+
+  <div class="gaming-background ">
+    <canvas id="hex-grid-canvas" class="hex-grid-canvas"></canvas>
+    <div class="scan-line"></div>
+    <div class="vignette"></div>
+    
+    <div class="contentgame">
+      {% include 'portfolio/main-info-phone.html' %}
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('hex-grid-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      window.addEventListener('resize', function() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initHexGrid();
+      });
+      
+      const hexGrid = [];
+      const hexSize = 40;
+      const hexHeight = hexSize * Math.sqrt(3);
+      const hexWidth = hexSize * 2;
+      const hexSideLength = hexSize;
+      const hexVertAdjust = hexHeight / 2;
+      
+      // Mouse tracking
+      const mouse = {
+        x: undefined,
+        y: undefined,
+        radius: 150
+      };
+      
+      window.addEventListener('mousemove', function(event) {
+        mouse.x = event.x;
+        mouse.y = event.y;
+      });
+      
+      class Hexagon {
+        constructor(x, y) {
+          this.x = x;
+          this.y = y;
+          this.baseOpacity = Math.random() * 0.2 + 0.05;
+          this.targetOpacity = this.baseOpacity;
+          this.currentOpacity = this.baseOpacity;
+          this.pulseSpeed = Math.random() * 0.02 + 0.01;
+          this.pulseDirection = Math.random() > 0.5 ? 1 : -1;
+          this.hue = Math.random() * 60 + 180; // Cyan to blue
+          this.isActivated = false;
+          this.activationLevel = 0;
+        }
+        
+        draw() {
+          // Calculate distance from mouse
+          if (mouse.x && mouse.y) {
+            const dx = this.x - mouse.x;
+            const dy = this.y - mouse.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < mouse.radius) {
+              this.isActivated = true;
+              this.targetOpacity = 0.8 * (1 - distance / mouse.radius) + this.baseOpacity;
+              this.activationLevel = 1 - distance / mouse.radius;
+            } else {
+              this.isActivated = false;
+              this.targetOpacity = this.baseOpacity;
+              this.activationLevel *= 0.95; // Fade out
+            }
+          }
+          
+          // Smoothly change opacity
+          this.currentOpacity += (this.targetOpacity - this.currentOpacity) * 0.1;
+          
+          // Draw hexagon
+          ctx.beginPath();
+          
+          // Calculate points
+          for (let i = 0; i < 6; i++) {
+            const angle = (i * Math.PI) / 3;
+            const xPos = this.x + hexSize * Math.cos(angle);
+            const yPos = this.y + hexSize * Math.sin(angle);
+            
+            if (i === 0) {
+              ctx.moveTo(xPos, yPos);
+            } else {
+              ctx.lineTo(xPos, yPos);
+            }
+          }
+          
+          ctx.closePath();
+          
+          // Fill with gradient if activated
+          if (this.activationLevel > 0) {
+            const grd = ctx.createRadialGradient(
+              this.x, this.y, 0,
+              this.x, this.y, hexSize * 2
+            );
+            grd.addColorStop(0, `hsla(${this.hue}, 100%, 70%, ${this.currentOpacity * 2})`);
+            grd.addColorStop(1, `hsla(${this.hue}, 100%, 50%, 0)`);
+            ctx.fillStyle = grd;
+            ctx.fill();
+          }
+          
+          // Draw border
+          ctx.strokeStyle = `hsla(${this.hue}, 100%, 60%, ${this.currentOpacity})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+          
+          // Pulse effect
+          this.baseOpacity += this.pulseSpeed * this.pulseDirection;
+          if (this.baseOpacity > 0.3 || this.baseOpacity < 0.05) {
+            this.pulseDirection *= -1;
+            this.baseOpacity = Math.max(0.05, Math.min(this.baseOpacity, 0.3));
+          }
+        }
+      }
+
+      function initHexGrid() {
+        hexGrid.length = 0; // Clear existing hexagons
+        for (let y = 0; y < canvas.height + hexHeight; y += hexHeight) {
+          for (let x = 0; x < canvas.width + hexWidth; x += hexWidth) {
+            const offsetX = (y / hexHeight) % 2 === 0 ? 0 : hexWidth / 2;
+            const hexagon = new Hexagon(x + offsetX, y + hexVertAdjust);
+            hexGrid.push(hexagon);
+          }
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        hexGrid.forEach(hex => hex.draw());
+        requestAnimationFrame(animate);
+      }
+
+      initHexGrid();
+      animate();
+    });
+  </script>

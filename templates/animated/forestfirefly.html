@@ -1,0 +1,211 @@
+
+<style>
+  
+    .forest-background {
+      width: 100%;
+      min-height: auto;
+      background: linear-gradient(#0B1D26, #203A43);
+      overflow: hidden;
+    }
+    
+    .parallax-layer {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      z-index: 0;
+      pointer-events: none;
+    }
+    
+    .stars {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="none"><circle cx="50" cy="50" r="1" fill="white"/><circle cx="150" cy="150" r="1" fill="white"/><circle cx="350" cy="250" r="0.5" fill="white"/><circle cx="450" cy="550" r="1" fill="white"/><circle cx="550" cy="450" r="0.5" fill="white"/><circle cx="650" cy="350" r="1" fill="white"/><circle cx="750" cy="250" r="0.5" fill="white"/><circle cx="250" cy="750" r="1" fill="white"/><circle cx="850" cy="950" r="1" fill="white"/><circle cx="950" cy="850" r="0.5" fill="white"/></svg>') repeat;
+      opacity: 0.5;
+    }
+    
+    .moon {
+      background: radial-gradient(circle at 90% 10%, #fff 0%, rgba(255, 255, 255, 0.8) 1%, rgba(255, 255, 255, 0) 5%);
+      opacity: 0.8;
+    }
+    
+    .mountains-back {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" preserveAspectRatio="none"><path d="M0,300 L0,200 L200,250 L400,150 L600,200 L800,100 L1000,200 L1000,300 Z" fill="%23152029"/></svg>') repeat-x;
+      background-size: 100% 100%;
+      top: auto;
+      bottom: 0;
+      height: 90%;
+    }
+    
+    .mountains-mid {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" preserveAspectRatio="none"><path d="M0,300 L0,180 L150,250 L300,150 L450,200 L600,100 L750,180 L900,150 L1000,200 L1000,300 Z" fill="%2319272E"/></svg>') repeat-x;
+      background-size: 100% 100%;
+      top: auto;
+      bottom: 0;
+      height: 50%;
+    }
+    
+    .forest {
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" preserveAspectRatio="none"><path d="M0,300 L0,250 L50,250 L60,200 L70,250 L80,250 L90,220 L100,250 L110,250 L120,180 L130,250 L200,250 L210,200 L220,250 L250,250 L260,230 L270,250 L350,250 L360,200 L370,250 L400,250 L410,180 L420,250 L450,250 L460,230 L470,250 L500,250 L510,210 L520,250 L550,250 L560,190 L570,250 L600,250 L610,230 L620,250 L650,250 L660,210 L670,250 L700,250 L710,180 L720,250 L750,250 L760,200 L770,250 L800,250 L810,210 L820,250 L850,250 L860,190 L870,250 L900,250 L910,230 L920,250 L950,250 L960,200 L970,250 L1000,250 L1000,300 Z" fill="%2320333B"/></svg>') repeat-x;
+      background-size: 100% 100%;
+      top: auto;
+      bottom: 0;
+      height: 90%;
+    }
+    
+    .fog {
+      background: linear-gradient(to bottom, 
+                  rgba(255, 255, 255, 0) 0%,
+                  rgba(255, 255, 255, 0.1) 50%,
+                  rgba(255, 255, 255, 0.1) 70%,
+                  rgba(255, 255, 255, 0) 100%);
+      top: auto;
+      bottom: 0;
+      height: 90%;
+      animation: fogMove 60s linear infinite;
+    }
+    
+    @keyframes fogMove {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 100% 0%; }
+    }
+    
+    .fireflies {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      pointer-events: none;
+    }
+    
+    
+  </style>
+
+  <div class="forest-background p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
+    <div class="parallax-layer stars"></div>
+    <div class="parallax-layer moon"></div>
+    <div class="parallax-layer mountains-back"></div>
+    <div class="parallax-layer mountains-mid"></div>
+    <div class="parallax-layer forest"></div>
+    <div class="parallax-layer fog w-full"></div>
+    <canvas id="fireflies" class="fireflies"></canvas>
+    
+    <div class="content z-100 relative w-full">
+      {% include 'portfolio/main-info-phone.html' %}
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Parallax effect on scroll
+      window.addEventListener('scroll', function() {
+        const scrollY = window.scrollY;
+        
+        document.querySelector('.stars').style.transform = 
+          `translateY(${scrollY * 0.1}px)`;
+        document.querySelector('.moon').style.transform = 
+          `translateY(${scrollY * 0.2}px)`;
+        document.querySelector('.mountains-back').style.transform = 
+          `translateY(${scrollY * 0.3}px)`;
+        document.querySelector('.mountains-mid').style.transform = 
+          `translateY(${scrollY * 0.4}px)`;
+        document.querySelector('.forest').style.transform = 
+          `translateY(${scrollY * 0.5}px)`;
+        document.querySelector('.fog').style.transform = 
+          `translateY(${scrollY * 0.5}px)`;
+      });
+      
+      // Fireflies animation
+      const canvas = document.getElementById('fireflies');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      window.addEventListener('resize', function() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      });
+      
+      const fireflies = [];
+      const numFireflies = 50;
+      
+      class Firefly {
+        constructor() {
+          this.x = Math.random() * canvas.width;
+          this.y = Math.random() * canvas.height * 0.8 + canvas.height * 0.2; // Stay in bottom 80%
+          this.size = Math.random() * 2 + 1;
+          this.speedX = (Math.random() - 0.5) * 1;
+          this.speedY = (Math.random() - 0.5) * 1;
+          this.brightness = 0;
+          this.maxBrightness = Math.random() * 0.7 + 0.3;
+          this.glowSpeed = Math.random() * 0.02 + 0.005;
+          this.glowDirection = 1;
+        }
+        
+        update() {
+          this.x += this.speedX;
+          this.y += this.speedY;
+          
+          // Change direction slightly
+          this.speedX += (Math.random() - 0.5) * 0.1;
+          this.speedY += (Math.random() - 0.5) * 0.1;
+          
+          // Limit speed
+          this.speedX = Math.max(-1, Math.min(1, this.speedX));
+          this.speedY = Math.max(-1, Math.min(1, this.speedY));
+          
+          // Contain within bounds
+          if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+          if (this.y < canvas.height * 0.2 || this.y > canvas.height) this.speedY *= -1;
+          
+          // Glowing effect
+          this.brightness += this.glowSpeed * this.glowDirection;
+          if (this.brightness >= this.maxBrightness || this.brightness <= 0) {
+            this.glowDirection *= -1;
+          }
+        }
+        
+        draw() {
+          ctx.beginPath();
+          const gradient = ctx.createRadialGradient(
+            this.x, this.y, 0,
+            this.x, this.y, this.size * 3
+          );
+          gradient.addColorStop(0, `rgba(255, 255, 100, ${this.brightness})`);
+          gradient.addColorStop(1, 'rgba(255, 255, 100, 0)');
+          
+          ctx.fillStyle = gradient;
+          ctx.arc(this.x, this.y, this.size * 3, 0, Math.PI * 2);
+          ctx.fill();
+          
+          // Brighter center
+          ctx.fillStyle = `rgba(255, 255, 180, ${this.brightness})`;
+          ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+      
+      function init() {
+        for (let i = 0; i < numFireflies; i++) {
+          fireflies.push(new Firefly());
+        }
+      }
+      
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        for (let i = 0; i < fireflies.length; i++) {
+          fireflies[i].update();
+          fireflies[i].draw();
+        }
+        
+        requestAnimationFrame(animate);
+      }
+      
+      init();
+      animate();
+    });
+  </script>

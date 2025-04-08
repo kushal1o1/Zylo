@@ -1,0 +1,128 @@
+
+<style>
+
+    
+    .matrix-background {
+      overflow: hidden;
+      background-color: #000;
+      width: 100%;
+      min-height: auto;
+    }
+    
+    .matrix-canvas {
+        position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+        height: 100%;
+      z-index: 0;
+    }
+    
+
+  </style>
+</head>
+<body>
+  <div class="matrix-background p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
+    <canvas id="matrix-canvas" class="matrix-canvas"></canvas>
+    <div class="content">
+      {% include 'portfolio/main-info-phone.html' %}
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('matrix-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      
+      window.addEventListener('resize', function() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        initColumns();
+      });
+      
+      // Matrix characters - using a mix of katakana, latin and numbers
+      const chars = 'アァカサタナハマヤャラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユュルグズブヅプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨョロヲゴゾドボポヴッン0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      const charArray = chars.split('');
+      
+      const fontSize = 20;
+      let columns = [];
+      
+      function initColumns() {
+        columns = [];
+        const columnCount = Math.floor(canvas.width / fontSize);
+        
+        for (let i = 0; i < columnCount; i++) {
+          columns[i] = {
+            x: i * fontSize,
+            y: Math.random() * canvas.height - canvas.height,
+            speed: Math.random() * 5 + 1,
+            chars: []
+          };
+          
+          // Generate random character sequence for this column
+          const length = Math.floor(Math.random() * 25) + 5;
+          for (let j = 0; j < length; j++) {
+            columns[i].chars.push({
+              value: charArray[Math.floor(Math.random() * charArray.length)],
+              brightness: j === 0 ? 1 : Math.random() * 0.5 + 0.2,
+              changeInterval: Math.random() * 20 + 10
+            });
+          }
+        }
+      }
+      
+      function drawMatrix() {
+        // Semi-transparent black to create fade effect
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        ctx.font = `${fontSize}px monospace`;
+        
+        for (let i = 0; i < columns.length; i++) {
+          const column = columns[i];
+          
+          // Update column position
+          column.y += column.speed;
+          if (column.y > canvas.height + column.chars.length * fontSize) {
+            column.y = -column.chars.length * fontSize;
+            column.speed = Math.random() * 5 + 1;
+          }
+          
+          // Draw characters in this column
+          for (let j = 0; j < column.chars.length; j++) {
+            const char = column.chars[j];
+            const y = column.y + j * fontSize;
+            
+            if (y >= -fontSize && y <= canvas.height) {
+              // Leading character is brighter
+              if (j === 0) {
+                ctx.fillStyle = 'rgba(180, 255, 180, 1)';
+              } else {
+                ctx.fillStyle = `rgba(0, 255, 70, ${char.brightness})`;
+              }
+              
+              // Randomly change characters
+              if (Math.random() * 100 < 5) {
+                char.value = charArray[Math.floor(Math.random() * charArray.length)];
+              }
+              
+              ctx.fillText(char.value, column.x, y);
+            }
+          }
+        }
+      }
+      
+      function animate() {
+        drawMatrix();
+        requestAnimationFrame(animate);
+      }
+      
+      initColumns();
+      animate();
+    });
+  </script>
+</body>
+</html>
