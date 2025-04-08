@@ -588,11 +588,11 @@ function debounceUpdate(field, value) {
     .then(data => {
       console.log(data.message);
       // Optional toast notification instead of page reload
-      showNotification('Updated successfully!');
+      showNotification(data.message);
   debouncedUpdateSnippet();
 
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error =>showNotification('Error updating user info: ' + error));
   }, 1000);
 }
 

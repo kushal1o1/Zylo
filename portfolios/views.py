@@ -206,12 +206,8 @@ def update_user_info(request):
 
 
                 if field == 'userUrl':
-                    print(value)
-                    print(UserInfo.objects.filter(userUrl=value).exists())
                     if UserInfo.objects.filter(userUrl=value).exclude(user=user).exists():
-                        print("exists")
-                        messages.error(request, "This URL is already taken.")
-                        return redirect('home')
+                        return JsonResponse({'message': 'User Url already Taken,Please choose another one.'}, status=400)
                 setattr(user_info, field, data[field])  # Dynamically set the value
                 user_info.save()
 
