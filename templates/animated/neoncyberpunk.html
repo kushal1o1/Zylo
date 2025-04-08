@@ -1,0 +1,58 @@
+<style>
+    .neon-grid {
+      background-color: #0c0c0c;
+      background-image: 
+        linear-gradient(rgba(30, 30, 30, 0.5) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(30, 30, 30, 0.5) 1px, transparent 1px);
+      background-size: 40px 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .neon-grid::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(90deg, transparent 0%, #ff00ff30 50%, transparent 100%),
+        linear-gradient(0deg, transparent 0%, #00ffff30 50%, transparent 100%);
+      background-size: 200% 200%, 200% 200%;
+      animation: neonPulse 8s infinite linear;
+    }
+    
+    .neon-grid::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      right: -50%;
+      bottom: -50%;
+      background: radial-gradient(circle, rgba(29, 78, 216, 0.15) 0%, transparent 70%);
+      animation: neonOrb 10s infinite ease-in-out alternate;
+    }
+    
+    .neon-grid > * {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.7);
+    }
+  
+    @keyframes neonPulse {
+      0% { background-position: 0% 0%, 0% 0%; }
+      50% { background-position: 100% 0%, 0% 100%; }
+      100% { background-position: 0% 0%, 0% 0%; }
+    }
+    
+    @keyframes neonOrb {
+      0% { transform: translateX(-10%) translateY(-10%); }
+      100% { transform: translateX(10%) translateY(10%); }
+    }
+  </style>
+  
+  <div class="neon-grid p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out hover:shadow-2xl hover:scale-102 flex flex-col items-center">
+    {% include 'portfolio/main-info-phone.html' %}
+  </div>

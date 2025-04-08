@@ -1,0 +1,22 @@
+<style>
+    .cosmic-background {
+      background-color: #222;
+      background-image:
+        radial-gradient(white, rgba(255,255,255,.2) 2px, transparent 3px),
+        radial-gradient(white, rgba(255,255,255,.15) 1px, transparent 2px),
+        radial-gradient(white, rgba(255,255,255,.1) 1px, transparent 1px);
+      background-size: 300px 300px, 200px 200px, 100px 100px;
+      background-position: 0 0, 40px 60px, 20px 30px;
+      animation: starTwinkle 10s infinite linear;
+    }
+  
+    @keyframes starTwinkle {
+      0% { background-position: 0 0, 40px 60px, 20px 30px; }
+      100% { background-position: 300px 300px, 240px 260px, 120px 130px; }
+    }
+  </style>
+  
+  <div class="cosmic-background p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out hover:shadow-2xl flex flex-col items-center">
+    {% include 'portfolio/main-info-phone.html' %}
+  </div>
+  

@@ -1,0 +1,24 @@
+<style>
+    .circuit-background {
+      --color1: rgba(0, 0, 0, 0.1);
+      --color2: rgba(0, 0, 0, 0.05);
+      background:
+        linear-gradient(to right, var(--color1) 1px, transparent 1px) 0 0,
+        linear-gradient(to bottom, var(--color1) 1px, transparent 1px) 0 0,
+        linear-gradient(to right, var(--color2) 1px, transparent 1px) 0 0,
+        linear-gradient(to bottom, var(--color2) 1px, transparent 1px) 0 0;
+      background-size: 50px 50px, 50px 50px, 10px 10px, 10px 10px;
+      background-color: #f8f9fa;
+      animation: circuitPulse 15s infinite linear;
+    }
+  
+    @keyframes circuitPulse {
+      0% { background-position: 0 0, 0 0, 0 0, 0 0; }
+      100% { background-position: 50px 50px, 50px 50px, 10px 10px, 10px 10px; }
+    }
+  </style>
+  
+  <div class="circuit-background p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out hover:shadow-2xl flex flex-col items-center">
+    {% include 'portfolio/main-info-phone.html' %}
+  </div>
+  

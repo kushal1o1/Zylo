@@ -1,0 +1,161 @@
+<style>
+    .blob-background {
+      position: relative;
+      overflow: hidden;
+      background-color: #0f0f0f;
+    }
+    
+    .blob-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .blob-content {
+      position: relative;
+      z-index: 1;
+      color: white;
+      background: rgba(0, 0, 0, 0.2);
+      backdrop-filter: blur(5px);
+      border-radius: 12px;
+      padding: 1.5rem;
+    }
+  </style>
+  
+  <div class="blob-background p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out hover:shadow-2xl flex flex-col items-center">
+    <canvas id="blob-canvas" class="blob-canvas"></canvas>
+    <div class="blob-content w-full">
+      {% include 'portfolio/main-info-phone.html' %}
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('blob-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Set canvas dimensions
+      const setCanvasDimensions = () => {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      };
+      
+      setCanvasDimensions();
+      window.addEventListener('resize', setCanvasDimensions);
+      
+      // Blob parameters
+      const blobs = [];
+      const numBlobs = 10;
+      
+      class Blob {
+        constructor() {
+          this.points = [];
+          this.center = {
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height
+          };
+          this.radius = Math.random() * 100 + 50;
+          this.color = this.getRandomColor();
+          this.numPoints = Math.floor(Math.random() * 5) + 5;
+          this.velocity = {
+            x: (Math.random() - 0.5) * 2,
+            y: (Math.random() - 0.5) * 2
+          };
+          this.createPoints();
+        }
+        
+        getRandomColor() {
+          const colors = [
+            [76, 161, 175],   // Teal
+            [196, 69, 105],   // Pink
+            [112, 88, 190],   // Purple
+            [52, 172, 224]    // Blue
+          ];
+          const color = colors[Math.floor(Math.random() * colors.length)];
+          return `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0.5)`;
+        }
+        
+        createPoints() {
+          for (let i = 0; i < this.numPoints; i++) {
+            const angle = (i / this.numPoints) * Math.PI * 2;
+            const randomRadius = this.radius * (0.8 + Math.random() * 0.4);
+            this.points.push({
+              x: Math.cos(angle) * randomRadius,
+              y: Math.sin(angle) * randomRadius,
+              angle: angle,
+              speed: Math.random() * 0.01 + 0.005
+            });
+          }
+        }
+        
+        update() {
+          // Move blob
+          this.center.x += this.velocity.x;
+          this.center.y += this.velocity.y;
+          
+          // Bounce off walls
+          if (this.center.x - this.radius < 0 || this.center.x + this.radius > canvas.width) {
+            this.velocity.x *= -1;
+          }
+          if (this.center.y - this.radius < 0 || this.center.y + this.radius > canvas.height) {
+            this.velocity.y *= -1;
+          }
+          
+          // Update points
+          this.points.forEach(point => {
+            point.angle += point.speed;
+            point.x = Math.cos(point.angle) * this.radius * (0.8 + Math.sin(point.angle * 3) * 0.2);
+            point.y = Math.sin(point.angle) * this.radius * (0.8 + Math.sin(point.angle * 2) * 0.2);
+          });
+        }
+        
+        draw() {
+          ctx.fillStyle = this.color;
+          ctx.beginPath();
+          
+          // Draw spline through points
+          for (let i = 0; i <= this.numPoints; i++) {
+            const point = this.points[i % this.numPoints];
+            const prevPoint = this.points[(i - 1 + this.numPoints) % this.numPoints];
+            
+            if (i === 0) {
+              ctx.moveTo(this.center.x + point.x, this.center.y + point.y);
+            } else {
+              const cp1x = this.center.x + prevPoint.x + (point.x - prevPoint.x) / 2;
+              const cp1y = this.center.y + prevPoint.y + (point.y - prevPoint.y) / 2;
+              
+              ctx.quadraticCurveTo(
+                cp1x, cp1y,
+                this.center.x + point.x, this.center.y + point.y
+              );
+            }
+          }
+          
+          ctx.closePath();
+          ctx.fill();
+        }
+      }
+      
+      // Create blobs
+      for (let i = 0; i < numBlobs; i++) {
+        blobs.push(new Blob());
+      }
+      
+      // Animation
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        blobs.forEach(blob => {
+          blob.update();
+          blob.draw();
+        });
+        requestAnimationFrame(animate);
+        }
+        
+        animate();
+        });
+    </script>
+    

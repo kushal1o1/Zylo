@@ -1,0 +1,159 @@
+<style>
+    .interactive-gradient {
+      position: relative;
+      overflow: hidden;
+      background-color: #0f0f0f;
+    }
+    
+    .gradient-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    
+    .content-layer {
+      position: relative;
+      z-index: 1;
+      color: white;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    }
+  </style>
+  
+  <div class="interactive-gradient p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out hover:shadow-2xl flex flex-col items-center">
+    <canvas id="gradient-canvas" class="gradient-canvas"></canvas>
+    <div class="content-layer w-full">
+      {% include 'portfolio/main-info-phone.html' %}
+    </div>
+  </div>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const canvas = document.getElementById('gradient-canvas');
+      const ctx = canvas.getContext('2d');
+      
+      // Set canvas dimensions
+      const setCanvasDimensions = () => {
+        canvas.width = canvas.offsetWidth;
+        canvas.height = canvas.offsetHeight;
+      };
+      
+      setCanvasDimensions();
+      window.addEventListener('resize', setCanvasDimensions);
+      
+      // Colors
+      const colorSets = [
+        ['#ff7e5f', '#feb47b'],
+        ['#7f7fd5', '#86a8e7', '#91eae4'],
+        ['#f953c6', '#b91d73'],
+        ['#00f2fe', '#4facfe'],
+        ['#8e2de2', '#4a00e0']
+      ];
+      
+      let currentColorSet = Math.floor(Math.random() * colorSets.length);
+      
+      // Gradient points
+      const points = [];
+      const createPoints = () => {
+        points.length = 0;
+        const numPoints = 6;
+        
+        for (let i = 0; i < numPoints; i++) {
+          points.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            dx: (Math.random() - 0.5) * 1.5,
+            dy: (Math.random() - 0.5) * 1.5,
+            radius: Math.random() * 200 + 100
+          });
+        }
+      };
+      
+      // Update points
+      const updatePoints = () => {
+        points.forEach(point => {
+          point.x += point.dx;
+          point.y += point.dy;
+          
+          // Bounce off edges
+          if (point.x < 0 || point.x > canvas.width) point.dx *= -1;
+          if (point.y < 0 || point.y > canvas.height) point.dy *= -1;
+        });
+      };
+      
+      // Draw
+      const draw = () => {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        
+        // Create gradient
+        const gradient = ctx.createRadialGradient(
+          canvas.width / 2, canvas.height / 2, 0,
+          canvas.width / 2, canvas.height / 2, canvas.width
+        );
+        
+        gradient.addColorStop(0, '#000000');
+        gradient.addColorStop(1, '#1a1a1a');
+        
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw points
+        points.forEach(point => {
+          const pointGradient = ctx.createRadialGradient(
+            point.x, point.y, 0,
+            point.x, point.y, point.radius
+          );
+          
+          const colors = colorSets[currentColorSet];
+          colors.forEach((color, i) => {
+            pointGradient.addColorStop(i / (colors.length - 1), color + '33');
+          });
+          
+          ctx.fillStyle = pointGradient;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, point.radius, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        
+        updatePoints();
+        requestAnimationFrame(draw);
+      };
+      
+      // Change color set occasionally
+      setInterval(() => {
+        currentColorSet = (currentColorSet + 1) % colorSets.length;
+      }, 10000);
+      
+      // Mouse interaction
+      let mouseX = 0;
+      let mouseY = 0;
+      
+      canvas.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouseX = e.clientX - rect.left;
+        mouseY = e.clientY - rect.top;
+        
+        // Move the closest point towards the mouse
+        let closestPoint = null;
+        let closestDistance = Infinity;
+        
+        points.forEach(point => {
+          const distance = Math.hypot(point.x - mouseX, point.y - mouseY);
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestPoint = point;
+          }
+        });
+        
+        if (closestPoint && closestDistance < 200) {
+          closestPoint.x += (mouseX - closestPoint.x) * 0.05;
+          closestPoint.y += (mouseY - closestPoint.y) * 0.05;
+        }
+      });
+      
+      createPoints();
+      draw();
+    });
+  </script>

@@ -44,6 +44,11 @@ background_templates = {
         "bg19": "designs/polygon.html",
         "bg20": "designs/Celebration.html",
         "bg21": "designs/Development.html",
+        "bg22": "animated/Cosmic.html",
+        "bg23": "animated/circuitboard.html",
+        "bg24": "animated/neoncyberpunk.html",
+        "bg25": "animated/randombubbleshtml",
+        "bg26": "animated/blobs.html",
         
         }
 
@@ -70,6 +75,11 @@ background_names = {
     "bg19": "Polygonal Background",
     "bg20": "Celebrations Background",
     "bg21": "Development Background",
+    "bg22": "Cosmic Background",
+    "bg23": "Circuit Board Animation",
+    "bg24": "Neon Cyberpunk Animation",
+    "bg25": "Random Bubbles Animation",
+    "bg26": "Blobs Animation",
 }
 
 fasurl=config("FASURL")
