@@ -40,8 +40,11 @@ done = False
 # TODO: Add new designs and templates but consistent 
 done = False
 
+
+# flow model,admin register,convert to same dictionary and then use it in view (for unbreaking existing codebase),overiding save to save in special folder either design or animated 
 # TODO:Add a new model for designs and templates for the user to choose from rather than hardcoding them as a dictionary
-done = False
+done = False 
+
 
 # TODO: Add Designs dynamically with outtouchine code from admin pannel
 done = False
