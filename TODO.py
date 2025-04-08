@@ -31,7 +31,7 @@ done = True #step wise step
 
 
 #TODO: Add a user input validation for images and other inputs from forms
-done =False
+done =True #added a validation for image size and type and used default django forms
 
 
 # TODO: Add a Different colors for different types of messages like success, error, warning etc
