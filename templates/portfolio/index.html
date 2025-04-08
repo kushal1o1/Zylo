@@ -257,18 +257,16 @@
             <p class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">Background Design</p>
             
             <div class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {% load custom_tags%}
               {% for bg_id, bg_name in background_names.items %}
               <label class=" relative cursor-pointer flex flex-col items-center  border-2 border-gray-200 rounded-xl shadow-md p-4 hover:shadow-lg hover:border-blue-200 transition duration-200 ease-in-out transform hover:-translate-y-1 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-200">
                 <input type="radio" name="selected_background" value="{{ bg_id }}" class="hidden peer ">
                 
                 <!-- Placeholder for background image or icon -->
-                <div class=" w-full h-24 ">
-                  <!-- <span class="text-4xl text-gray-400  bg-gradient-to-br from-blue-100 to-purple-100 rounded-md flex items-center justify-center mb-3">🎨</span> -->
-                   {% with True as forbackground%}
-                   {{bg_id}}
-                    {{background_templates.bg0}}
-                 
-                   {% endwith %}
+                <div class=" w-full h-full overflow-hidden rounded-xl bg-gray-100 ">
+                   <span class="text-4xl text-gray-400  ">
+                    {% include background_templates|get_item:bg_id with forbackground=True %}
+                  </span> 
                 </div>
       
                 <!-- Radio checkmark overlay using CSS -->
