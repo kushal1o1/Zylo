@@ -43,6 +43,8 @@ background_templates = {
         "bg18": "designs/Wavyy.html",
         "bg19": "designs/polygon.html",
         "bg20": "designs/Celebration.html",
+        "bg21": "designs/Development.html",
+        
         }
 
 background_names = {
@@ -67,6 +69,7 @@ background_names = {
     "bg18": "Wavy Background",
     "bg19": "Polygonal Background",
     "bg20": "Celebrations Background",
+    "bg21": "Development Background",
 }
 
 fasurl=config("FASURL")
@@ -86,6 +89,7 @@ def index(request,userUrl):
     user_info = UserInfo.objects.filter(userUrl=userUrl).first()
     if user_info:
         highlights, sections, user_info =get_user_data(user_info)
+        user_info.selected_template = background_templates.get(user_info.selected_background)
         return render(request, 'portfolio/portfolioServer.html', {'user_info': user_info ,"background_templates": background_templates,'highlights': highlights,'sections': sections})
     else:
         return redirect("/NotFound")
