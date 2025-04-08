@@ -36,3 +36,12 @@ done =True #added a validation for image size and type and used default django f
 
 # TODO: Add a Different colors for different types of messages like success, error, warning etc
 done = False
+
+# TODO: Add new designs and templates but consistent 
+done = False
+
+# TODO:Add a new model for designs and templates for the user to choose from rather than hardcoding them as a dictionary
+done = False
+
+# TODO: Add Designs dynamically with outtouchine code from admin pannel
+done = False
