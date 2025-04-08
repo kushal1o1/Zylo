@@ -1,4 +1,4 @@
-from .models import UserInfo,Highlight,Section,SectionData
+from .models import UserInfo,Highlight,Section,SectionData,Alldesigns
 background_templates = {
         "bg0": "designs/default.html",
         "bg1": "designs/bg2.html",
@@ -57,3 +57,21 @@ def handle_background_image_form(background_image_form, user):
         user_info.save()
         return True
     return False
+
+def get_background_data():
+    background_templates = {}
+    background_names = {}
+    
+    # Retrieve all designs from the database
+    designs = Alldesigns.objects.all()
+
+    # Loop through the designs and build the dictionaries
+    for design in designs:
+        # Create the template path (based on the location selected in the admin)
+        file_path = f"{design.location}/{design.template_file.name.split('/')[-1]}"
+        
+        # Add to the dictionary using the code_name as key
+        background_templates[design.code_name] = file_path
+        background_names[design.code_name] = design.name
+
+    return background_templates, background_names

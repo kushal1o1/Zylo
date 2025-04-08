@@ -130,5 +130,16 @@ class Alldesigns(models.Model):
     location = models.CharField(max_length=10, choices=DESIGN_CHOICES, default='designs')  # Folder choice
     code_name = models.CharField(max_length=6, unique=True)  # Code name for template (bg0, bg1, etc.)
 
+    def save(self, *args, **kwargs):
+        if self.location == 'designs':
+            self.template_file.name = f"designs/{self.template_file.name}"
+        elif self.location == 'animated':
+            self.template_file.name = f"animated/{self.template_file.name}"
+    
+        super().save(*args, **kwargs)
+
+    
     def __str__(self):
         return self.name
+    
+    
