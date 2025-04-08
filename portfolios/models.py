@@ -119,6 +119,10 @@ def delete_old_background_image(sender, instance, **kwargs):
             # If the User_Info instance is new, nothing to delete
             pass
 
+def custom_upload_path(instance, filename):
+    # Define your custom path
+    return os.path.join('templates', filename)
+
 class Alldesigns(models.Model):
     DESIGN_CHOICES = [
         ('designs', 'Designs Folder'),
@@ -126,7 +130,7 @@ class Alldesigns(models.Model):
     ]
     
     name = models.CharField(max_length=100)  # Name of the design
-    template_file = models.FileField(upload_to='templates/', max_length=255)  # Upload the template file
+    template_file = models.FileField(upload_to=custom_upload_path, max_length=255)  # Upload the template file
     location = models.CharField(max_length=10, choices=DESIGN_CHOICES, default='designs')  # Folder choice
     code_name = models.CharField(max_length=6, unique=True)  # Code name for template (bg0, bg1, etc.)
 
@@ -138,8 +142,9 @@ class Alldesigns(models.Model):
     
         super().save(*args, **kwargs)
 
-    
     def __str__(self):
         return self.name
+    
+
     
     

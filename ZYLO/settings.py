@@ -53,7 +53,7 @@ ROOT_URLCONF = 'ZYLO.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': ['templates','media/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
