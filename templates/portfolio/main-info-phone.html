@@ -322,22 +322,8 @@
         PageLoader.hide();
       }
       
-      // For AJAX requests
-      function handleAjaxRequest() {
-        PageLoader.show();
-        
-        fetch('your-api-endpoint')
-            .then(response => response.json())
-            .then(data => {
-                // Handle data
-                PageLoader.hide();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                PageLoader.hide();
-            });
-      }
-      
+
+   
       // For form submissions
       function handleFormSubmit(form) {
         form.addEventListener('submit', (e) => {

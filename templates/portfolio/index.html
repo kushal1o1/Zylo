@@ -262,8 +262,13 @@
                 <input type="radio" name="selected_background" value="{{ bg_id }}" class="hidden peer ">
                 
                 <!-- Placeholder for background image or icon -->
-                <div class=" w-full h-24 bg-gradient-to-br from-blue-100 to-purple-100 rounded-md flex items-center justify-center mb-3">
-                  <span class="text-4xl text-gray-400">🎨</span>
+                <div class=" w-full h-24 ">
+                  <!-- <span class="text-4xl text-gray-400  bg-gradient-to-br from-blue-100 to-purple-100 rounded-md flex items-center justify-center mb-3">🎨</span> -->
+                   {% with True as forbackground%}
+                   {{bg_id}}
+                    {{background_templates.bg0}}
+                 
+                   {% endwith %}
                 </div>
       
                 <!-- Radio checkmark overlay using CSS -->

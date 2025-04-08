@@ -12,5 +12,7 @@
 </style>
 
 <div class="bg-zigzag">
-{% include 'portfolio/main-info-phone.html'%} 
+    {% if not forbackground%}
+    {% include 'portfolio/main-info-phone.html'%} 
+    {% endif %}
 </div>
