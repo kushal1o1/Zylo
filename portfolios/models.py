@@ -118,3 +118,17 @@ def delete_old_background_image(sender, instance, **kwargs):
         except UserInfo.DoesNotExist:
             # If the User_Info instance is new, nothing to delete
             pass
+
+class Alldesigns(models.Model):
+    DESIGN_CHOICES = [
+        ('designs', 'Designs Folder'),
+        ('animated', 'Animated Folder'),
+    ]
+    
+    name = models.CharField(max_length=100)  # Name of the design
+    template_file = models.FileField(upload_to='templates/', max_length=255)  # Upload the template file
+    location = models.CharField(max_length=10, choices=DESIGN_CHOICES, default='designs')  # Folder choice
+    code_name = models.CharField(max_length=6, unique=True)  # Code name for template (bg0, bg1, etc.)
+
+    def __str__(self):
+        return self.name

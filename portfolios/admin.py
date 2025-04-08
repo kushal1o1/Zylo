@@ -1,6 +1,6 @@
 
 from django.contrib import admin
-from .models import UserInfo, Highlight,Section,SectionData
+from .models import UserInfo, Highlight,Section,SectionData,Alldesigns
 from django.utils.html import mark_safe
 
 
@@ -74,4 +74,10 @@ class SectionDataAdmin(admin.ModelAdmin):
 
     # Make sure the fields are editable directly in the admin form
     fields = ('user', 'section', 'main_title', 'desc', 'link', 'pic')
+    
+class AlldesignsAdmin(admin.ModelAdmin):
+    list_display = ['name', 'code_name', 'location', 'template_file']
+    search_fields = ['name', 'code_name']
+
+admin.site.register(Alldesigns, AlldesignsAdmin)
 
