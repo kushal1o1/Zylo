@@ -1,84 +1,156 @@
 <style>
-  /* Code Editor Grid Background */
-  .bg-code-editor {
-    background-color: #0a0a0a;
-    background-image:
-      linear-gradient(rgba(0, 255, 180, 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0, 255, 180, 0.04) 1px, transparent 1px);
-
-    animation: editorGrid 30s linear infinite;
-    position: relative;
-    overflow: hidden;
-    height:fit-content;
+  .bg-blackhole {
+      background: radial-gradient(circle at center, #000000 0%, #0b0f16 50%, #1f2937 100%); /* Pure black to dark gray */
+      overflow: hidden;
+      height: auto;
+      width: 100%;
+      border: 2px solid #1f2937;
+      box-shadow: 0 0 20px rgba(31, 41, 55, 0.3);
   }
 
-  @keyframes editorGrid {
-    0% { background-position: 0 0, 0 0; }
-    100% { background-position: 100% 100%, 100% 100%; }
+  #blackholeScene {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
   }
 
-  /* Floating Dev Icons - random movement */
-  .float-icon {
-    position: absolute;
-    width: 40px;
-    opacity: 1;
-    animation: floatIcon 30s linear infinite;
-    pointer-events: none;
-  }
 
-  @keyframes floatIcon {
-    0% {
-      transform: translateY(100vh) rotate(0deg);
-    }
-    100% {
-      transform: translateY(-100vh) rotate(360deg);
-    }
-  }
 </style>
-<div class=" ">
 
-<!-- Tailwind + BG Container -->
-<div class="bg-code-editor  w-full flex items-center justify-center text-white font-mono">
+<!-- Three.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-  <!-- Floating Dev Icons (random X%) -->
-  <script>
-    const icons = [
-      "javascript", "python", "react", "github", "docker", "linux", 
-      "go", "java", "cplusplus", "typescript", "nodejs", "html5", "css3"
-    ];
-    icons.forEach((icon, i) => {
-      const img = document.createElement("img");
-      img.src = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon}/${icon}-original.svg`;
-      img.className = "float-icon";
-      img.style.left = `${Math.random() * 100}%`;
-      img.style.top = `${100 + Math.random() * 100}%`;
-      img.style.animationDelay = 0;
-      document.currentScript.parentElement.appendChild(img);
-    });
-  </script>
-
-  <!-- Simulated Code Editor -->
-  <div class="w-full  bg-[#1e1e1e]/90 border border-green-500/20 rounded-lg shadow-lg backdrop-blur p-6 relative z-10">
-
-    <!-- Editor Top Buttons -->
-    <div class="flex space-x-2 mb-4">
-      <span class="w-3 h-3 bg-red-500 rounded-full"></span>
-      <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
-      <span class="w-3 h-3 bg-green-500 rounded-full"></span>
-    </div>
-
-    <!-- Fake Code Header -->
-    <pre class="text-sm leading-relaxed text-green-300 mb-4">
-<span class="text-green-500">// Software Developer Portfolio</span>
-<span class="text-blue-400">import</span> <span class="text-cyan-300">Developer</span> from <span class="text-yellow-300">"./portfolio"</span>
-    </pre>
-
-    <!-- 🧩 Embedded Component -->
-    <div class="bg-[#111]/80 g border border-green-700 text-white p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
-      {% include 'portfolio/main-info-phone.html' %}
-    </div>
-  </div>
+<div class="bg-blackhole p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out hover:shadow-2xl flex flex-col ">
+  <div id="blackholeScene"></div>
+  <div class="content-overlay text-white">
+    {% include 'portfolio/main-info-phone.html'%} 
+      </div>
 </div>
 
+
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+  // ======= SETUP ======= //
+  const container = document.getElementById('blackholeScene');
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  renderer.setSize(container.clientWidth, container.clientHeight);
+  container.appendChild(renderer.domElement);
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+  camera.position.set(0, 50, 100); // Far back for scale
+  camera.lookAt(0, 0, 0);
+
+  // ======= BLACK HOLE ======= //
+  const bhGeo = new THREE.RingGeometry(20, 30, 128); // Massive ring
+  const bhMat = new THREE.ShaderMaterial({
+      uniforms: {
+          time: { value: 0 }
+      },
+      fragmentShader: `
+          uniform float time;
+          varying vec2 vUv;
+          void main() {
+              float dist = length(vUv - 0.5);
+              float swirl = sin(dist * 15.0 - time * 10.0) * 0.5 + 0.5;
+              vec3 color = vec3(0.0, 0.0, 0.0); // Pure black
+              gl_FragColor = vec4(color, 1.0 - dist * 1.5);
+          }
+      `,
+      side: THREE.DoubleSide
+  });
+  const blackHole = new THREE.Mesh(bhGeo, bhMat);
+  blackHole.scale.set(3, 3, 3); // Huge scale
+  scene.add(blackHole);
+
+  // ======= ORBITING OBJECTS ======= //
+  const objects = new THREE.Group();
   
-</div>
+  // Moons
+  for (let i = 0; i < 10; i++) {
+      const moonGeo = new THREE.SphereGeometry(1 + i * 0.3, 16, 16);
+      const moonMat = new THREE.MeshBasicMaterial({ color: 0x1f2937 }); // Dark gray
+      const moon = new THREE.Mesh(moonGeo, moonMat);
+      moon.userData = {
+          radius: 70 + i * 10,
+          angle: Math.random() * Math.PI * 2,
+          speed: 0.08 - i * 0.01
+      };
+      objects.add(moon);
+  }
+
+  // Debris
+  for (let i = 0; i < 55; i++) {
+      const debrisGeo = new THREE.BoxGeometry(0.5, 0.5, 0.5);
+      const debrisMat = new THREE.MeshBasicMaterial({ color: 0x374151 }); // Slightly lighter gray
+      const debris = new THREE.Mesh(debrisGeo, debrisMat);
+      debris.userData = {
+          radius: 60 + i * 5,
+          angle: Math.random() * Math.PI * 2,
+          speed: 0.06 - i * 0.003
+      };
+      objects.add(debris);
+  }
+  scene.add(objects);
+
+  // ======= STARS ======= //
+  const starCount = 2000;
+  const starGeo = new THREE.BufferGeometry();
+  const positions = new Float32Array(starCount * 3);
+  for (let i = 0; i < starCount; i++) {
+      positions[i * 3] = Math.random() * 800 - 400;
+      positions[i * 3 + 1] = Math.random() * 800 - 400;
+      positions[i * 3 + 2] = Math.random() * 800 - 400;
+  }
+  starGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  const starMat = new THREE.PointsMaterial({
+      color: 0x6b728e, // Muted gray stars
+      size: 0.15,
+      transparent: true,
+      opacity: 0.5
+  });
+  const stars = new THREE.Points(starGeo, starMat);
+  scene.add(stars);
+
+  // ======= ANIMATION ======= //
+  function animate() {
+      requestAnimationFrame(animate);
+
+      // Black hole spin
+      blackHole.rotation.z += 0.15; // Blazing fast
+      bhMat.uniforms.time.value += 0.1;
+
+      // Objects spiral inward
+      objects.children.forEach(obj => {
+          obj.userData.angle += obj.userData.speed;
+          obj.userData.radius -= 0.5; // Rapid collapse
+          obj.position.x = Math.cos(obj.userData.angle) * obj.userData.radius;
+          obj.position.z = Math.sin(obj.userData.angle) * obj.userData.radius;
+          obj.rotation.x += 0.1; // Wild tumble
+          obj.rotation.y += 0.1;
+
+          // Reset when sucked in
+          if (obj.userData.radius < 20) {
+              obj.userData.radius = 80 + Math.random() * 40;
+              obj.userData.angle = Math.random() * Math.PI * 2;
+          }
+      });
+
+      // Stars drift
+      stars.rotation.y += 0.002;
+
+      renderer.render(scene, camera);
+  }
+  animate();
+
+  // Handle resize
+  window.addEventListener('resize', () => {
+      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(container.clientWidth, container.clientHeight);
+  });
+});
+</script>
