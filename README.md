@@ -87,12 +87,17 @@ pip install -r requirements.txt
 
 ## Usage
 
-```javascript
+```bash
 python manage.py makemigrations
 
 python manage.py migrate
 
 python manage.py runserver
+```
+
+## Using Docker
+```bash
+docker-compose up --build
 ```
 
 ## Configuration
