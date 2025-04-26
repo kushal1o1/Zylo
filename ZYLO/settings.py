@@ -20,7 +20,7 @@ ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')  # Split the comma-separated 
 
 
 INSTALLED_APPS = [
-      "allauth_ui",
+    "allauth_ui",
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
