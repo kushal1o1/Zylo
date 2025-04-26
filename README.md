@@ -102,13 +102,7 @@ docker-compose up --build
 
 ## Configuration
 
-### Configuration File
 
-Create a `config.json` file in the root directory with the following structure:
-
-```json
-nth
-```
 
 ### Environment Variables
 
