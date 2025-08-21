@@ -16,6 +16,10 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://zylo-1.onrender.com",
+]
+
 ALLOWED_HOSTS = config('ALLOWED_HOSTS').split(',')  # Split the comma-separated string into a list
 
 
