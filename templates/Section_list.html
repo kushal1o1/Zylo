@@ -1,28 +1,30 @@
 <div class="section-list space-y-8 ">
     {% for section in sections %}
-        <div class="section rounded-xl">
-            <h2 class="text-2xl font-semibold mb-4">{{ section.section_title }}</h2>
+    <div class="section rounded-xl">
+        <h2 class="text-2xl font-semibold mb-4">{{ section.section_title }}</h2>
 
-            <div class="section-data rounded">
-                {% for data in section.section_data.all %}
-                    <a href="{{ data.link }}" class="block bg-white bg-opacity-40 p-2 rounded-lg flex items-center space-x-4 shadow-md hover:bg-opacity-100 hover:shadow-xl hover:border-2 hover:border-blue-500 transition-all duration-300 ease-in-out">
-                        
-                        <!-- Profile-like Image -->
-                        {% if data.pic %}
-                            <img src="{{ data.pic.url }}" alt="Profile Image" class="w-12 h-12 object-cover rounded-full border-2 border-gray-200">
-                        {% else %}
-                            <div class="w-12 h-12 bg-transparent"></div> <!-- Placeholder if no image -->
-                        {% endif %}
-                        
-                        <!-- Content Section, Aligned at Start -->
-                        <div class="content flex-1 text-left">
-                            <h3 class="font-medium text-lg text-gray-900">{{ data.main_title }}</h3>
-                            <p class="text-gray-600 text-sm">{{ data.desc }}</p>
-                        </div>
-                    </a>
-                    <br>
-                {% endfor %}
-            </div>
+        <div class="section-data rounded">
+            {% for data in section.section_data.all %}
+            <a href="{{ data.link }}"
+                class="block bg-white bg-opacity-40 p-2 rounded-lg flex items-center space-x-4 shadow-md hover:bg-opacity-100 hover:shadow-xl hover:border-2 hover:border-blue-500 transition-all duration-300 ease-in-out">
+
+                <!-- Profile-like Image -->
+                {% if data.pic %}
+                <img src="{{ data.pic.url }}" alt="Profile Image"
+                    class="w-12 h-12 object-cover rounded-full border-2 border-gray-200">
+                {% else %}
+                <div class="w-12 h-12 bg-transparent"></div> <!-- Placeholder if no image -->
+                {% endif %}
+
+                <!-- Content Section, Aligned at Start -->
+                <div class="content flex-1 text-left">
+                    <h3 class="font-medium text-lg text-gray-900">{{ data.main_title }}</h3>
+                    <p class="text-gray-600 text-sm">{{ data.desc }}</p>
+                </div>
+            </a>
+            <br>
+            {% endfor %}
         </div>
+    </div>
     {% endfor %}
 </div>
