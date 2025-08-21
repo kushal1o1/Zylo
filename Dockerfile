@@ -13,4 +13,6 @@ ENV DJANGO_SETTINGS_MODULE=ZYLO.settings
 
 EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:${PORT}"]
+EXPOSE 8000
+
+CMD ["sh", "-c", "python manage.py runserver 0.0.0.0:$PORT"]
