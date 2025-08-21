@@ -19,7 +19,7 @@ from decouple import config
 from . services import get_user_data,handle_section_form,handle_background_image_form,get_background_data
 from django.contrib import messages
 from PIL import Image 
-import imghdr
+# import imghdr
 
 # background_templates = {
 #         "bg0": "designs/default.html",
