@@ -1,0 +1,84 @@
+<style>
+  /* Code Editor Grid Background */
+  .bg-code-editor {
+    background-color: #0a0a0a;
+    background-image:
+      linear-gradient(rgba(0, 255, 180, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 180, 0.04) 1px, transparent 1px);
+
+    animation: editorGrid 30s linear infinite;
+    position: relative;
+    overflow: hidden;
+    height:fit-content;
+  }
+
+  @keyframes editorGrid {
+    0% { background-position: 0 0, 0 0; }
+    100% { background-position: 100% 100%, 100% 100%; }
+  }
+
+  /* Floating Dev Icons - random movement */
+  .float-icon {
+    position: absolute;
+    width: 40px;
+    opacity: 1;
+    animation: floatIcon 30s linear infinite;
+    pointer-events: none;
+  }
+
+  @keyframes floatIcon {
+    0% {
+      transform: translateY(100vh) rotate(0deg);
+    }
+    100% {
+      transform: translateY(-100vh) rotate(360deg);
+    }
+  }
+</style>
+<div class=" ">
+
+<!-- Tailwind + BG Container -->
+<div class="bg-code-editor  w-full flex items-center justify-center text-white font-mono">
+
+  <!-- Floating Dev Icons (random X%) -->
+  <script>
+    const icons = [
+      "javascript", "python", "react", "github", "docker", "linux", 
+      "go", "java", "cplusplus", "typescript", "nodejs", "html5", "css3"
+    ];
+    icons.forEach((icon, i) => {
+      const img = document.createElement("img");
+      img.src = `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${icon}/${icon}-original.svg`;
+      img.className = "float-icon";
+      img.style.left = `${Math.random() * 100}%`;
+      img.style.top = `${100 + Math.random() * 100}%`;
+      img.style.animationDelay = 0;
+      document.currentScript.parentElement.appendChild(img);
+    });
+  </script>
+
+  <!-- Simulated Code Editor -->
+  <div class="w-full  bg-[#1e1e1e]/90 border border-green-500/20 rounded-lg shadow-lg backdrop-blur p-6 relative z-10">
+
+    <!-- Editor Top Buttons -->
+    <div class="flex space-x-2 mb-4">
+      <span class="w-3 h-3 bg-red-500 rounded-full"></span>
+      <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+      <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+    </div>
+
+    <!-- Fake Code Header -->
+    <pre class="text-sm leading-relaxed text-green-300 mb-4">
+<span class="text-green-500">// Software Developer Portfolio</span>
+<span class="text-blue-400">import</span> <span class="text-cyan-300">Developer</span> from <span class="text-yellow-300">"./portfolio"</span>
+    </pre>
+
+    <!-- 🧩 Embedded Component -->
+    <div class="bg-[#111]/80 g border border-green-700 text-white p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
+      {% include 'portfolio/main-info-phone.html' %}
+    </div>
+  </div>
+</div>
+
+  
+</div>
