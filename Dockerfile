@@ -9,7 +9,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 
 ENV PYTHONUNBUFFERED 1
-ENV DJANGO_SETTINGS_MODULE=Zylo.settings
+ENV DJANGO_SETTINGS_MODULE=ZYLO.settings
 
 EXPOSE 8000
 
