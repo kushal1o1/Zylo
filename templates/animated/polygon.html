@@ -1,10 +1,11 @@
 <style>
-    .animated-polygonscontainer2{
+    .animated-polygonscontainer2 {
         background-color: black;
-        color:white;
+        color: white;
     }
+
     .animated-polygons {
-       
+
         background: url('https://www.transparenttextures.com/patterns/asfalt-light.png');
         background-size: 400%;
         animation: polygonAnimation 10s infinite linear;
@@ -17,15 +18,23 @@
         0% {
             background-position: 0% 0%;
         }
+
         100% {
             background-position: 100% 100%;
         }
+    }
+
+    .social {
+        color: rgb(255, 255, 255);
+    }
+
+    .text-color {
+        color: rgb(255, 255, 255);
     }
 </style>
 <div class="animated-polygonscontainer2
  p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
     <div class="animated-polygons ">
-    {% include 'portfolio/main-info-phone.html'%} 
+        {% include 'portfolio/main-info-phone.html'%}
     </div>
 </div>
-

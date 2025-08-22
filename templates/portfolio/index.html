@@ -4,7 +4,9 @@
 {% block title %}Create | ZYLO{% endblock %}
 
 {% block content %}
+<style>
 
+</style>
 <script src="{{ fasurl }}" crossorigin="anonymous"></script>
 
 <main
@@ -275,19 +277,20 @@
           <!-- Background Design Options -->
           <div class="mb-8">
             <p class="block text-lg font-bold text-gray-800 dark:text-gray-300 mb-4">Background Design</p>
-
-            <div class=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
               {% load custom_tags%}
               {% for bg_id, bg_name in background_names.items %}
               <label
-                class=" relative cursor-pointer flex flex-col items-center  border-2 border-gray-200 rounded-xl shadow-md p-4 hover:shadow-lg hover:border-blue-200 transition duration-200 ease-in-out transform hover:-translate-y-1 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-200">
-                <input type="radio" name="selected_background" value="{{ bg_id }}" class="hidden peer ">
+                class="relative cursor-pointer flex flex-col items-center border-2 border-gray-200 rounded-xl shadow-md p-4 hover:shadow-lg hover:border-blue-200 transition duration-200 ease-in-out transform hover:-translate-y-1 peer-checked:border-blue-500 peer-checked:ring-2 peer-checked:ring-blue-200">
+                <input type="radio" name="selected_background" value="{{ bg_id }}" class="hidden peer">
 
-                <!-- Placeholder for background image or icon -->
-                <div class=" w-full h-full overflow-hidden rounded-xl bg-gray-100 ">
-                  <span class="text-4xl text-gray-400  ">
-                    {% include background_templates|get_item:bg_id with forbackground=True %}
-                  </span>
+                <!-- Isolated background design container -->
+                <div class="w-full h-full overflow-hidden rounded-xl bg-gray-100 bg-design-container">
+                  <div class="bg-design-preview">
+                    <span class="text-4xl text-gray-400">
+                      {% include background_templates|get_item:bg_id with forbackground=True %}
+                    </span>
+                  </div>
                 </div>
 
                 <!-- Radio checkmark overlay using CSS -->
@@ -427,9 +430,9 @@
                 placeholder="{% if user_info and user_info.userUrl %}{{ user_info.userUrl }}{% else %}Enter your host url{% endif %}" />
             </div>
             <p class="text-lg font-medium text-gray-800 dark:text-gray-300 mt-4">Your website will be available at:
-              <a href="http://127.0.0.1:8000/{{ user_info.userUrl }}/"
+              <a href="/{{ user_info.userUrl }}/"
                 class="copyUrltag text-blue-600 hover:text-blue-800 font-semibold transition duration-300 underline">
-                http://127.0.0.1:8000/{{ user_info.userUrl }}/
+                /{{ user_info.userUrl }}/
               </a>
               <!-- Copy Feature  -->
               <button id="copyUrl"
@@ -478,8 +481,10 @@
       </div>
 
       <!-- Here goes your content -->
-      <div id="codeSnippetContainer" class="flex-1 overflow-y-auto">
-        {% include 'portfolio/codesnippet.html' with forbackground=False %}
+      <div id="codeSnippetContainer" class="flex-1 overflow-y-auto code-snippet-container">
+        <div class="code-snippet-preview">
+          {% include 'portfolio/codesnippet.html' with forbackground=False %}
+        </div>
       </div>
     </div>
   </div>

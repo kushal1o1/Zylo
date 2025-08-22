@@ -1,29 +1,39 @@
 <style>
-/* Keyframes for pulsing neon effect */
-@keyframes neonPulse {
-    0% {
-        background-position: 0% 50%;
-        filter: brightness(1);
-    }
-    50% {
-        background-position: 100% 50%;
-        filter: brightness(1.3);
-    }
-    100% {
-        background-position: 0% 50%;
-        filter: brightness(1);
-    }
-}
+    /* Keyframes for pulsing neon effect */
+    @keyframes neonPulse {
+        0% {
+            background-position: 0% 50%;
+            filter: brightness(1);
+        }
 
-.testcontainer2 {
-    /* Neon gradient background */
-    background: linear-gradient(135deg, #00c6ff, #0072ff, #ff5f6d, #ffc371);
-    background-size: 200% 200%;
-    animation: neonPulse 8s ease infinite;
-}
+        50% {
+            background-position: 100% 50%;
+            filter: brightness(1.3);
+        }
 
+        100% {
+            background-position: 0% 50%;
+            filter: brightness(1);
+        }
+    }
+
+    .testcontainer2 {
+        /* Neon gradient background */
+        background: linear-gradient(135deg, #00c6ff, #0072ff, #ff5f6d, #ffc371);
+        background-size: 200% 200%;
+        animation: neonPulse 8s ease infinite;
+    }
+
+    .social {
+        color: rgb(255, 255, 255);
+    }
+
+    .text-color {
+        color: rgb(255, 255, 255);
+    }
 </style>
-<div class="testcontainer2 p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
+<div
+    class="testcontainer2 p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
 
-{% include 'portfolio/main-info-phone.html'%} 
+    {% include 'portfolio/main-info-phone.html'%}
 </div>

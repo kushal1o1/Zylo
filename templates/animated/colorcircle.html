@@ -1,26 +1,35 @@
+<style>
+    .colorcontainer2 {
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #1e1e1e;
+        overflow: hidden;
+        position: relative;
+    }
 
-    <style>
-        .colorcontainer2 {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background: #1e1e1e;
-            overflow: hidden;
-            position: relative;
-        }
-        canvas {
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow: hidden;
-        }
-    </style>
+    canvas {
+        position: absolute;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+    }
 
-    <div class="colorcontainer2 p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
+    .social {
+        color: rgb(255, 255, 255);
+    }
+
+    .text-color {
+        color: rgb(255, 255, 255);
+    }
+</style>
+
+<div
+    class="colorcontainer2 p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
 
     {% include 'portfolio/main-info-phone.html'%}
     <canvas id="canvas"></canvas>
-    </div>
+</div>
 
 <script>
     const canvas = document.getElementById('canvas');
@@ -44,7 +53,7 @@
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         circles.forEach(circle => {
             circle.x += circle.speedX;
             circle.y += circle.speedY;
@@ -63,4 +72,3 @@
 
     animate();
 </script>
-

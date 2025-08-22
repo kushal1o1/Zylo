@@ -1,23 +1,33 @@
+<style>
+    .CanvasDesigncontainer2 {
+        margin: 0;
+        padding: 0;
+        background: #000;
+        color: white !important;
+        position: relative;
+    }
 
-    <style>
-       .CanvasDesigncontainer2 {
-            margin: 0;
-            padding: 0;
-            background: #000;
-            color:white;
-            position: relative;
-        }
-        .CanvasDesigncontainer2 Designcanvas {
-            position: absolute;
-            overflow:hidden;
-            top: 0;
-            left: 0;
-        }
-    </style>
-<div class="CanvasDesigncontainer2 p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
+    .CanvasDesigncontainer2 Designcanvas {
+        position: absolute;
+        color: white;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+    }
+
+    .social {
+        color: white;
+    }
+
+    .text-white {
+        color: white;
+    }
+</style>
+<div
+    class="CanvasDesigncontainer2 p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center text-white">
     <canvas id="Designcanvas"></canvas>
 
-{% include 'portfolio/main-info-phone.html'%} 
+    {% include 'portfolio/main-info-phone.html'%}
 </div>
 
 
@@ -43,7 +53,7 @@
 
     function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         particles.forEach(p => {
             p.x += p.speedX;
             p.y += p.speedY;
@@ -62,4 +72,3 @@
 
     animate();
 </script>
-

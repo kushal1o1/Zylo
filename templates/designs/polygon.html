@@ -1,114 +1,119 @@
+<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+<style>
+    #polygonparticles-js {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        background-color: #111;
+        overflow: hidden;
 
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <style>
+    }
 
-        #polygonparticles-js {
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            background-color: #111;
-            overflow: hidden;
-           
-        }
-        .polygoncontainer2 {
-            position: relative;
-            text-align: center;
-            z-index: 10;
-            color:white;
-            z-index: 2;
-            overflow: hidden;
-           
-        }
-      
+    .polygoncontainer2 {
+        position: relative;
+        text-align: center;
+        z-index: 10;
+        color: white;
+        z-index: 2;
+        overflow: hidden;
 
+    }
 
-    </style>
-<div class="polygoncontainer2 p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
+    .social {
+        color: rgb(255, 255, 255);
+    }
+
+    .text-color {
+        color: rgb(255, 255, 255);
+    }
+</style>
+<div
+    class="polygoncontainer2 p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
     <div id="polygonparticles-js"></div>
     <div class="content">
-        {% include 'portfolio/main-info-phone.html'%} 
+        {% include 'portfolio/main-info-phone.html'%}
 
     </div>
 </div>
-   
 
-    <script>
-        particlesJS('polygonparticles-js', {
-            particles: {
-                number: {
-                    value: 120,
-                    density: {
-                        enable: true,
-                        value_area: 800
-                    }
-                },
-                color: {
-                    value: "#ff0000"
-                },
-                shape: {
-                    type: "circle",
-                    stroke: {
-                        width: 0,
-                        color: "#ffffff"
-                    }
-                },
-                opacity: {
-                    value: 0.7,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 1,
-                        opacity_min: 0.1,
-                        sync: false
-                    }
-                },
-                size: {
-                    value: 5,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 1,
-                        size_min: 0.5,
-                        sync: false
-                    }
-                },
-                move: {
+
+<script>
+    particlesJS('polygonparticles-js', {
+        particles: {
+            number: {
+                value: 120,
+                density: {
+                    enable: true,
+                    value_area: 800
+                }
+            },
+            color: {
+                value: "#ff0000"
+            },
+            shape: {
+                type: "circle",
+                stroke: {
+                    width: 0,
+                    color: "#ffffff"
+                }
+            },
+            opacity: {
+                value: 0.7,
+                random: true,
+                anim: {
                     enable: true,
                     speed: 1,
-                    direction: "random",
-                    random: true,
-                    straight: false,
-                    out_mode: "out",
-                    bounce: false,
-                    attract: {
-                        enable: false
-                    }
+                    opacity_min: 0.1,
+                    sync: false
                 }
             },
-            interactivity: {
-                detect_on: "canvas",
-                events: {
-                    onhover: {
-                        enable: true,
-                        mode: "repulse"
-                    },
-                    onclick: {
-                        enable: true,
-                        mode: "push"
-                    },
-                    resize: true
+            size: {
+                value: 5,
+                random: true,
+                anim: {
+                    enable: true,
+                    speed: 1,
+                    size_min: 0.5,
+                    sync: false
+                }
+            },
+            move: {
+                enable: true,
+                speed: 1,
+                direction: "random",
+                random: true,
+                straight: false,
+                out_mode: "out",
+                bounce: false,
+                attract: {
+                    enable: false
+                }
+            }
+        },
+        interactivity: {
+            detect_on: "canvas",
+            events: {
+                onhover: {
+                    enable: true,
+                    mode: "repulse"
                 },
-                modes: {
-                    repulse: {
-                        distance: 100,
-                        duration: 1.5
-                    },
-                    push: {
-                        particles_nb: 4
-                    }
-                }
+                onclick: {
+                    enable: true,
+                    mode: "push"
+                },
+                resize: true
             },
-            retina_detect: true
-        });
-        
-    </script>
+            modes: {
+                repulse: {
+                    distance: 100,
+                    duration: 1.5
+                },
+                push: {
+                    particles_nb: 4
+                }
+            }
+        },
+        retina_detect: true
+    });
+
+</script>

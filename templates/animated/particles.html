@@ -1,13 +1,11 @@
 <style>
-   .social div{
-    color:white;
-   }
-   .particles-background {
+    .particles-background {
         position: relative;
         background-color: black;
         width: 100%;
         border-radius: 10px;
     }
+
     .particles-background canvas {
         position: absolute;
         top: 0;
@@ -16,12 +14,21 @@
         height: 100%;
         overflow: hidden;
     }
+
+    .social {
+        color: rgb(255, 255, 255);
+    }
+
+    .text-color {
+        color: rgb(255, 255, 255);
+    }
 </style>
 
-<div id="particles-js" class="particles-background p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
-    <div class="text-white text-center p-5 relative z-10">
+<div id="particles-js"
+    class="particles-background p-8 rounded-xl shadow-xl transform transition duration-300 ease-in-out  hover:shadow-2xl flex flex-col items-center">
+    <div class="text-white text-center p-5 relative z-10 ">
 
-    {% include 'portfolio/main-info-phone.html'%} 
+        {% include 'portfolio/main-info-phone.html'%}
     </div>
 </div>
 
