@@ -8,8 +8,8 @@ env/
 *.pot
 *.pyc
 __pycache__/
-# db.sqlite3
-media/
+# db.sqlite3 #For demo project showcase ,Hosted in free Hosting
+# media/     #For demo project showcase ,Hosted in free Hosting
 
 # Django migrations
 
